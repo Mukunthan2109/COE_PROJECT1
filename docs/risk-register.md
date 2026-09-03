@@ -1,0 +1,14 @@
+# Project Risk Register
+
+| ID | Risk Description | Likelihood | Impact | Mitigation Strategy | Current Status |
+|---|---|---|---|---|---|
+| **R01** | **Incorrect ML Prediction**: Model predicts wrong disease label due to visual similarity. | Medium | High | Display explicit disclaimer (*"Initial screening, not expert diagnosis"*). Escalate low confidence (<70%) cases to expert review. | **Mitigated** (Confidence thresholding active) |
+| **R02** | **Low-Quality Images**: Blurry, dark, or out-of-focus images lead to invalid triage. | High | Medium | Implemented automated image quality check (blur, brightness, resolution) rejecting low-quality photos before inference. | **Mitigated** (Automated pre-triage rejection) |
+| **R03** | **Dataset Bias**: Model trained on limited lighting conditions or specific crop varieties. | High | High | Use diverse color/texture features; collect structured metadata (crop, stage, region); clearly state dataset limitations. | **Monitored** (Demo dataset acknowledged) |
+| **R04** | **Class Imbalance**: Certain disease classes have fewer training images than healthy classes. | Medium | Medium | Stratified train/test splits; weighted precision/recall evaluation metrics tracking. | **Mitigated** (Balanced demo dataset generator) |
+| **R05** | **Overconfidence**: Model assigns falsely high confidence to an unseen or ambiguous image. | Medium | High | Multi-feature extraction (HSV + texture + dark spot ratios); explainable visual indicators allowing expert inspection. | **Mitigated** (Explainability indicators active) |
+| **R06** | **Privacy & Surveillance Concerns**: Risk of collecting identifiable farmer location or identity. | Low | High | Collect only general region/zone; exclude GPS coordinates, names, Aadhaar, and phone numbers. Non-punitive data policy. | **Mitigated** (Strict privacy policy enforced) |
+| **R07** | **Language Misunderstanding**: Farmers misinterpret technical terminology on the form. | Medium | Medium | Implemented bilingual English/Tamil toggle; simple farmer-friendly dropdowns; visual icon assistance. | **Mitigated** (Bilingual UI implemented) |
+| **R08** | **Application / Server Failure**: Web service crash or SQLite lock during peak observation submission. | Low | High | Lightweight Flask application architecture; SQLite WAL mode; local filesystem upload storage. | **Mitigated** (Robust local setup) |
+| **R09** | **Unseen Disease / Unsupported Crop**: Farmer submits a crop or disease outside the trained classes. | Medium | Medium | Implemented Edge Case 3 logic detecting unsupported categories and automatically routing them to expert review. | **Mitigated** (Unsupported category router) |
+| **R10** | **Incorrect Expert Validation**: Expert misdiagnoses observation during dashboard review. | Low | High | Allow experts to select 'Uncertain' status requiring lab sampling; store audit comments and timestamps. | **Mitigated** (Validation decision choices) |

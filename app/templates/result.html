@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+
+        <!-- Top Header Card -->
+        <div class="card card-custom p-4 mb-4">
+            <div class="d-flex flex-wrap justify-content-between align-items-center border-bottom pb-3 mb-3">
+                <div>
+                    <h3 class="fw-bold text-success m-0" data-i18n="res_header">Initial Screening Result</h3>
+                    <span class="text-muted small">Observation ID: <strong>#{{ observation.id }}</strong> | Logged on: {{ observation.observation_timestamp.strftime('%Y-%m-%d %H:%M:%S UTC') }}</span>
+                </div>
+                <div>
+                    {% if observation.status == 'Initial screening result' %}
+                        <span class="badge badge-screening fs-6">Initial Screening Result</span>
+                    {% elif observation.status == 'Needs expert review' %}
+                        <span class="badge badge-escalated fs-6">Escalated to Expert Review</span>
+                    {% else %}
+                        <span class="badge badge-reviewed fs-6">Reviewed by Expert</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Mandatory Disclaimer Box -->
+            <div class="disclaimer-box shadow-sm mb-4">
+                <strong class="d-block text-dark fw-bold mb-1">⚠️ Medical / Agricultural Disclaimer:</strong>
+                <span data-i18n="res_disclaimer">This result is an initial screening/triage result, not a definitive expert diagnosis.</span>
+            </div>
+
+            <!-- Main Grid Layout -->
+            <div class="row g-4">
+                <!-- Left Column: Image & Metadata -->
+                <div class="col-md-5">
+                    <div class="border rounded p-2 text-center bg-light mb-3">
+                        <img src="{{ url_for('static', filename=observation.image_path) }}" 
+                             alt="Crop observation leaf image" 
+                             class="img-fluid rounded shadow-sm" 
+                             style="max-height: 280px; object-fit: contain;">
+                    </div>
+                    <div class="bg-white p-3 border rounded">
+                        <h6 class="fw-bold text-secondary mb-2">Observation Metadata</h6>
+                        <ul class="list-unstyled small m-0">
+                            <li class="py-1 border-bottom"><strong>Crop Type:</strong> {{ observation.crop }}</li>
+                            <li class="py-1 border-bottom"><strong>Visible Symptom:</strong> {{ observation.symptom }}</li>
+                            <li class="py-1 border-bottom"><strong>Crop Stage:</strong> {{ observation.crop_stage }}</li>
+                            <li class="py-1 border-bottom"><strong>General Region:</strong> {{ observation.location_region }}</li>
+                            {% if observation.observation_notes %}
+                            <li class="py-1"><strong>Notes:</strong> {{ observation.observation_notes }}</li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Right Column: ML Triage & Explainability -->
+                <div class="col-md-7">
+                    <div class="bg-light p-4 rounded border mb-4">
+                        <h5 class="fw-bold mb-3">ML Screening Classification</h5>
+                        
+                        <div class="mb-3">
+                            <span class="text-muted d-block small">Predicted Disease / Condition:</span>
+                            <span class="fs-4 fw-bold text-success">{{ observation.model_prediction or 'Unclassified' }}</span>
+                        </div>
+
+                        <!-- Confidence Bar -->
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="fw-semibold small" data-i18n="res_confidence">ML Screening Confidence</span>
+                                <span class="fw-bold text-dark">{{ (observation.confidence * 100) | round(1) if observation.confidence else 0 }}%</span>
+                            </div>
+                            <div class="progress" style="height: 22px;">
+                                <div class="progress-bar {% if observation.confidence and observation.confidence >= threshold %}bg-success{% else %}bg-warning text-dark{% endif %}" 
+                                     role="progressbar" 
+                                     style="width: {{ (observation.confidence * 100) if observation.confidence else 0 }}%;">
+                                    {{ (observation.confidence * 100) | round(1) if observation.confidence else 0 }}%
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between mt-1 text-muted small">
+                                <span>0%</span>
+                                <span>Escalation Threshold: {{ (threshold * 100) | int }}%</span>
+                                <span>100%</span>
+                            </div>
+                        </div>
+
+                        <!-- Low Confidence / Escalation Banner -->
+                        {% if observation.confidence and observation.confidence < threshold or observation.status == 'Needs expert review' %}
+                        <div class="alert alert-warning border border-warning shadow-sm mb-3">
+                            <strong class="d-block mb-1">🔍 Expert Review Escalation Notice:</strong>
+                            <span data-i18n="res_escalated">The system is not sufficiently confident. This observation has been sent for expert review.</span>
+                        </div>
+                        {% endif %}
+
+                        <!-- Explainability Section -->
+                        <div class="mt-3">
+                            <h6 class="fw-bold text-dark mb-2" data-i18n="res_indicators">Possible Visual Indicators Observed:</h6>
+                            {% if explainability %}
+                            <ul class="list-group list-group-flush border rounded">
+                                {% for item in explainability %}
+                                <li class="list-group-item bg-white small">📌 {{ item }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% else %}
+                            <p class="text-muted small">Standard visual leaf surface patterns detected.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Expert Review Section (If Reviewed) -->
+                    {% if observation.expert_review %}
+                    <div class="card border-info shadow-sm p-3 bg-light">
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="fs-4 me-2">👨‍🌾</span>
+                            <h5 class="fw-bold text-info m-0" data-i18n="res_validated">Expert Validation Result</h5>
+                        </div>
+                        <div class="row small">
+                            <div class="col-6 mb-2">
+                                <strong>Expert Diagnosis:</strong> <span class="text-dark fw-bold">{{ observation.expert_review.expert_label }}</span>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <strong>Status:</strong> <span class="badge bg-info text-white">{{ observation.expert_review.expert_status }}</span>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <strong>Review Timestamp:</strong> {{ observation.expert_review.review_timestamp.strftime('%Y-%m-%d %H:%M:%S UTC') }}
+                            </div>
+                            <div class="col-6 mb-2">
+                                <strong>Time to Review:</strong> <span class="fw-bold text-success">{{ observation.expert_review.format_time_to_review() }}</span>
+                            </div>
+                            {% if observation.expert_review.expert_comment %}
+                            <div class="col-12 mt-2 pt-2 border-top">
+                                <strong>Expert Advice / Comments:</strong>
+                                <p class="m-0 text-dark bg-white p-2 border rounded mt-1">{{ observation.expert_review.expert_comment }}</p>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <div class="d-flex gap-2 mt-4">
+                        <a href="{{ url_for('main.observe') }}" class="btn btn-outline-success">Report Another Observation</a>
+                        <a href="{{ url_for('main.status') }}" class="btn btn-outline-secondary">View All Tracked Cases</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

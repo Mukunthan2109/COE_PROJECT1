@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <!-- Quality Warning Alert if Quality Check Failed -->
+        {% if quality_failed %}
+        <div class="quality-warning-box shadow-sm mb-4">
+            <h5 class="fw-bold text-danger d-flex align-items-center mb-2" data-i18n="qual_error_title">
+                <span class="fs-4 me-2">⚠️</span> Image Quality Check Failed
+            </h5>
+            <p class="mb-2" data-i18n="qual_error_msg">Image quality is insufficient. Please capture a clearer crop image.</p>
+            {% if quality_details %}
+            <div class="bg-white p-2 rounded border small text-secondary mb-2">
+                <strong>Failure Reason:</strong> {{ quality_details.reason }}
+                {% if quality_details.brightness %} | Brightness Level: {{ quality_details.brightness }}{% endif %}
+                {% if quality_details.blur_score %} | Blur Score: {{ quality_details.blur_score }}{% endif %}
+            </div>
+            {% endif %}
+            <small class="text-muted">Tip: Ensure good lighting, hold camera steady, and focus directly on the affected leaf or plant section.</small>
+        </div>
+        {% endif %}
+
+        <div class="card card-custom p-4">
+            <div class="border-bottom pb-3 mb-4">
+                <h3 class="fw-bold text-success m-0" data-i18n="form_title">Crop Disease Observation Form</h3>
+                <p class="text-muted small m-0 mt-1">Submit visual evidence and metadata for quality assurance triage.</p>
+            </div>
+
+            <form action="{{ url_for('main.observe') }}" method="POST" enctype="multipart/form-data">
+                
+                <!-- 1. Select Crop -->
+                <div class="mb-3">
+                    <label for="crop" class="form-label" data-i18n="lbl_crop">Select Crop Type *</label>
+                    <select class="form-select" id="crop" name="crop" required>
+                        <option value="" disabled selected>-- Choose Crop --</option>
+                        <option value="Tomato" data-i18n="crop_tomato" {% if form_data and form_data.crop == 'Tomato' %}selected{% endif %}>Tomato (தக்காளி)</option>
+                        <option value="Potato" data-i18n="crop_potato" {% if form_data and form_data.crop == 'Potato' %}selected{% endif %}>Potato (உருளைக்கிழங்கு)</option>
+                        <option value="Chili" data-i18n="crop_chili" {% if form_data and form_data.crop == 'Chili' %}selected{% endif %}>Chili (மிளகாய்)</option>
+                        <option value="Other / Unknown" {% if form_data and form_data.crop == 'Other / Unknown' %}selected{% endif %}>Other / Unknown Crop (Edge Case Test)</option>
+                    </select>
+                </div>
+
+                <!-- 2. Select Visible Symptom -->
+                <div class="mb-3">
+                    <label for="symptom" class="form-label" data-i18n="lbl_symptom">Select Visible Symptom *</label>
+                    <select class="form-select" id="symptom" name="symptom" required>
+                        <option value="" disabled selected>-- Choose Visible Symptom --</option>
+                        <option value="Leaf Spot" data-i18n="sym_spot" {% if form_data and form_data.symptom == 'Leaf Spot' %}selected{% endif %}>Leaf Spot / Dark Spots</option>
+                        <option value="Early Blight" data-i18n="sym_blight" {% if form_data and form_data.symptom == 'Early Blight' %}selected{% endif %}>Blight / Lesions</option>
+                        <option value="Leaf Curl" data-i18n="sym_curl" {% if form_data and form_data.symptom == 'Leaf Curl' %}selected{% endif %}>Leaf Curl / Crumpled Leaf</option>
+                        <option value="Healthy" data-i18n="sym_healthy" {% if form_data and form_data.symptom == 'Healthy' %}selected{% endif %}>Healthy (No visible disease)</option>
+                        <option value="Yellowing" data-i18n="sym_yellowing" {% if form_data and form_data.symptom == 'Yellowing' %}selected{% endif %}>Yellowing / Discoloration</option>
+                        <option value="Unknown Anomaly" {% if form_data and form_data.symptom == 'Unknown Anomaly' %}selected{% endif %}>Unknown Anomaly (Edge Case Test)</option>
+                    </select>
+                </div>
+
+                <!-- 3. Select Crop Stage -->
+                <div class="mb-3">
+                    <label for="crop_stage" class="form-label" data-i18n="lbl_stage">Select Crop Growth Stage *</label>
+                    <select class="form-select" id="crop_stage" name="crop_stage" required>
+                        <option value="" disabled selected>-- Choose Growth Stage --</option>
+                        <option value="Seedling" {% if form_data and form_data.crop_stage == 'Seedling' %}selected{% endif %}>Seedling</option>
+                        <option value="Vegetative" {% if form_data and form_data.crop_stage == 'Vegetative' %}selected{% endif %}>Vegetative</option>
+                        <option value="Flowering" {% if form_data and form_data.crop_stage == 'Flowering' %}selected{% endif %}>Flowering</option>
+                        <option value="Fruiting" {% if form_data and form_data.crop_stage == 'Fruiting' %}selected{% endif %}>Fruiting</option>
+                        <option value="Harvest" {% if form_data and form_data.crop_stage == 'Harvest' %}selected{% endif %}>Harvest</option>
+                    </select>
+                </div>
+
+                <!-- 4. Select General Region/Location -->
+                <div class="mb-3">
+                    <label for="location_region" class="form-label" data-i18n="lbl_region">Select General Region/Zone *</label>
+                    <select class="form-select" id="location_region" name="location_region" required>
+                        <option value="" disabled selected>-- Choose Region --</option>
+                        <option value="North Zone" {% if form_data and form_data.location_region == 'North Zone' %}selected{% endif %}>North Zone</option>
+                        <option value="South Zone" {% if form_data and form_data.location_region == 'South Zone' %}selected{% endif %}>South Zone</option>
+                        <option value="Central Region" {% if form_data and form_data.location_region == 'Central Region' %}selected{% endif %}>Central Region</option>
+                        <option value="East District" {% if form_data and form_data.location_region == 'East District' %}selected{% endif %}>East District</option>
+                        <option value="West Valley" {% if form_data and form_data.location_region == 'West Valley' %}selected{% endif %}>West Valley</option>
+                    </select>
+                    <div class="form-text">General region is collected for regional outbreak tracking without precise farmer GPS tracking.</div>
+                </div>
+
+                <!-- 5. Upload Crop Image -->
+                <div class="mb-3">
+                    <label for="crop_image" class="form-label" data-i18n="lbl_image">Upload Crop Image *</label>
+                    <input class="form-control" type="file" id="crop_image" name="crop_image" accept="image/*" required>
+                    <div class="form-text">Supported formats: JPG, PNG, WEBP. Ensure the leaf or symptom is clearly visible.</div>
+                </div>
+
+                <!-- 6. Additional Notes -->
+                <div class="mb-4">
+                    <label for="observation_notes" class="form-label" data-i18n="lbl_notes">Additional Observation Notes (Optional)</label>
+                    <textarea class="form-control" id="observation_notes" name="observation_notes" rows="2" placeholder="e.g., Symptoms observed on 3 plants in row 4 after heavy rain.">{{ form_data.observation_notes if form_data else '' }}</textarea>
+                </div>
+
+                <!-- Privacy & Consent Notice -->
+                <div class="alert alert-light border small mb-4">
+                    <strong>🔒 Privacy & Non-Surveillance Commitment:</strong> Data collected is strictly restricted to crop quality triage and expert escalation. No farmer identity, phone number, or personal profiling is stored.
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-farmer py-3" data-i18n="btn_submit">Submit Crop Observation</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

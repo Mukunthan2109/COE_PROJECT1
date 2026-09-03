@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-9">
+        <div class="card card-custom p-4">
+            <div class="border-bottom pb-3 mb-4 d-flex justify-content-between align-items-center">
+                <div>
+                    <h3 class="fw-bold text-success m-0">Expert Validation Interface</h3>
+                    <span class="text-muted small">Escalated Observation ID: <strong>#{{ observation.id }}</strong></span>
+                </div>
+                <a href="{{ url_for('main.expert_dashboard') }}" class="btn btn-sm btn-outline-secondary">Back to Dashboard</a>
+            </div>
+
+            <div class="row g-4 mb-4">
+                <!-- Left: Image & Observation Details -->
+                <div class="col-md-5">
+                    <div class="border rounded p-2 text-center bg-light mb-3">
+                        <img src="{{ url_for('static', filename=observation.image_path) }}" 
+                             alt="Escalated Crop Image" 
+                             class="img-fluid rounded" 
+                             style="max-height: 250px; object-fit: contain;">
+                    </div>
+                    <div class="bg-light p-3 border rounded small">
+                        <h6 class="fw-bold mb-2">Submitted Observation Metadata:</h6>
+                        <p class="mb-1"><strong>Crop:</strong> {{ observation.crop }}</p>
+                        <p class="mb-1"><strong>Visible Symptom:</strong> {{ observation.symptom }}</p>
+                        <p class="mb-1"><strong>Crop Growth Stage:</strong> {{ observation.crop_stage }}</p>
+                        <p class="mb-1"><strong>Region:</strong> {{ observation.location_region }}</p>
+                        <p class="mb-1"><strong>Submission Timestamp:</strong> {{ observation.observation_timestamp.strftime('%Y-%m-%d %H:%M:%S UTC') }}</p>
+                        {% if observation.observation_notes %}
+                        <p class="mb-0 mt-2 text-muted"><strong>Farmer Notes:</strong> {{ observation.observation_notes }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Right: ML Triage & Expert Input Form -->
+                <div class="col-md-7">
+                    <!-- ML Screening Summary -->
+                    <div class="alert alert-light border rounded p-3 mb-4">
+                        <h6 class="fw-bold text-dark mb-2">ML Screening Triage Summary:</h6>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <span class="small text-muted d-block">ML Prediction:</span>
+                                <strong>{{ observation.model_prediction or 'Uncertain' }}</strong>
+                            </div>
+                            <div>
+                                <span class="small text-muted d-block">Confidence:</span>
+                                <span class="badge bg-warning text-dark fs-6">{{ (observation.confidence * 100) | round(1) if observation.confidence else 0 }}%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Expert Action Form -->
+                    <form action="{{ url_for('main.expert_review', id=observation.id) }}" method="POST">
+                        <h5 class="fw-bold text-success mb-3">Submit Expert Validation</h5>
+                        
+                        <!-- 1. Expert Diagnosis Label -->
+                        <div class="mb-3">
+                            <label for="expert_label" class="form-label">Confirmed / Corrected Disease Label *</label>
+                            <input type="text" class="form-control" id="expert_label" name="expert_label" 
+                                   value="{{ observation.model_prediction or observation.crop + ' ' + observation.symptom }}" 
+                                   required placeholder="e.g., Tomato Leaf Spot or Healthy">
+                        </div>
+
+                        <!-- 2. Validation Status -->
+                        <div class="mb-3">
+                            <label for="expert_status" class="form-label">Validation Decision Status *</label>
+                            <select class="form-select" id="expert_status" name="expert_status" required>
+                                <option value="Confirmed" selected>Confirmed (ML prediction was correct)</option>
+                                <option value="Corrected">Corrected (ML prediction was updated)</option>
+                                <option value="Uncertain">Uncertain (Requires physical lab sampling)</option>
+                            </select>
+                        </div>
+
+                        <!-- 3. Expert Comments -->
+                        <div class="mb-4">
+                            <label for="expert_comment" class="form-label">Expert Recommendations / Treatment Notes</label>
+                            <textarea class="form-control" id="expert_comment" name="expert_comment" rows="3" 
+                                      placeholder="e.g., Apply copper fungicide spray; isolate infected plants from processing batch."></textarea>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success py-2 fw-bold">Submit Review & Record Timestamp</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
