@@ -25,3 +25,14 @@ def test_time_to_review_calculation():
     
     elapsed_sec = calculate_time_to_review(t_start, t_end)
     assert elapsed_sec == 930.0
+
+def test_user_example_review_duration_29_47_hours():
+    # User example: 2026-09-02 04:44 to 2026-09-03 10:12 -> 29.47 hours
+    t_start = datetime(2026, 9, 2, 4, 44, 0)
+    t_end = datetime(2026, 9, 3, 10, 12, 0)
+    
+    elapsed_sec = calculate_time_to_review(t_start, t_end)
+    assert elapsed_sec == 106080.0 # 29.4667 hours = 106080 seconds
+    hours = elapsed_sec / 3600.0
+    assert round(hours, 2) == 29.47
+

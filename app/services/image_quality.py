@@ -1,6 +1,19 @@
 import cv2
 import numpy as np
+import hashlib
 from PIL import Image
+
+def compute_image_hash(image_path):
+    """
+    Computes SHA-256 hash of image binary data to prevent duplicate image submissions.
+    """
+    hasher = hashlib.sha256()
+    with open(image_path, 'rb') as f:
+        buf = f.read(65536)
+        while len(buf) > 0:
+            hasher.update(buf)
+            buf = f.read(65536)
+    return hasher.hexdigest()
 
 def evaluate_image_quality(image_path, min_width=100, min_height=100, blur_threshold=40.0,
                            min_brightness=30, max_brightness=225):
@@ -15,7 +28,7 @@ def evaluate_image_quality(image_path, min_width=100, min_height=100, blur_thres
         tuple: (is_valid: bool, message: str, details: dict)
     """
     try:
-        # Load with PIL first to verify readability
+        # Load with PIL first to verify readability and corrupt header check
         with Image.open(image_path) as pil_img:
             pil_img.verify()
             width, height = pil_img.size
@@ -68,7 +81,8 @@ def evaluate_image_quality(image_path, min_width=100, min_height=100, blur_thres
         })
 
     except Exception as e:
-        return (False, f"Image quality is insufficient. Error processing image: {str(e)}", {
+        return (False, f"Image quality is insufficient. File is corrupted or unreadable: {str(e)}", {
             'reason': 'processing_error',
             'error': str(e)
         })
+

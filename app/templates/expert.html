@@ -33,14 +33,14 @@
                     <!-- Left: Photo Preview & Metadata -->
                     <div class="col-md-5">
                         <div class="border rounded p-2 text-center bg-light mb-3">
-                            {% if obs.image_path %}
                             <img src="{{ url_for('static', filename=obs.image_path) }}" 
                                  alt="Escalated Crop Image" 
-                                 class="img-fluid rounded" 
-                                 style="max-height: 220px; object-fit: contain;">
-                            {% else %}
-                            <div class="bg-success text-white py-5 rounded fw-bold">Leaf Photo Preview</div>
-                            {% endif %}
+                                 class="img-fluid rounded cursor-pointer mb-2" 
+                                 style="max-height: 220px; object-fit: contain;"
+                                 data-bs-toggle="modal" data-bs-target="#modalObs{{ obs.id }}">
+                            <button type="button" class="btn btn-sm btn-outline-success w-100" data-bs-toggle="modal" data-bs-target="#modalObs{{ obs.id }}">
+                                🔍 View Full Image
+                            </button>
                             <div class="small text-muted mt-2">📍 {{ obs.location_region }}</div>
                         </div>
 
@@ -48,6 +48,7 @@
                             <h5 class="fw-bold text-success mb-1">{{ obs.crop }}</h5>
                             <p class="mb-1"><strong>Stage:</strong> {{ obs.crop_stage }}</p>
                             <p class="mb-1"><strong>Symptoms:</strong> {{ obs.symptom }}</p>
+                            <p class="mb-1"><strong>First Symptom Time:</strong> {{ obs.first_symptom_time.strftime('%b %d, %H:%M UTC') if obs.first_symptom_time else 'N/A' }}</p>
                             {% if obs.observation_notes %}
                             <p class="mb-0 text-muted"><strong>Notes:</strong> {{ obs.observation_notes }}</p>
                             {% endif %}
@@ -58,24 +59,23 @@
                     <div class="col-md-7">
                         <!-- AI Prediction Box -->
                         <div class="p-3 border rounded bg-light mb-3">
-                            <span class="small text-muted d-block">AI Prediction:</span>
-                            <h5 class="fw-bold text-primary m-0 mb-1">{{ obs.model_prediction or 'Uncertain' }}</h5>
-                            <span class="small fw-bold text-dark">
-                                Conf: {{ (obs.confidence * 100) | round(1) if obs.confidence else 0 }}% | 
-                                {% set conf = obs.confidence or 0.0 %}
-                                {% if conf >= 0.85 %}
-                                    <span class="text-success">Low Risk</span>
-                                {% elif conf >= 0.70 %}
-                                    <span class="text-warning">Med Risk</span>
+                            <span class="small text-muted d-block">AI Screening Prediction:</span>
+                            <h5 class="fw-bold text-primary m-0 mb-1">{{ obs.model_prediction or 'Uncertain screening result' }}</h5>
+                            <div class="d-flex justify-content-between align-items-center mt-2 small fw-bold">
+                                <span>Conf: {{ (obs.confidence * 100) | round(1) if obs.confidence else 0 }}%</span>
+                                {% if obs.risk_level == 'High' or obs.risk_level == 'Critical' %}
+                                    <span class="badge bg-danger">High Risk</span>
+                                {% elif obs.risk_level == 'Medium' %}
+                                    <span class="badge bg-warning text-dark">Medium Risk</span>
                                 {% else %}
-                                    <span class="text-danger">High Risk</span>
+                                    <span class="badge bg-success">Low Risk</span>
                                 {% endif %}
-                            </span>
+                            </div>
                         </div>
 
-                        <!-- Escalation Reason Callout Box matching screenshot media_1788927639163.png -->
-                        <div class="callout-escalation">
-                            <strong>Escalation Reason:</strong> Model confidence ({{ (obs.confidence * 100) | round(1) if obs.confidence else 0 }}%) is below screening threshold (70%).
+                        <!-- Escalation Reason Callout Box -->
+                        <div class="callout-escalation mb-3">
+                            <strong>Escalation Reason:</strong> Screening confidence ({{ (obs.confidence * 100) | round(1) if obs.confidence else 0 }}%) is below screening threshold (70%). Expert triage required.
                         </div>
 
                         <!-- Expert Validation Form -->
@@ -84,9 +84,10 @@
                             
                             <div class="mb-3">
                                 <select class="form-select" name="expert_status" required>
-                                    <option value="Confirmed" selected>Validated (Confirmed)</option>
-                                    <option value="Corrected">Corrected (Updated Diagnosis)</option>
-                                    <option value="Uncertain">Uncertain (Requires Lab Sampling)</option>
+                                    <option value="" selected disabled>-- Select Review Status --</option>
+                                    <option value="Validated (Confirmed)">Validated (Confirmed)</option>
+                                    <option value="Not Confirmed">Not Confirmed</option>
+                                    <option value="Needs More Information">Needs More Information</option>
                                 </select>
                             </div>
 
@@ -104,6 +105,24 @@
                                 </button>
                             </div>
                         </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Full Image Lightbox Modal -->
+            <div class="modal fade" id="modalObs{{ obs.id }}" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header bg-success text-white">
+                            <h5 class="modal-title fw-bold">📸 Full-Size Crop Image Inspection — Observation #{{ obs.id }}</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-center p-3 bg-dark">
+                            <img src="{{ url_for('static', filename=obs.image_path) }}" alt="Full size uploaded crop image" class="img-fluid rounded shadow" style="max-height: 80vh; object-fit: contain;">
+                        </div>
+                        <div class="modal-footer bg-light">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
                     </div>
                 </div>
             </div>

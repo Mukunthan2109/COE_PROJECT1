@@ -7,7 +7,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.utils import secure_filename
 
 from app.models import db, User, Observation, ExpertReview, BatchProcurement, OutbreakAlert, DatasetMetadata
-from app.services.image_quality import evaluate_image_quality
+from app.services.image_quality import evaluate_image_quality, compute_image_hash
 from app.services.predictor import predict_crop_disease
 from app.services.escalation import determine_escalation, calculate_time_to_review, get_escalation_analytics, get_baseline_vs_mvp_comparison
 from app.services.batch_qa_service import create_batch_inspection
@@ -115,6 +115,17 @@ def observe():
     crop_stage = request.form.get('crop_stage', 'Vegetative').strip()
     location_region = request.form.get('location_region', 'Coimbatore').strip()
     notes = request.form.get('observation_notes', '').strip()
+    first_symptom_str = request.form.get('first_symptom_time', '').strip()
+
+    first_symptom_time = datetime.utcnow()
+    if first_symptom_str:
+        try:
+            first_symptom_time = datetime.strptime(first_symptom_str, '%Y-%m-%dT%H:%M')
+        except ValueError:
+            try:
+                first_symptom_time = datetime.strptime(first_symptom_str, '%Y-%m-%d %H:%M')
+            except ValueError:
+                pass
 
     if not crop_stage or not location_region:
         flash('Please fill in all required observation fields.', 'danger')
@@ -148,10 +159,18 @@ def observe():
                                quality_failed=True, 
                                quality_details=quality_details)
 
+    # Step 1b: Duplicate Image Hash Check
+    img_hash = compute_image_hash(save_path)
+    existing_obs = Observation.query.filter_by(image_hash=img_hash).first()
+    if existing_obs:
+        flash(f"⚠️ Duplicate Image Detected: An observation with the exact same image photo was previously submitted (Observation #{existing_obs.id}). Redirecting to existing record.", "warning")
+        return redirect(url_for('main.observation_detail', id=existing_obs.id))
+
     # Step 2: ML / DL Disease Triage & Grad-CAM visual heatmap
     pred_res = predict_crop_disease(save_path, crop, symptom)
     prediction = pred_res['prediction']
     confidence = pred_res['confidence']
+    risk_level = pred_res.get('risk_level', 'Medium')
     explainability = "; ".join(pred_res['explainability'])
     is_supported = pred_res['is_supported']
     heatmap_path = pred_res.get('heatmap_path')
@@ -180,15 +199,18 @@ def observe():
         heatmap_path=heatmap_path,
         observation_notes=notes,
         observation_timestamp=datetime.utcnow(),
+        first_symptom_time=first_symptom_time,
+        image_hash=img_hash,
         model_prediction=prediction,
         confidence=confidence,
+        risk_level=risk_level,
         explainability_notes=explainability,
         status=status
     )
     db.session.add(observation)
     db.session.commit()
 
-    return redirect(url_for('main.result', id=observation.id))
+    return redirect(url_for('main.observation_detail', id=observation.id))
 
 
 @main_bp.route('/scan', methods=['GET', 'POST'])
@@ -219,10 +241,18 @@ def scan():
         flash(quality_msg, 'danger')
         return render_template('scan.html', quality_failed=True, quality_details=quality_details)
 
+    # Step 1b: Duplicate Check
+    img_hash = compute_image_hash(save_path)
+    existing_obs = Observation.query.filter_by(image_hash=img_hash).first()
+    if existing_obs:
+        flash(f"⚠️ Duplicate Image Detected: Exact same photo previously recorded (#Observation {existing_obs.id}).", "warning")
+        return redirect(url_for('main.observation_detail', id=existing_obs.id))
+
     # Step 2: Auto Disease & Crop Analysis
     pred_res = predict_crop_disease(save_path, crop="Auto", symptom="Auto")
     prediction = pred_res['prediction']
     confidence = pred_res['confidence']
+    risk_level = pred_res.get('risk_level', 'Medium')
     detected_crop = pred_res.get('detected_crop', 'Tomato')
     detected_symptom = pred_res.get('detected_symptom', 'Healthy')
     explainability = pred_res['explainability']
@@ -245,8 +275,11 @@ def scan():
         heatmap_path=heatmap_path,
         observation_notes="Instant AI Scan Observation",
         observation_timestamp=datetime.utcnow(),
+        first_symptom_time=datetime.utcnow(),
+        image_hash=img_hash,
         model_prediction=prediction,
         confidence=confidence,
+        risk_level=risk_level,
         explainability_notes="; ".join(explainability),
         status=status
     )
@@ -328,16 +361,22 @@ def analyze_image_api():
     })
 
 
+@main_bp.route('/observation/<int:id>')
 @main_bp.route('/result/<int:id>')
-def result(id):
+def observation_detail(id):
     observation = db.session.get(Observation, id)
     if not observation:
-        flash("Observation not found.", "danger")
+        flash("Observation record not found.", "danger")
         return redirect(url_for('main.index'))
 
     explainability_list = [item.strip() for item in (observation.explainability_notes or "").split(";") if item.strip()]
     threshold = current_app.config['CONFIDENCE_THRESHOLD']
-    return render_template('result.html', observation=observation, explainability=explainability_list, threshold=threshold)
+    return render_template('observation_detail.html', observation=observation, explainability=explainability_list, threshold=threshold)
+
+
+@main_bp.route('/result_legacy/<int:id>')
+def result(id):
+    return redirect(url_for('main.observation_detail', id=id))
 
 
 @main_bp.route('/history', methods=['GET'], endpoint='history')
@@ -393,8 +432,13 @@ def expert_review(id):
         return render_template('expert_review.html', observation=observation)
 
     expert_label = request.form.get('expert_label', '').strip()
-    expert_status = request.form.get('expert_status', 'Confirmed').strip()
+    expert_status = request.form.get('expert_status', '').strip()
     expert_comment = request.form.get('expert_comment', '').strip()
+
+    valid_statuses = {'Validated (Confirmed)', 'Not Confirmed', 'Needs More Information'}
+    if not expert_status or expert_status not in valid_statuses:
+        flash("Please select a valid expert review status from the dropdown options.", "danger")
+        return render_template('expert_review.html', observation=observation)
 
     if not expert_label:
         flash("Please specify the confirmed/corrected expert diagnosis label.", "danger")

@@ -19,14 +19,14 @@ CROP_MAP = {
     "Rice": 4, "Wheat": 5, "Apple": 6, "Grape": 7, "Cotton": 8
 }
 
-def extract_features(image_path, crop_name):
+def extract_features(image_path, crop_name=None):
     """
     Extracts interpretable visual features from crop leaf images:
     - HSV Color Histograms (24 features)
     - RGB & HSV Stats (9 features)
     - Canny Edge density (1 feature)
     - Dark spot area ratio (1 feature)
-    - Crop type encoding (1 feature)
+    Note: Label and crop_code leakage removed for strict ML evaluation.
     """
     img = cv2.imread(image_path)
     if img is None:
@@ -54,12 +54,10 @@ def extract_features(image_path, crop_name):
     _, dark_mask = cv2.threshold(gray, 60, 255, cv2.THRESH_BINARY_INV)
     dark_spot_ratio = np.sum(dark_mask > 0) / (128 * 128)
 
-    crop_code = CROP_MAP.get(crop_name, 0)
-
     features = np.hstack([
         h_hist, s_hist, v_hist,
         mean_rgb, std_rgb, mean_hsv,
-        [edge_density, dark_spot_ratio, crop_code]
+        [edge_density, dark_spot_ratio]
     ])
     return features
 

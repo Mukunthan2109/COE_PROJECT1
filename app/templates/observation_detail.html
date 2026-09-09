@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+
+        <!-- Header Card -->
+        <div class="card card-custom p-4 mb-4">
+            <div class="d-flex flex-wrap justify-content-between align-items-center border-bottom pb-3 mb-3">
+                <div>
+                    <h3 class="fw-bold text-success m-0" data-i18n="res_header">Observation Record Details</h3>
+                    <span class="text-muted small">Observation ID: <strong>#{{ observation.id }}</strong> | Logged: {{ observation.observation_timestamp.strftime('%Y-%m-%d %H:%M:%S UTC') }}</span>
+                </div>
+                <div>
+                    {% if observation.status == 'Initial screening result' %}
+                        <span class="badge badge-screening fs-6">Initial Screening Result</span>
+                    {% elif observation.status == 'Needs expert review' %}
+                        <span class="badge badge-escalated fs-6">Needs Expert Review</span>
+                    {% else %}
+                        <span class="badge badge-reviewed fs-6">Reviewed by Expert</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Mandatory Disclaimer -->
+            <div class="disclaimer-box shadow-sm mb-4">
+                <strong class="d-block text-dark fw-bold mb-1">⚠️ Medical / Agricultural Disclaimer:</strong>
+                <span data-i18n="res_disclaimer">AI screening is an initial triage assessment, not a final expert diagnosis.</span>
+            </div>
+
+            <!-- Main Details Layout -->
+            <div class="row g-4">
+                <!-- Left Column: Uploaded Image & Heatmap -->
+                <div class="col-md-5">
+                    <div class="card border mb-3">
+                        <div class="card-header bg-light py-2 fw-bold small text-secondary">
+                            📸 Uploaded Crop Image & Grad-CAM Heatmap
+                        </div>
+                        <div class="card-body p-2 text-center bg-light">
+                            <div class="row g-2">
+                                <div class="col-6">
+                                    <span class="small text-muted d-block mb-1">Uploaded Image</span>
+                                    <img src="{{ url_for('static', filename=observation.image_path) }}" 
+                                         alt="Crop observation leaf image" 
+                                         class="img-fluid rounded border shadow-sm cursor-pointer" 
+                                         style="max-height: 180px; object-fit: contain;"
+                                         data-bs-toggle="modal" data-bs-target="#fullImageModal">
+                                    <button class="btn btn-sm btn-outline-success mt-2 w-100" data-bs-toggle="modal" data-bs-target="#fullImageModal">
+                                        🔍 View Full Image
+                                    </button>
+                                </div>
+                                <div class="col-6">
+                                    <span class="small text-muted d-block mb-1">Grad-CAM Heatmap</span>
+                                    {% if observation.heatmap_path %}
+                                    <img src="{{ url_for('static', filename=observation.heatmap_path) }}" 
+                                         alt="Grad-CAM disease heatmap overlay" 
+                                         class="img-fluid rounded border shadow-sm" 
+                                         style="max-height: 180px; object-fit: contain;">
+                                    {% else %}
+                                    <div class="p-4 text-muted small bg-white border rounded">Heatmap N/A</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Structured Metadata Table -->
+                    <div class="bg-white p-3 border rounded shadow-sm">
+                        <h6 class="fw-bold text-secondary mb-2">📋 Observation Metadata</h6>
+                        <ul class="list-unstyled small m-0">
+                            <li class="py-1 border-bottom"><strong>Crop Type:</strong> {{ observation.crop }}</li>
+                            <li class="py-1 border-bottom"><strong>Visible Symptom:</strong> {{ observation.symptom }}</li>
+                            <li class="py-1 border-bottom"><strong>Growth Stage:</strong> {{ observation.crop_stage }}</li>
+                            <li class="py-1 border-bottom"><strong>Location / Region:</strong> {{ observation.location_region }}</li>
+                            <li class="py-1 border-bottom"><strong>First Symptom Time:</strong> {{ observation.first_symptom_time.strftime('%Y-%m-%d %H:%M UTC') if observation.first_symptom_time else 'N/A' }}</li>
+                            <li class="py-1 border-bottom"><strong>Reported Time:</strong> {{ observation.observation_timestamp.strftime('%Y-%m-%d %H:%M UTC') }}</li>
+                            {% if observation.observation_notes %}
+                            <li class="py-1"><strong>Farmer Notes:</strong> {{ observation.observation_notes }}</li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Right Column: ML Triage, Risk & Expert Review -->
+                <div class="col-md-7">
+                    <div class="bg-light p-4 rounded border mb-4 shadow-sm">
+                        <h5 class="fw-bold mb-3 text-dark">🤖 ML Triage & Risk Evaluation</h5>
+                        
+                        <div class="row mb-3">
+                            <div class="col-7">
+                                <span class="text-muted d-block small">Predicted Disease / Condition:</span>
+                                <span class="fs-4 fw-bold text-success">{{ observation.model_prediction or 'Unclassified' }}</span>
+                            </div>
+                            <div class="col-5 text-end">
+                                <span class="text-muted d-block small">Agricultural Risk Level:</span>
+                                {% if observation.risk_level == 'High' or observation.risk_level == 'Critical' %}
+                                    <span class="badge bg-danger fs-6 px-3 py-2">⚠️ High Risk</span>
+                                {% elif observation.risk_level == 'Medium' %}
+                                    <span class="badge bg-warning text-dark fs-6 px-3 py-2">⚡ Medium Risk</span>
+                                {% else %}
+                                    <span class="badge bg-success fs-6 px-3 py-2">✓ Low Risk</span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Confidence Bar -->
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="fw-semibold small" data-i18n="res_confidence">ML Screening Confidence</span>
+                                <span class="fw-bold text-dark">{{ (observation.confidence * 100) | round(1) if observation.confidence else 0 }}%</span>
+                            </div>
+                            <div class="progress" style="height: 22px;">
+                                <div class="progress-bar {% if observation.confidence and observation.confidence >= threshold %}bg-success{% else %}bg-warning text-dark{% endif %}" 
+                                     role="progressbar" 
+                                     style="width: {{ (observation.confidence * 100) if observation.confidence else 0 }}%;">
+                                    {{ (observation.confidence * 100) | round(1) if observation.confidence else 0 }}%
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between mt-1 text-muted small">
+                                <span>0% (Low)</span>
+                                <span>Confidence Threshold: {{ (threshold * 100) | int }}%</span>
+                                <span>100% (High)</span>
+                            </div>
+                        </div>
+
+                        <!-- Low Confidence / Escalation Banner -->
+                        {% if observation.confidence and observation.confidence < threshold or observation.status == 'Needs expert review' %}
+                        <div class="alert alert-warning border border-warning shadow-sm mb-3">
+                            <strong class="d-block mb-1">🔍 Expert Review Escalation Notice:</strong>
+                            <span data-i18n="res_escalated">The system screening confidence is low (<70%). This observation has been automatically escalated to an agricultural expert.</span>
+                        </div>
+                        {% endif %}
+
+                        <!-- Explainability Section -->
+                        <div class="mt-3">
+                            <h6 class="fw-bold text-dark mb-2" data-i18n="res_indicators">Possible Visual Indicators & Triage Notes:</h6>
+                            {% if explainability %}
+                            <ul class="list-group list-group-flush border rounded">
+                                {% for item in explainability %}
+                                <li class="list-group-item bg-white small">📌 {{ item }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% else %}
+                            <p class="text-muted small">Standard visual leaf surface patterns detected.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Expert Validation Section (If Reviewed) -->
+                    {% if observation.expert_review %}
+                    <div class="card border-info shadow-sm p-4 bg-light mb-4">
+                        <div class="d-flex align-items-center mb-3 border-bottom pb-2">
+                            <span class="fs-4 me-2">👨‍🌾</span>
+                            <h5 class="fw-bold text-info m-0" data-i18n="res_validated">Expert Validation & SLA Assessment</h5>
+                        </div>
+                        <div class="row small g-2">
+                            <div class="col-6 mb-2">
+                                <strong>Expert Diagnosis:</strong> <span class="text-dark fw-bold d-block fs-6">{{ observation.expert_review.expert_label }}</span>
+                            </div>
+                            <div class="col-6 mb-2 text-end">
+                                <strong>Expert Review Status:</strong> <span class="badge bg-info text-white fs-6 d-inline-block">{{ observation.expert_review.expert_status }}</span>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <strong>Review Timestamp:</strong> {{ observation.expert_review.review_timestamp.strftime('%Y-%m-%d %H:%M:%S UTC') }}
+                            </div>
+                            <div class="col-6 mb-2 text-end">
+                                <strong>SLA Review Duration:</strong> <span class="fw-bold text-success fs-6 d-inline-block">{{ observation.expert_review.format_time_to_review() }}</span>
+                            </div>
+                            {% if observation.expert_review.expert_comment %}
+                            <div class="col-12 mt-2 pt-2 border-top">
+                                <strong>Expert Comments & Actionable Advice:</strong>
+                                <p class="m-0 text-dark bg-white p-3 border rounded mt-1 shadow-sm fs-6">{{ observation.expert_review.expert_comment }}</p>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <div class="d-flex gap-2">
+                        <a href="{{ url_for('main.observe') }}" class="btn btn-outline-success flex-fill py-2">Report New Observation</a>
+                        <a href="{{ url_for('main.history') }}" class="btn btn-outline-secondary flex-fill py-2">View Observation History</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Full Image Lightbox Modal -->
+<div class="modal fade" id="fullImageModal" tabindex="-1" aria-labelledby="fullImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title fw-bold" id="fullImageModalLabel">📸 Full-Size Crop Image Inspection — Observation #{{ observation.id }}</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center p-3 bg-dark">
+                <img src="{{ url_for('static', filename=observation.image_path) }}" alt="Full size uploaded crop image" class="img-fluid rounded shadow" style="max-height: 80vh; object-fit: contain;">
+            </div>
+            <div class="modal-footer bg-light">
+                <span class="text-muted small me-auto">Crop: <strong>{{ observation.crop }}</strong> | Reported: {{ observation.observation_timestamp.strftime('%Y-%m-%d %H:%M UTC') }}</span>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

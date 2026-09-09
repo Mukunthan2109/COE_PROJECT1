@@ -50,9 +50,29 @@ def generate_explainability(image_path, prediction, confidence):
 
     return indicators
 
+def determine_risk_level(prediction, symptom, confidence, threshold=0.70):
+    """
+    Computes Risk Level independently from Confidence score.
+    Confidence = ML certainty score (0.0 to 1.0).
+    Risk Level = Agricultural & food-processing quality risk (High, Medium, Low).
+    """
+    if confidence < threshold:
+        return 'High'
+
+    pred_upper = (prediction or "").upper()
+    sym_upper = (symptom or "").upper()
+
+    if any(k in pred_upper or k in sym_upper for k in ["BLIGHT", "ROT", "ANTHRACNOSE"]):
+        return 'High'
+    elif any(k in pred_upper or k in sym_upper for k in ["SPOT", "RUST", "CURL", "DISCOLORATION", "LESION", "WILT", "YELLOWING"]):
+        return 'Medium'
+    elif "HEALTHY" in pred_upper:
+        return 'Low'
+    return 'Medium'
+
 def predict_crop_disease(image_path, crop="Auto", symptom="Auto"):
     """
-    Predicts disease label, confidence score, and generates Grad-CAM region visual heatmap.
+    Predicts disease label, confidence score, risk level, and generates Grad-CAM region visual heatmap.
     Supports Auto-detecting Crop and Disease directly from uploaded image pixels.
     """
     heatmap_path = generate_gradcam_heatmap(image_path)
@@ -66,13 +86,16 @@ def predict_crop_disease(image_path, crop="Auto", symptom="Auto"):
         return {
             'is_supported': False,
             'prediction': 'Unsupported / Unknown Category',
+            'display_prediction': 'Uncertain screening result (Unsupported category)',
             'confidence': 0.35,
+            'risk_level': 'High',
             'detected_crop': crop,
             'detected_symptom': symptom,
             'heatmap_path': heatmap_path,
             'explainability': [
                 "Observation involves a crop or symptom category outside the baseline training dataset.",
-                "System is unable to safely triage this unclassified crop observation."
+                "AI screening is an initial triage assessment, not a final expert diagnosis.",
+                "System is unable to safely triage this unclassified crop observation. Expert review recommended."
             ],
             'warning': "Category is outside the current trained model scope. Escalating to expert review."
         }
@@ -80,14 +103,20 @@ def predict_crop_disease(image_path, crop="Auto", symptom="Auto"):
     if not os.path.exists(model_path) or not os.path.exists(encoder_path):
         fallback_crop = crop if crop not in ("Auto", "Detect", "", None) else "Tomato"
         fallback_sym = symptom if symptom not in ("Auto", "Detect", "", None) else "Healthy"
+        risk = determine_risk_level(f"{fallback_crop} {fallback_sym}", fallback_sym, 0.75)
         return {
             'is_supported': True,
             'prediction': f"{fallback_crop} {fallback_sym}",
+            'display_prediction': f"{fallback_crop} {fallback_sym}",
             'confidence': 0.75,
+            'risk_level': risk,
             'detected_crop': fallback_crop,
             'detected_symptom': fallback_sym,
             'heatmap_path': heatmap_path,
-            'explainability': ["Rule-based fallback visual indicator."],
+            'explainability': [
+                "Rule-based fallback visual indicator.",
+                "AI screening is an initial triage assessment, not a final expert diagnosis."
+            ],
             'warning': None
         }
 
@@ -102,22 +131,30 @@ def predict_crop_disease(image_path, crop="Auto", symptom="Auto"):
         pred_label = str(label_encoder.classes_[top_idx])
         confidence = float(probs[top_idx])
 
-        # Parse detected crop and symptom from full prediction string (e.g. "Tomato Late Blight")
         label_parts = pred_label.split(' ', 1)
         detected_crop = label_parts[0] if len(label_parts) > 0 else crop_to_extract
         detected_symptom = label_parts[1] if len(label_parts) > 1 else "Healthy"
 
+        risk_level = determine_risk_level(pred_label, symptom, confidence)
         explainability = generate_explainability(image_path, pred_label, confidence)
+        explainability.append("AI screening is an initial triage assessment, not a final expert diagnosis.")
+
+        display_prediction = pred_label
+        if confidence < 0.70:
+            display_prediction = f"Uncertain screening result ({pred_label})"
+            explainability.append("Uncertain screening result due to low model confidence (<70%). Expert review is recommended.")
 
         return {
             'is_supported': True,
             'prediction': pred_label,
+            'display_prediction': display_prediction,
             'detected_crop': detected_crop,
             'detected_symptom': detected_symptom,
             'confidence': round(confidence, 4),
+            'risk_level': risk_level,
             'heatmap_path': heatmap_path,
             'explainability': explainability,
-            'warning': None
+            'warning': "Uncertain screening result. Expert review recommended." if confidence < 0.70 else None
         }
 
     except Exception as e:
@@ -125,11 +162,16 @@ def predict_crop_disease(image_path, crop="Auto", symptom="Auto"):
         return {
             'is_supported': True,
             'prediction': 'Prediction Error',
+            'display_prediction': 'Uncertain screening result (Processing Error)',
             'detected_crop': fallback_crop,
             'detected_symptom': 'Unknown',
             'confidence': 0.0,
+            'risk_level': 'High',
             'heatmap_path': heatmap_path,
-            'explainability': [f"Processing error during prediction: {str(e)}"],
+            'explainability': [
+                f"Processing error during prediction: {str(e)}",
+                "AI screening is an initial triage assessment, not a final expert diagnosis."
+            ],
             'warning': "Model inference failed. Escalating to expert review."
         }
 

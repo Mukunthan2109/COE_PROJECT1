@@ -50,58 +50,61 @@ def draw_leaf_base(draw, size, leaf_color, stem_color):
 def generate_crop_image(crop, disease, size=(256, 256), seed=0):
     np.random.seed(seed)
     w, h = size
-    bg_color = (210 + np.random.randint(-10, 10), 195 + np.random.randint(-10, 10), 180 + np.random.randint(-10, 10))
+    bg_color = (200 + np.random.randint(-25, 25), 185 + np.random.randint(-25, 25), 170 + np.random.randint(-25, 25))
     img = Image.new("RGB", size, bg_color)
     draw = ImageDraw.Draw(img)
 
     if disease == "Healthy":
-        leaf_color = (40 + np.random.randint(-10, 10), 160 + np.random.randint(-15, 15), 40 + np.random.randint(-10, 10))
-        stem_color = (80, 200, 80)
+        leaf_color = (30 + np.random.randint(-20, 20), 150 + np.random.randint(-30, 30), 30 + np.random.randint(-20, 20))
+        stem_color = (70 + np.random.randint(-15, 15), 190 + np.random.randint(-20, 20), 70 + np.random.randint(-15, 15))
         draw_leaf_base(draw, size, leaf_color, stem_color)
 
     elif "Spot" in disease or "Scab" in disease:
-        leaf_color = (50 + np.random.randint(-10, 10), 150 + np.random.randint(-15, 15), 35 + np.random.randint(-10, 10))
-        stem_color = (70, 180, 70)
+        leaf_color = (45 + np.random.randint(-20, 20), 140 + np.random.randint(-30, 30), 30 + np.random.randint(-15, 15))
+        stem_color = (65, 170, 65)
         draw_leaf_base(draw, size, leaf_color, stem_color)
-        for _ in range(np.random.randint(12, 25)):
-            cx = np.random.randint(int(w * 0.25), int(w * 0.75))
-            cy = np.random.randint(int(h * 0.2), int(h * 0.8))
-            r = np.random.randint(4, 12)
-            draw.ellipse([cx - r, cy - r, cx + r, cy + r], fill=(30, 20, 10), outline=(60, 40, 20))
+        for _ in range(np.random.randint(8, 25)):
+            cx = np.random.randint(int(w * 0.2), int(w * 0.8))
+            cy = np.random.randint(int(h * 0.15), int(h * 0.85))
+            r = np.random.randint(3, 14)
+            draw.ellipse([cx - r, cy - r, cx + r, cy + r], fill=(25 + np.random.randint(-10, 10), 15, 10), outline=(50, 35, 15))
 
     elif "Blight" in disease or "Rust" in disease:
-        leaf_color = (80 + np.random.randint(-10, 10), 140 + np.random.randint(-15, 15), 30 + np.random.randint(-10, 10))
-        stem_color = (90, 160, 60)
+        leaf_color = (75 + np.random.randint(-20, 20), 130 + np.random.randint(-30, 30), 25 + np.random.randint(-15, 15))
+        stem_color = (85, 150, 55)
         draw_leaf_base(draw, size, leaf_color, stem_color)
-        for _ in range(np.random.randint(4, 9)):
-            cx = np.random.randint(int(w * 0.3), int(w * 0.7))
-            cy = np.random.randint(int(h * 0.25), int(h * 0.75))
-            r_halo = np.random.randint(16, 26)
-            r_core = np.random.randint(8, 14)
-            draw.ellipse([cx - r_halo, cy - r_halo, cx + r_halo, cy + r_halo], fill=(210, 190, 40))
-            draw.ellipse([cx - r_core, cy - r_core, cx + r_core, cy + r_core], fill=(70, 40, 20))
+        for _ in range(np.random.randint(3, 10)):
+            cx = np.random.randint(int(w * 0.25), int(w * 0.75))
+            cy = np.random.randint(int(h * 0.2), int(h * 0.8))
+            r_halo = np.random.randint(14, 28)
+            r_core = np.random.randint(6, 16)
+            draw.ellipse([cx - r_halo, cy - r_halo, cx + r_halo, cy + r_halo], fill=(200 + np.random.randint(-20, 20), 180, 35))
+            draw.ellipse([cx - r_core, cy - r_core, cx + r_core, cy + r_core], fill=(65, 35, 15))
 
     elif "Rot" in disease or "Anthracnose" in disease:
-        leaf_color = (60 + np.random.randint(-10, 10), 130 + np.random.randint(-15, 15), 35 + np.random.randint(-10, 10))
-        stem_color = (60, 140, 50)
+        leaf_color = (55 + np.random.randint(-20, 20), 120 + np.random.randint(-25, 25), 30 + np.random.randint(-15, 15))
+        stem_color = (55, 130, 45)
         draw_leaf_base(draw, size, leaf_color, stem_color)
-        for _ in range(np.random.randint(2, 5)):
-            px = np.random.randint(int(w * 0.25), int(w * 0.65))
-            py = np.random.randint(int(h * 0.25), int(h * 0.65))
-            pw = np.random.randint(30, 60)
-            ph = np.random.randint(30, 60)
-            draw.ellipse([px, py, px + pw, py + ph], fill=(45, 30, 20))
+        for _ in range(np.random.randint(2, 6)):
+            px = np.random.randint(int(w * 0.2), int(w * 0.7))
+            py = np.random.randint(int(h * 0.2), int(h * 0.7))
+            pw = np.random.randint(25, 65)
+            ph = np.random.randint(25, 65)
+            draw.ellipse([px, py, px + pw, py + ph], fill=(40, 25, 15))
 
     else: # Curl / Yellowing
-        leaf_color = (160 + np.random.randint(-15, 15), 170 + np.random.randint(-15, 15), 40 + np.random.randint(-10, 10))
-        stem_color = (180, 190, 60)
+        leaf_color = (150 + np.random.randint(-25, 25), 160 + np.random.randint(-25, 25), 35 + np.random.randint(-15, 15))
+        stem_color = (170, 180, 55)
         draw_leaf_base(draw, size, leaf_color, stem_color)
         for _ in range(15):
-            x1 = np.random.randint(int(w * 0.2), int(w * 0.8))
-            y1 = np.random.randint(int(h * 0.2), int(h * 0.8))
-            draw.arc([x1, y1, x1 + 30, y1 + 30], start=0, end=180, fill=(120, 130, 30), width=2)
+            x1 = np.random.randint(int(w * 0.15), int(w * 0.85))
+            y1 = np.random.randint(int(h * 0.15), int(h * 0.85))
+            draw.arc([x1, y1, x1 + 30, y1 + 30], start=0, end=180, fill=(110, 120, 25), width=2)
 
-    img = img.filter(ImageFilter.GaussianBlur(radius=0.8))
+    # Add subtle brightness jitter and blur variance
+    enhancer = ImageEnhance.Brightness(img)
+    img = enhancer.enhance(1.0 + (np.random.rand() - 0.5) * 0.2)
+    img = img.filter(ImageFilter.GaussianBlur(radius=0.5 + np.random.rand() * 0.5))
     return img
 
 def main():

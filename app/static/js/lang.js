@@ -32,9 +32,16 @@ const translations = {
         "step2_title": "Step 2: Select Crop Type",
         "step3_title": "Step 3: Select Growth Stage",
         "step4_title": "Step 4: Select Visible Symptoms",
-        "step5_title": "Step 5: Select Location / Region",
+        "step5_title": "Step 5: Select Location & First Symptom Timing",
 
-        "btn_submit": "Submit Observation for Screening"
+        "btn_submit": "Submit Observation for Screening",
+
+        "res_header": "Observation Record Details",
+        "res_disclaimer": "AI screening is an initial triage assessment, not a final expert diagnosis.",
+        "res_confidence": "ML Screening Confidence",
+        "res_escalated": "The system screening confidence is low (<70%). This observation has been automatically escalated to an agricultural expert.",
+        "res_indicators": "Possible Visual Indicators & Triage Notes:",
+        "res_validated": "Expert Validation & SLA Assessment"
     },
     ta: {
         "brand_name": "அக்ரிஷீல்ட் (AgriShield)",
@@ -65,9 +72,16 @@ const translations = {
         "step2_title": "படி 2: பயிர் வகையைத் தேர்ந்தெடுக்கவும்",
         "step3_title": "படி 3: வளர்ச்சி நிலையைத் தேர்ந்தெடுக்கவும்",
         "step4_title": "படி 4: காணப்படும் அறிகுறிகளைத் தேர்ந்தெடுக்கவும்",
-        "step5_title": "படி 5: பிராந்தியத்தைத் தேர்ந்தெடுக்கவும்",
+        "step5_title": "படி 5: இடம் மற்றும் முதல் அறிகுறி நேரத்தைத் தேர்ந்தெடுக்கவும்",
 
-        "btn_submit": "திரையிடலுக்கு கவனிப்பைச் சமர்ப்பிக்கவும்"
+        "btn_submit": "திரையிடலுக்கு கவனிப்பைச் சமர்ப்பிக்கவும்",
+
+        "res_header": "கவனிப்பு பதிவு விவரங்கள்",
+        "res_disclaimer": "செயற்கை நுண்ணறிவு திரையிடல் ஒரு ஆரம்ப தரம் பிரித்தல் மட்டுமே, இறுதியான வல்லுநர் முடிவு அல்ல.",
+        "res_confidence": "கணினி திரையிடல் நம்பிக்கை நிலை",
+        "res_escalated": "திரையிடல் நம்பிக்கை குறைவாக உள்ளது (<70%). இந்த கவனிப்பு தானாகவே வேளாண் வல்லுநருக்கு அனுப்பப்பட்டுள்ளது.",
+        "res_indicators": "காணப்படும் காட்சி குறிகாட்டிகள்:",
+        "res_validated": "வல்லுநர் உறுதிப்படுத்தல் மற்றும் SLA மதிப்பீடு"
     }
 };
 

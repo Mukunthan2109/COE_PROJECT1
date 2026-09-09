@@ -65,10 +65,10 @@ def test_expert_review_workflow(client):
         db.session.commit()
         obs_id = obs.id
 
-    # Post expert review
+    # Post expert review with valid status choice
     review_data = {
         'expert_label': 'Tomato Leaf Spot (Confirmed)',
-        'expert_status': 'Confirmed',
+        'expert_status': 'Validated (Confirmed)',
         'expert_comment': 'Confirmed diagnosis. Apply organic copper spray.'
     }
     
@@ -80,7 +80,83 @@ def test_expert_review_workflow(client):
         assert updated_obs.status == 'Reviewed by expert'
         assert updated_obs.expert_review is not None
         assert updated_obs.expert_review.expert_label == 'Tomato Leaf Spot (Confirmed)'
+        assert updated_obs.expert_review.expert_status == 'Validated (Confirmed)'
         assert updated_obs.expert_review.time_to_review_seconds >= 0.0
+
+def test_expert_review_invalid_status_rejection(client):
+    with client.application.app_context():
+        obs = Observation(
+            crop="Tomato",
+            symptom="Leaf Spot",
+            crop_stage="Flowering",
+            location_region="South Zone",
+            image_path="uploads/test.jpg",
+            model_prediction="Tomato Leaf Spot",
+            confidence=0.50,
+            status="Needs expert review"
+        )
+        db.session.add(obs)
+        db.session.commit()
+        obs_id = obs.id
+
+    # Post expert review with missing/invalid status
+    review_data = {
+        'expert_label': 'Tomato Leaf Spot',
+        'expert_status': '',
+        'expert_comment': 'Missing status'
+    }
+    res = client.post(f'/expert/review/{obs_id}', data=review_data, follow_redirects=True)
+    assert b"Please select a valid expert review status" in res.data
+
+def test_duplicate_submission_detection(client):
+    img_byte_arr = io.BytesIO()
+    img_arr = np.random.randint(50, 200, (200, 200, 3), dtype=np.uint8)
+    Image.fromarray(img_arr).save(img_byte_arr, format='JPEG')
+    img_byte_arr.seek(0)
+    img_bytes = img_byte_arr.read()
+
+    data1 = {
+        'crop': 'Tomato',
+        'symptom': 'Healthy',
+        'crop_stage': 'Vegetative',
+        'location_region': 'North Zone',
+        'crop_image': (io.BytesIO(img_bytes), 'same_leaf.jpg')
+    }
+    res1 = client.post('/observe', data=data1, content_type='multipart/form-data', follow_redirects=True)
+    assert res1.status_code == 200
+
+    data2 = {
+        'crop': 'Tomato',
+        'symptom': 'Healthy',
+        'crop_stage': 'Vegetative',
+        'location_region': 'North Zone',
+        'crop_image': (io.BytesIO(img_bytes), 'same_leaf.jpg')
+    }
+    res2 = client.post('/observe', data=data2, content_type='multipart/form-data', follow_redirects=True)
+    assert res2.status_code == 200
+    assert b"Duplicate Image Detected" in res2.data
+
+def test_observation_detail_route(client):
+    with client.application.app_context():
+        obs = Observation(
+            crop="Potato",
+            symptom="Early Blight",
+            crop_stage="Vegetative",
+            location_region="North Zone",
+            image_path="uploads/demo.jpg",
+            model_prediction="Potato Early Blight",
+            confidence=0.92,
+            risk_level="High",
+            status="Initial screening result"
+        )
+        db.session.add(obs)
+        db.session.commit()
+        obs_id = obs.id
+
+    res = client.get(f'/observation/{obs_id}')
+    assert res.status_code == 200
+    assert b"Observation Record Details" in res.data
+    assert b"High Risk" in res.data
 
 def test_scan_workflow(client):
     res_get = client.get('/scan')
@@ -116,4 +192,5 @@ def test_analyze_image_api(client):
     assert json_data['success'] is True
     assert 'prediction' in json_data
     assert 'detected_crop' in json_data
+
 

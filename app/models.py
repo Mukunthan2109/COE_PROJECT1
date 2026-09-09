@@ -49,10 +49,13 @@ class Observation(db.Model):
     heatmap_path = db.Column(db.String(255), nullable=True) # Grad-CAM visual explainability heatmap
     observation_notes = db.Column(db.Text, nullable=True)
     observation_timestamp = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    first_symptom_time = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    image_hash = db.Column(db.String(64), nullable=True)
     
-    # ML / DL Triage Results
+    # ML / DL Triage & Risk Results
     model_prediction = db.Column(db.String(100), nullable=True)
     confidence = db.Column(db.Float, nullable=True)
+    risk_level = db.Column(db.String(32), default='Medium', nullable=False) # 'Low', 'Medium', 'High', 'Critical'
     explainability_notes = db.Column(db.Text, nullable=True)
     
     # Status: 'Initial screening result', 'Needs expert review', 'Reviewed by expert'
@@ -74,8 +77,10 @@ class Observation(db.Model):
             'heatmap_path': self.heatmap_path,
             'observation_notes': self.observation_notes,
             'observation_timestamp': self.observation_timestamp.strftime('%Y-%m-%d %H:%M:%S'),
+            'first_symptom_time': self.first_symptom_time.strftime('%Y-%m-%d %H:%M:%S'),
             'model_prediction': self.model_prediction,
             'confidence': round(self.confidence * 100, 1) if self.confidence else None,
+            'risk_level': self.risk_level,
             'explainability_notes': self.explainability_notes,
             'status': self.status,
             'created_at': self.created_at.strftime('%Y-%m-%d %H:%M:%S')
@@ -89,7 +94,7 @@ class ExpertReview(db.Model):
     observation_id = db.Column(db.Integer, db.ForeignKey('observations.id'), nullable=False)
     expert_user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
     expert_label = db.Column(db.String(100), nullable=False)
-    expert_status = db.Column(db.String(50), nullable=False) # 'Confirmed', 'Corrected', 'Uncertain'
+    expert_status = db.Column(db.String(50), nullable=False) # 'Validated (Confirmed)', 'Not Confirmed', 'Needs More Information'
     expert_comment = db.Column(db.Text, nullable=True)
     review_timestamp = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
     time_to_review_seconds = db.Column(db.Float, nullable=False)
@@ -108,16 +113,17 @@ class ExpertReview(db.Model):
         }
 
     def format_time_to_review(self):
-        total_seconds = int(self.time_to_review_seconds)
+        total_seconds = float(self.time_to_review_seconds)
         if total_seconds < 60:
-            return f"{total_seconds} sec"
-        minutes = total_seconds // 60
-        seconds = total_seconds % 60
+            return f"{int(total_seconds)} sec"
+        minutes = total_seconds / 60.0
         if minutes < 60:
-            return f"{minutes}m {seconds}s"
-        hours = minutes // 60
-        mins = minutes % 60
-        return f"{hours}h {mins}m"
+            return f"{round(minutes, 1)} min ({int(total_seconds // 60)}m {int(total_seconds % 60)}s)"
+        hours = total_seconds / 3600.0
+        hrs_int = int(total_seconds // 3600)
+        mins_int = int((total_seconds % 3600) // 60)
+        return f"{round(hours, 2)} hrs ({hrs_int}h {mins_int}m)"
+
 
 
 class BatchProcurement(db.Model):

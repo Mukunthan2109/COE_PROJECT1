@@ -63,3 +63,12 @@ def test_blurry_image_rejection(temp_images):
     is_valid, msg, details = evaluate_image_quality(temp_images['blur'])
     assert is_valid is False
     assert details['reason'] == 'blurry'
+
+def test_corrupted_image_rejection(tmp_path):
+    corrupt_path = str(tmp_path / "corrupt.jpg")
+    with open(corrupt_path, "wb") as f:
+        f.write(b"NOT_AN_IMAGE_HEADER_GARBAGE")
+    is_valid, msg, details = evaluate_image_quality(corrupt_path)
+    assert is_valid is False
+    assert details['reason'] in ('processing_error', 'unreadable_file')
+

@@ -18,8 +18,12 @@
                     <div class="border rounded p-2 text-center bg-light mb-3">
                         <img src="{{ url_for('static', filename=observation.image_path) }}" 
                              alt="Escalated Crop Image" 
-                             class="img-fluid rounded" 
-                             style="max-height: 250px; object-fit: contain;">
+                             class="img-fluid rounded cursor-pointer mb-2" 
+                             style="max-height: 250px; object-fit: contain;"
+                             data-bs-toggle="modal" data-bs-target="#fullImageModal">
+                        <button type="button" class="btn btn-sm btn-outline-success w-100" data-bs-toggle="modal" data-bs-target="#fullImageModal">
+                            🔍 View Full Image
+                        </button>
                     </div>
                     <div class="bg-light p-3 border rounded small">
                         <h6 class="fw-bold mb-2">Submitted Observation Metadata:</h6>
@@ -39,7 +43,7 @@
                     <!-- ML Screening Summary -->
                     <div class="alert alert-light border rounded p-3 mb-4">
                         <h6 class="fw-bold text-dark mb-2">ML Screening Triage Summary:</h6>
-                        <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
                             <div>
                                 <span class="small text-muted d-block">ML Prediction:</span>
                                 <strong>{{ observation.model_prediction or 'Uncertain' }}</strong>
@@ -48,6 +52,10 @@
                                 <span class="small text-muted d-block">Confidence:</span>
                                 <span class="badge bg-warning text-dark fs-6">{{ (observation.confidence * 100) | round(1) if observation.confidence else 0 }}%</span>
                             </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                            <span class="small text-muted">Agricultural Risk Level:</span>
+                            <span class="badge {% if observation.risk_level == 'High' %}bg-danger{% else %}bg-warning text-dark{% endif %} fs-6">{{ observation.risk_level }} Risk</span>
                         </div>
                     </div>
 
@@ -67,9 +75,10 @@
                         <div class="mb-3">
                             <label for="expert_status" class="form-label">Validation Decision Status *</label>
                             <select class="form-select" id="expert_status" name="expert_status" required>
-                                <option value="Confirmed" selected>Confirmed (ML prediction was correct)</option>
-                                <option value="Corrected">Corrected (ML prediction was updated)</option>
-                                <option value="Uncertain">Uncertain (Requires physical lab sampling)</option>
+                                <option value="" selected disabled>-- Select Review Status --</option>
+                                <option value="Validated (Confirmed)">Validated (Confirmed)</option>
+                                <option value="Not Confirmed">Not Confirmed</option>
+                                <option value="Needs More Information">Needs More Information</option>
                             </select>
                         </div>
 
@@ -85,6 +94,24 @@
                         </div>
                     </form>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Full Image Lightbox Modal -->
+<div class="modal fade" id="fullImageModal" tabindex="-1" aria-labelledby="fullImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title fw-bold" id="fullImageModalLabel">📸 Full-Size Crop Image Inspection — Observation #{{ observation.id }}</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center p-3 bg-dark">
+                <img src="{{ url_for('static', filename=observation.image_path) }}" alt="Full size uploaded crop image" class="img-fluid rounded shadow" style="max-height: 80vh; object-fit: contain;">
+            </div>
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
