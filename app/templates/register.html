@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card card-custom p-4">
+            <h4 class="fw-bold text-success mb-3 text-center">User Registration</h4>
+            <form action="{{ url_for('main.register') }}" method="POST">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username *</label>
+                    <input type="text" class="form-control" id="username" name="username" required placeholder="Choose a username">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email Address *</label>
+                    <input type="email" class="form-control" id="email" name="email" required placeholder="name@example.com">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password *</label>
+                    <input type="password" class="form-control" id="password" name="password" required placeholder="Choose password">
+                </div>
+                <div class="mb-3">
+                    <label for="role" class="form-label">Select System Role *</label>
+                    <select class="form-select" id="role" name="role" required>
+                        <option value="farmer" selected>Farmer / Crop Producer</option>
+                        <option value="expert">Agronomist / Agricultural Expert</option>
+                        <option value="qa_manager">Procurement QA Manager / Admin</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="region" class="form-label">Select General Region</label>
+                    <select class="form-select" id="region" name="region">
+                        <option value="North Zone" selected>North Zone</option>
+                        <option value="South Zone">South Zone</option>
+                        <option value="Central Region">Central Region</option>
+                        <option value="East District">East District</option>
+                        <option value="West Valley">West Valley</option>
+                    </select>
+                </div>
+                <div class="d-grid mb-3">
+                    <button type="submit" class="btn btn-farmer py-2">Create Account</button>
+                </div>
+            </form>
+            <div class="text-center small text-muted">
+                Already registered? <a href="{{ url_for('main.login') }}" class="text-success fw-bold">Sign in here</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

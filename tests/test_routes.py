@@ -21,12 +21,12 @@ def client(tmp_path):
 def test_home_page(client):
     res = client.get('/')
     assert res.status_code == 200
-    assert b"Crop Health Triage" in res.data
+    assert b"AgriShield" in res.data
 
 def test_observe_get(client):
     res = client.get('/observe')
     assert res.status_code == 200
-    assert b"Crop Disease Observation Form" in res.data
+    assert b"Observation" in res.data or b"Step 1" in res.data
 
 def test_observe_post_valid(client):
     # Generate valid in-memory image
@@ -76,8 +76,44 @@ def test_expert_review_workflow(client):
     assert res.status_code == 200
 
     with client.application.app_context():
-        updated_obs = Observation.query.get(obs_id)
+        updated_obs = db.session.get(Observation, obs_id)
         assert updated_obs.status == 'Reviewed by expert'
         assert updated_obs.expert_review is not None
         assert updated_obs.expert_review.expert_label == 'Tomato Leaf Spot (Confirmed)'
         assert updated_obs.expert_review.time_to_review_seconds >= 0.0
+
+def test_scan_workflow(client):
+    res_get = client.get('/scan')
+    assert res_get.status_code == 200
+    assert b"Instant AI Crop Disease Scanner" in res_get.data
+
+    img_byte_arr = io.BytesIO()
+    img_arr = np.random.randint(50, 200, (200, 200, 3), dtype=np.uint8)
+    Image.fromarray(img_arr).save(img_byte_arr, format='JPEG')
+    img_byte_arr.seek(0)
+
+    data = {
+        'crop_image': (img_byte_arr, 'scan_test.jpg')
+    }
+    
+    res_post = client.post('/scan', data=data, content_type='multipart/form-data')
+    assert res_post.status_code == 200
+    assert b"AI Diagnostic Analysis Result" in res_post.data
+
+def test_analyze_image_api(client):
+    img_byte_arr = io.BytesIO()
+    img_arr = np.random.randint(50, 200, (200, 200, 3), dtype=np.uint8)
+    Image.fromarray(img_arr).save(img_byte_arr, format='JPEG')
+    img_byte_arr.seek(0)
+
+    data = {
+        'crop_image': (img_byte_arr, 'api_test.jpg')
+    }
+
+    res = client.post('/api/analyze-image', data=data, content_type='multipart/form-data')
+    assert res.status_code == 200
+    json_data = res.get_json()
+    assert json_data['success'] is True
+    assert 'prediction' in json_data
+    assert 'detected_crop' in json_data
+

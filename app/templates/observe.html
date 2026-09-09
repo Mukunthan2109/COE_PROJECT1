@@ -2,109 +2,306 @@
 
 {% block content %}
 <div class="row justify-content-center">
-    <div class="col-lg-8">
-        <!-- Quality Warning Alert if Quality Check Failed -->
+    <div class="col-lg-10">
+        
+        <div class="text-center mb-4">
+            <h2 class="fw-bold text-success d-flex align-items-center justify-content-center" data-i18n="form_title">
+                📷 New Observation
+            </h2>
+            <p class="text-muted" data-i18n="form_sub">Please fill in the crop details and upload a clear photo of the observed symptoms.</p>
+        </div>
+
         {% if quality_failed %}
-        <div class="quality-warning-box shadow-sm mb-4">
-            <h5 class="fw-bold text-danger d-flex align-items-center mb-2" data-i18n="qual_error_title">
-                <span class="fs-4 me-2">⚠️</span> Image Quality Check Failed
-            </h5>
+        <div class="alert alert-danger border-danger shadow-sm mb-4">
+            <h5 class="fw-bold d-flex align-items-center mb-2" data-i18n="qual_error_title">⚠️ Image Quality Check Failed</h5>
             <p class="mb-2" data-i18n="qual_error_msg">Image quality is insufficient. Please capture a clearer crop image.</p>
             {% if quality_details %}
-            <div class="bg-white p-2 rounded border small text-secondary mb-2">
+            <div class="bg-white p-2 rounded small text-secondary">
                 <strong>Failure Reason:</strong> {{ quality_details.reason }}
-                {% if quality_details.brightness %} | Brightness Level: {{ quality_details.brightness }}{% endif %}
+                {% if quality_details.brightness %} | Brightness: {{ quality_details.brightness }}{% endif %}
                 {% if quality_details.blur_score %} | Blur Score: {{ quality_details.blur_score }}{% endif %}
             </div>
             {% endif %}
-            <small class="text-muted">Tip: Ensure good lighting, hold camera steady, and focus directly on the affected leaf or plant section.</small>
         </div>
         {% endif %}
 
-        <div class="card card-custom p-4">
-            <div class="border-bottom pb-3 mb-4">
-                <h3 class="fw-bold text-success m-0" data-i18n="form_title">Crop Disease Observation Form</h3>
-                <p class="text-muted small m-0 mt-1">Submit visual evidence and metadata for quality assurance triage.</p>
+        <form action="{{ url_for('main.observe') }}" method="POST" enctype="multipart/form-data" id="observationForm">
+            
+            <!-- Step 1: Upload / Capture Crop Image matching screenshot media_1788927639079.png -->
+            <div class="card card-custom p-4 mb-4">
+                <div class="step-header" data-i18n="step1_title">Step 1: Upload / Capture Crop Image</div>
+                <p class="text-muted small mb-3" data-i18n="step1_sub">
+                    Select a clear photo of the affected plant foliage, stem, or fruit from your gallery or mobile camera. (Max 5 MB, JPG/PNG)
+                </p>
+
+                <div class="input-group mb-3">
+                    <input type="file" class="form-control form-control-lg" id="crop_image" name="crop_image" accept="image/*" required onchange="handleImageSelected(this)">
+                </div>
+
+                <div class="upload-drag-zone" onclick="document.getElementById('crop_image').click();">
+                    <div class="fs-1 text-success mb-2">⬆️</div>
+                    <span class="fw-semibold text-dark d-block" data-i18n="step1_drag">Click or tap above to select / capture a crop photo</span>
+                </div>
+
+                <!-- AI Live Analysis Preview Card -->
+                <div id="ai_analysis_badge" class="mt-3 p-3 bg-light border border-success rounded d-none">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <span class="badge bg-success mb-1">✨ AI Live Diagnosis Ready</span>
+                            <h6 id="ai_pred_title" class="fw-bold text-dark m-0">Analyzing image...</h6>
+                            <small id="ai_pred_sub" class="text-muted">Detected Crop & Disease from photo</small>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-outline-success" onclick="autoFillAIDiagnosis()">
+                            ⚡ Auto-Fill Form from AI
+                        </button>
+                    </div>
+                </div>
             </div>
 
-            <form action="{{ url_for('main.observe') }}" method="POST" enctype="multipart/form-data">
+            <!-- Step 2: Select Crop Type matching screenshot media_1788927639131.png -->
+            <div class="card card-custom p-4 mb-4">
+                <div class="step-header" data-i18n="step2_title">Step 2: Select Crop Type</div>
+                <input type="hidden" name="crop" id="selected_crop" value="Tomato" required>
                 
-                <!-- 1. Select Crop -->
-                <div class="mb-3">
-                    <label for="crop" class="form-label" data-i18n="lbl_crop">Select Crop Type *</label>
-                    <select class="form-select" id="crop" name="crop" required>
-                        <option value="" disabled selected>-- Choose Crop --</option>
-                        <option value="Tomato" data-i18n="crop_tomato" {% if form_data and form_data.crop == 'Tomato' %}selected{% endif %}>Tomato (தக்காளி)</option>
-                        <option value="Potato" data-i18n="crop_potato" {% if form_data and form_data.crop == 'Potato' %}selected{% endif %}>Potato (உருளைக்கிழங்கு)</option>
-                        <option value="Chili" data-i18n="crop_chili" {% if form_data and form_data.crop == 'Chili' %}selected{% endif %}>Chili (மிளகாய்)</option>
-                        <option value="Other / Unknown" {% if form_data and form_data.crop == 'Other / Unknown' %}selected{% endif %}>Other / Unknown Crop (Edge Case Test)</option>
-                    </select>
+                <div class="row g-3">
+                    <div class="col-6 col-md-3">
+                        <div class="crop-card-option border-warning bg-warning-subtle" onclick="selectCrop(this, 'Auto')">
+                            <div class="crop-icon">🤖</div>
+                            <div class="crop-name fw-bold text-success">Auto-Detect AI</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="crop-card-option selected" onclick="selectCrop(this, 'Tomato')">
+                            <div class="crop-icon">🍅</div>
+                            <div class="crop-name">Tomato</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="crop-card-option" onclick="selectCrop(this, 'Potato')">
+                            <div class="crop-icon">🥔</div>
+                            <div class="crop-name">Potato</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="crop-card-option" onclick="selectCrop(this, 'Rice')">
+                            <div class="crop-icon">🌾</div>
+                            <div class="crop-name">Rice</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="crop-card-option" onclick="selectCrop(this, 'Corn')">
+                            <div class="crop-icon">🌽</div>
+                            <div class="crop-name">Maize / Corn</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="crop-card-option" onclick="selectCrop(this, 'Chili')">
+                            <div class="crop-icon">🌶️</div>
+                            <div class="crop-name">Chili</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="crop-card-option" onclick="selectCrop(this, 'Wheat')">
+                            <div class="crop-icon">🥖</div>
+                            <div class="crop-name">Wheat</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="crop-card-option" onclick="selectCrop(this, 'Apple')">
+                            <div class="crop-icon">🍎</div>
+                            <div class="crop-name">Apple</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="crop-card-option" onclick="selectCrop(this, 'Grape')">
+                            <div class="crop-icon">🍇</div>
+                            <div class="crop-name">Grape</div>
+                        </div>
+                    </div>
                 </div>
+            </div>
 
-                <!-- 2. Select Visible Symptom -->
-                <div class="mb-3">
-                    <label for="symptom" class="form-label" data-i18n="lbl_symptom">Select Visible Symptom *</label>
-                    <select class="form-select" id="symptom" name="symptom" required>
-                        <option value="" disabled selected>-- Choose Visible Symptom --</option>
-                        <option value="Leaf Spot" data-i18n="sym_spot" {% if form_data and form_data.symptom == 'Leaf Spot' %}selected{% endif %}>Leaf Spot / Dark Spots</option>
-                        <option value="Early Blight" data-i18n="sym_blight" {% if form_data and form_data.symptom == 'Early Blight' %}selected{% endif %}>Blight / Lesions</option>
-                        <option value="Leaf Curl" data-i18n="sym_curl" {% if form_data and form_data.symptom == 'Leaf Curl' %}selected{% endif %}>Leaf Curl / Crumpled Leaf</option>
-                        <option value="Healthy" data-i18n="sym_healthy" {% if form_data and form_data.symptom == 'Healthy' %}selected{% endif %}>Healthy (No visible disease)</option>
-                        <option value="Yellowing" data-i18n="sym_yellowing" {% if form_data and form_data.symptom == 'Yellowing' %}selected{% endif %}>Yellowing / Discoloration</option>
-                        <option value="Unknown Anomaly" {% if form_data and form_data.symptom == 'Unknown Anomaly' %}selected{% endif %}>Unknown Anomaly (Edge Case Test)</option>
-                    </select>
-                </div>
+            <!-- Step 3: Select Growth Stage matching screenshot media_1788927639131.png -->
+            <div class="card card-custom p-4 mb-4">
+                <div class="step-header" data-i18n="step3_title">Step 3: Select Growth Stage</div>
+                <input type="hidden" name="crop_stage" id="selected_stage" value="Vegetative" required>
 
-                <!-- 3. Select Crop Stage -->
-                <div class="mb-3">
-                    <label for="crop_stage" class="form-label" data-i18n="lbl_stage">Select Crop Growth Stage *</label>
-                    <select class="form-select" id="crop_stage" name="crop_stage" required>
-                        <option value="" disabled selected>-- Choose Growth Stage --</option>
-                        <option value="Seedling" {% if form_data and form_data.crop_stage == 'Seedling' %}selected{% endif %}>Seedling</option>
-                        <option value="Vegetative" {% if form_data and form_data.crop_stage == 'Vegetative' %}selected{% endif %}>Vegetative</option>
-                        <option value="Flowering" {% if form_data and form_data.crop_stage == 'Flowering' %}selected{% endif %}>Flowering</option>
-                        <option value="Fruiting" {% if form_data and form_data.crop_stage == 'Fruiting' %}selected{% endif %}>Fruiting</option>
-                        <option value="Harvest" {% if form_data and form_data.crop_stage == 'Harvest' %}selected{% endif %}>Harvest</option>
-                    </select>
+                <div class="d-flex flex-wrap gap-2 justify-content-between">
+                    <button type="button" class="stage-pill flex-grow-1" onclick="selectStage(this, 'Seedling')">Seedling</button>
+                    <button type="button" class="stage-pill flex-grow-1 selected" onclick="selectStage(this, 'Vegetative')">Vegetative</button>
+                    <button type="button" class="stage-pill flex-grow-1" onclick="selectStage(this, 'Flowering')">Flowering</button>
+                    <button type="button" class="stage-pill flex-grow-1" onclick="selectStage(this, 'Fruiting')">Fruiting</button>
+                    <button type="button" class="stage-pill flex-grow-1" onclick="selectStage(this, 'Harvest')">Harvest</button>
                 </div>
+            </div>
 
-                <!-- 4. Select General Region/Location -->
-                <div class="mb-3">
-                    <label for="location_region" class="form-label" data-i18n="lbl_region">Select General Region/Zone *</label>
-                    <select class="form-select" id="location_region" name="location_region" required>
-                        <option value="" disabled selected>-- Choose Region --</option>
-                        <option value="North Zone" {% if form_data and form_data.location_region == 'North Zone' %}selected{% endif %}>North Zone</option>
-                        <option value="South Zone" {% if form_data and form_data.location_region == 'South Zone' %}selected{% endif %}>South Zone</option>
-                        <option value="Central Region" {% if form_data and form_data.location_region == 'Central Region' %}selected{% endif %}>Central Region</option>
-                        <option value="East District" {% if form_data and form_data.location_region == 'East District' %}selected{% endif %}>East District</option>
-                        <option value="West Valley" {% if form_data and form_data.location_region == 'West Valley' %}selected{% endif %}>West Valley</option>
-                    </select>
-                    <div class="form-text">General region is collected for regional outbreak tracking without precise farmer GPS tracking.</div>
-                </div>
+            <!-- Step 4: Select Visible Symptoms matching screenshot media_1788927639131.png -->
+            <div class="card card-custom p-4 mb-4">
+                <div class="step-header" data-i18n="step4_title">Step 4: Select Visible Symptoms</div>
+                <input type="hidden" name="symptom" id="primary_symptom" value="Yellowing leaves" required>
 
-                <!-- 5. Upload Crop Image -->
-                <div class="mb-3">
-                    <label for="crop_image" class="form-label" data-i18n="lbl_image">Upload Crop Image *</label>
-                    <input class="form-control" type="file" id="crop_image" name="crop_image" accept="image/*" required>
-                    <div class="form-text">Supported formats: JPG, PNG, WEBP. Ensure the leaf or symptom is clearly visible.</div>
+                <div class="row g-3">
+                    <div class="col-md-4 col-6">
+                        <label class="symptom-check-card">
+                            <input type="checkbox" name="symptom_list" value="Yellowing leaves" checked onchange="updateSymptoms()">
+                            <span>Yellowing leaves</span>
+                        </label>
+                    </div>
+                    <div class="col-md-4 col-6">
+                        <label class="symptom-check-card">
+                            <input type="checkbox" name="symptom_list" value="Brown spots" onchange="updateSymptoms()">
+                            <span>Brown spots</span>
+                        </label>
+                    </div>
+                    <div class="col-md-4 col-6">
+                        <label class="symptom-check-card">
+                            <input type="checkbox" name="symptom_list" value="White patches" onchange="updateSymptoms()">
+                            <span>White patches</span>
+                        </label>
+                    </div>
+                    <div class="col-md-4 col-6">
+                        <label class="symptom-check-card">
+                            <input type="checkbox" name="symptom_list" value="Leaf curling" onchange="updateSymptoms()">
+                            <span>Leaf curling</span>
+                        </label>
+                    </div>
+                    <div class="col-md-4 col-6">
+                        <label class="symptom-check-card">
+                            <input type="checkbox" name="symptom_list" value="Wilting" onchange="updateSymptoms()">
+                            <span>Wilting</span>
+                        </label>
+                    </div>
+                    <div class="col-md-4 col-6">
+                        <label class="symptom-check-card">
+                            <input type="checkbox" name="symptom_list" value="Holes in leaves" onchange="updateSymptoms()">
+                            <span>Holes in leaves</span>
+                        </label>
+                    </div>
+                    <div class="col-md-4 col-6">
+                        <label class="symptom-check-card">
+                            <input type="checkbox" name="symptom_list" value="Black spots" onchange="updateSymptoms()">
+                            <span>Black spots</span>
+                        </label>
+                    </div>
+                    <div class="col-md-4 col-6">
+                        <label class="symptom-check-card">
+                            <input type="checkbox" name="symptom_list" value="Powdery appearance" onchange="updateSymptoms()">
+                            <span>Powdery appearance</span>
+                        </label>
+                    </div>
+                    <div class="col-md-4 col-6">
+                        <label class="symptom-check-card">
+                            <input type="checkbox" name="symptom_list" value="Stem discoloration" onchange="updateSymptoms()">
+                            <span>Stem discoloration</span>
+                        </label>
+                    </div>
+                    <div class="col-md-4 col-6">
+                        <label class="symptom-check-card">
+                            <input type="checkbox" name="symptom_list" value="Fruit discoloration" onchange="updateSymptoms()">
+                            <span>Fruit discoloration</span>
+                        </label>
+                    </div>
+                    <div class="col-md-4 col-6">
+                        <label class="symptom-check-card">
+                            <input type="checkbox" name="symptom_list" value="Unusual growth" onchange="updateSymptoms()">
+                            <span>Unusual growth</span>
+                        </label>
+                    </div>
+                    <div class="col-md-4 col-6">
+                        <label class="symptom-check-card">
+                            <input type="checkbox" name="symptom_list" value="Other" onchange="updateSymptoms()">
+                            <span>Other</span>
+                        </label>
+                    </div>
                 </div>
+            </div>
 
-                <!-- 6. Additional Notes -->
-                <div class="mb-4">
-                    <label for="observation_notes" class="form-label" data-i18n="lbl_notes">Additional Observation Notes (Optional)</label>
-                    <textarea class="form-control" id="observation_notes" name="observation_notes" rows="2" placeholder="e.g., Symptoms observed on 3 plants in row 4 after heavy rain.">{{ form_data.observation_notes if form_data else '' }}</textarea>
-                </div>
+            <!-- Step 5: Region & Location -->
+            <div class="card card-custom p-4 mb-4">
+                <div class="step-header" data-i18n="step5_title">Step 5: Select Location / Region</div>
+                <select class="form-select form-select-lg" name="location_region" required>
+                    <option value="Coimbatore" selected>Coimbatore</option>
+                    <option value="North Zone">North Zone</option>
+                    <option value="South Zone">South Zone</option>
+                    <option value="Central Region">Central Region</option>
+                    <option value="East District">East District</option>
+                    <option value="West Valley">West Valley</option>
+                </select>
+            </div>
 
-                <!-- Privacy & Consent Notice -->
-                <div class="alert alert-light border small mb-4">
-                    <strong>🔒 Privacy & Non-Surveillance Commitment:</strong> Data collected is strictly restricted to crop quality triage and expert escalation. No farmer identity, phone number, or personal profiling is stored.
-                </div>
+            <div class="d-grid mb-5">
+                <button type="submit" class="btn btn-agri-yellow py-3 fs-5" data-i18n="btn_submit">
+                    Submit Observation for Screening
+                </button>
+            </div>
+        </form>
 
-                <div class="d-grid">
-                    <button type="submit" class="btn btn-farmer py-3" data-i18n="btn_submit">Submit Crop Observation</button>
-                </div>
-            </form>
-        </div>
     </div>
 </div>
+
+<script>
+    let lastAIData = null;
+
+    function selectCrop(el, cropName) {
+        document.querySelectorAll('.crop-card-option').forEach(c => c.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('selected_crop').value = cropName;
+    }
+
+    function selectStage(el, stageName) {
+        document.querySelectorAll('.stage-pill').forEach(s => s.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('selected_stage').value = stageName;
+    }
+
+    function updateSymptoms() {
+        const checked = Array.from(document.querySelectorAll('input[name="symptom_list"]:checked')).map(c => c.value);
+        document.getElementById('primary_symptom').value = checked.length > 0 ? checked.join(', ') : 'Healthy';
+    }
+
+    function handleImageSelected(input) {
+        if (!input.files || !input.files[0]) return;
+
+        const badge = document.getElementById('ai_analysis_badge');
+        const title = document.getElementById('ai_pred_title');
+        const sub = document.getElementById('ai_pred_sub');
+
+        badge.classList.remove('d-none');
+        title.innerText = 'Analyzing photo features... ⏳';
+        sub.innerText = 'Extracting HSV histograms, texture variance & Grad-CAM regions...';
+
+        const formData = new FormData();
+        formData.append('crop_image', input.files[0]);
+
+        fetch('/api/analyze-image', {
+            method: 'POST',
+            body: formData
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.success) {
+                lastAIData = data;
+                title.innerText = `Detected: ${data.prediction} (${data.confidence_pct})`;
+                sub.innerText = `Crop: ${data.detected_crop} | Symptom: ${data.detected_symptom} | ${data.qa_impact}`;
+            } else {
+                title.innerText = 'Quality / Analysis Notice';
+                sub.innerText = data.error || 'Please ensure image is clear and well-lit.';
+            }
+        })
+        .catch(err => {
+            title.innerText = 'Analysis Ready on Submission';
+            sub.innerText = 'The system will run full ML diagnosis upon submitting.';
+        });
+    }
+
+    function autoFillAIDiagnosis() {
+        if (!lastAIData) return;
+        const crop = lastAIData.detected_crop;
+        document.querySelectorAll('.crop-card-option').forEach(c => {
+            if (c.innerText.includes(crop)) {
+                selectCrop(c, crop);
+            }
+        });
+    }
+</script>
 {% endblock %}

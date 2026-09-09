@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-7">
+        <div class="card card-custom p-4">
+            <h3 class="fw-bold text-success mb-2 text-center">⭐ User Feedback & Usability Evaluation</h3>
+            <p class="text-muted small text-center mb-4">Please share your feedback to help us improve the AgriShield crop disease triage system.</p>
+
+            <form action="{{ url_for('main.feedback') }}" method="POST">
+                <div class="mb-3">
+                    <label for="user_role" class="form-label">Your Role *</label>
+                    <select class="form-select" id="user_role" name="user_role" required>
+                        <option value="Farmer" selected>Farmer / Producer</option>
+                        <option value="Agronomist">Agronomist / Expert</option>
+                        <option value="QA Manager">Food Processing QA Manager</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="rating" class="form-label">System Usability Rating (1 = Poor, 5 = Excellent) *</label>
+                    <select class="form-select" id="rating" name="rating" required>
+                        <option value="5" selected>⭐⭐⭐⭐⭐ (5/5) - Excellent & Easy to Use</option>
+                        <option value="4">⭐⭐⭐⭐ (4/5) - Very Good</option>
+                        <option value="3">⭐⭐⭐ (3/5) - Average</option>
+                        <option value="2">⭐⭐ (2/5) - Needs Improvement</option>
+                        <option value="1">⭐ (1/5) - Difficult to Use</option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <label for="comments" class="form-label">Comments / Suggestions for Improvement</label>
+                    <textarea class="form-control" id="comments" name="comments" rows="3" placeholder="Share your experience using the AgriShield triage platform..."></textarea>
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-farmer py-2">Submit Feedback</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

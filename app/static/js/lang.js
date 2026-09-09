@@ -1,100 +1,73 @@
 /**
- * Bilingual UI Toggle (English / Tamil)
- * Provides instant client-side translations for farmer-facing elements.
+ * AgriShield Bilingual UI Toggle (English / Tamil)
  */
 
 const translations = {
     en: {
+        "brand_name": "AgriShield",
         "nav_home": "Home",
-        "nav_observe": "Report Crop Observation",
-        "nav_status": "Track Observation",
-        "nav_expert": "Expert Dashboard",
-        "app_title": "Crop Health Triage & Escalation",
-        "app_subtitle": "Farmer-Friendly Crop Disease Triage for Quality Assurance",
+        "nav_observe": "New Observation",
+        "nav_history": "History",
+        "nav_expert": "Expert Portal",
+        "nav_analytics": "Analytics Dashboard",
+        "nav_evaluation": "System Evaluation",
+        "nav_feedback": "Feedback",
+        
         "hero_heading": "Early Crop Disease Observation & Expert Escalation",
-        "hero_sub": "Submit crop health photos and visible symptoms for instant screening and rapid expert review.",
-        "btn_report": "Report Crop Observation",
-        "btn_track": "Track Review Status",
+        "hero_sub": "Submit crop health photos and visible symptoms for instant ML screening and rapid agricultural expert verification.",
+        "btn_report": "Submit New Observation",
+        "btn_expert_dash": "View Expert Dashboard",
         
-        // Form Labels
-        "form_title": "Crop Disease Observation Form",
-        "lbl_crop": "Select Crop Type",
-        "lbl_symptom": "Select Visible Symptom",
-        "lbl_stage": "Select Crop Growth Stage",
-        "lbl_region": "Select General Region/Zone",
-        "lbl_image": "Upload Crop Image",
-        "lbl_notes": "Additional Observation Notes (Optional)",
-        "btn_submit": "Submit Crop Observation",
+        "card_total_obs": "Total Recorded Observations",
+        "card_escalated": "Escalated to Experts",
+        "card_validated": "Expert Validated Cases",
         
-        // Options - Crops
-        "crop_tomato": "Tomato (தக்காளி)",
-        "crop_potato": "Potato (உருளைக்கிழங்கு)",
-        "crop_chili": "Chili (மிளகாய்)",
+        "form_title": "New Observation",
+        "form_sub": "Please fill in the crop details and upload a clear photo of the observed symptoms.",
         
-        // Options - Symptoms
-        "sym_spot": "Leaf Spot / Dark Spots",
-        "sym_blight": "Blight / Lesions",
-        "sym_curl": "Leaf Curl / Crumpled Leaf",
-        "sym_healthy": "Healthy (No visible disease)",
-        "sym_yellowing": "Yellowing / Discoloration",
+        "step1_title": "Step 1: Upload / Capture Crop Image",
+        "step1_sub": "Select a clear photo of the affected plant foliage, stem, or fruit from your gallery or mobile camera. (Max 5 MB, JPG/PNG)",
+        "step1_drag": "Click or tap above to select / capture a crop photo",
 
-        // Results
-        "res_header": "Initial Screening Result",
-        "res_disclaimer": "This result is an initial screening/triage result, not a definitive expert diagnosis.",
-        "res_confidence": "ML Screening Confidence",
-        "res_indicators": "Possible Visual Indicators Observed",
-        "res_escalated": "This observation has been automatically sent for expert review due to low confidence or unknown category.",
-        "res_validated": "Validated by Agricultural Expert",
+        "step2_title": "Step 2: Select Crop Type",
+        "step3_title": "Step 3: Select Growth Stage",
+        "step4_title": "Step 4: Select Visible Symptoms",
+        "step5_title": "Step 5: Select Location / Region",
 
-        // Quality Error
-        "qual_error_title": "Image Quality Check Failed",
-        "qual_error_msg": "Image quality is insufficient. Please capture a clearer crop image."
+        "btn_submit": "Submit Observation for Screening"
     },
     ta: {
+        "brand_name": "அக்ரிஷீல்ட் (AgriShield)",
         "nav_home": "முகப்பு",
-        "nav_observe": "பயிர் நோயைப் பதிவுசெய்க",
-        "nav_status": "நிலையைக் கண்காணிக்க",
-        "nav_expert": "வல்லுநர் டாஷ்போர்டு",
-        "app_title": "பயிர் சுகாதார திரையிடல் மற்றும் பரிந்துரை",
-        "app_subtitle": "உணவு பதப்படுத்தும் அலகுகளுக்கான விவசாயி நட்பு பயிர் நோய் கண்டறிதல்",
-        "hero_heading": "ஆரம்ப பயிர் நோய் கவனிப்பு மற்றும் வல்லுநர் மதிப்பாய்வு",
-        "hero_sub": "உடனடி திரையிடல் மற்றும் விரைவான வல்லுநர் மதிப்பாய்வுக்கு பயிர் சுகாதார படங்கள் மற்றும் அறிகுறிகளைப் சமர்ப்பிக்கவும்.",
-        "btn_report": "பயிர் கவனிப்பைப் பதிவுசெய்க",
-        "btn_track": "மதிப்பாய்வு நிலையைக் காண்க",
+        "nav_observe": "புதிய கவனிப்பு",
+        "nav_history": "வரலாறு",
+        "nav_expert": "வல்லுநர் போர்ட்டல்",
+        "nav_analytics": "பகுப்பாய்வு டாஷ்போர்டு",
+        "nav_evaluation": "அமைப்பின் மதிப்பீடு",
+        "nav_feedback": "கருத்துக்கள்",
 
-        // Form Labels
-        "form_title": "பயிர் நோய் கவனிப்பு படிவம்",
-        "lbl_crop": "பயிர் வகையைத் தேர்ந்தெடுக்கவும்",
-        "lbl_symptom": "காணக்கூடிய அறிகுறியைத் தேர்ந்தெடுக்கவும்",
-        "lbl_stage": "பயிர் வளர்ச்சி நிலையைத் தேர்ந்தெடுக்கவும்",
-        "lbl_region": "பொதுவான பிராந்தியம் / மண்டலத்தைத் தேர்ந்தெடுக்கவும்",
-        "lbl_image": "பயிர் படத்தைப் பதிவேற்றவும்",
-        "lbl_notes": "கூடுதல் கவனிப்பு குறிப்புகள் (விருப்பத்தேர்வு)",
-        "btn_submit": "பயிர் கவனிப்பைச் சமர்ப்பிக்கவும்",
+        "hero_heading": "ஆரம்ப பயிர் நோய் கவனிப்பு மற்றும் வல்லுநர் பரிந்துரை",
+        "hero_sub": "உடனடி கணினி திரையிடல் மற்றும் விரைவான வேளாண் வல்லுநர் சரிபார்ப்புக்கு பயிர் சுகாதார படங்கள் மற்றும் அறிகுறிகளை சமர்ப்பிக்கவும்.",
+        "btn_report": "புதிய கவனிப்பை சமர்ப்பிக்கவும்",
+        "btn_expert_dash": "வல்லுநர் டாஷ்போர்டைக் காண்க",
 
-        // Options - Crops
-        "crop_tomato": "தக்காளி (Tomato)",
-        "crop_potato": "உருளைக்கிழங்கு (Potato)",
-        "crop_chili": "மிளகாய் (Chili)",
+        "card_total_obs": "பதிவு செய்யப்பட்ட மொத்த கவனிப்புகள்",
+        "card_escalated": "வல்லுநர்களுக்கு பரிந்துரைக்கப்பட்டவை",
+        "card_validated": "வல்லுநரால் உறுதிப்படுத்தப்பட்டவை",
 
-        // Options - Symptoms
-        "sym_spot": "இலை புள்ளி / கருமையான புள்ளிகள்",
-        "sym_blight": "பயிர்ப் புண் / கருகல் நோய்",
-        "sym_curl": "இலை சுருள் / மடிந்த இலை",
-        "sym_healthy": "ஆரோக்கியமானது (நோய் அறிகுறிகள் இல்லை)",
-        "sym_yellowing": "மஞ்சள் நிறமாதல் / நிறமாற்றம்",
+        "form_title": "புதிய கவனிப்பு",
+        "form_sub": "பயிர் விவரங்களை பூர்த்தி செய்து, கவனிக்கப்பட்ட அறிகுறிகளின் தெளிவான புகைப்படத்தை பதிவேற்றவும்.",
 
-        // Results
-        "res_header": "ஆரம்ப திரையிடல் முடிவு",
-        "res_disclaimer": "இந்த முடிவு ஒரு ஆரம்ப திரையிடல் முடிவு மட்டுமே, இது இறுதி வல்லுநர் நோயறிதல் அல்ல.",
-        "res_confidence": "இயந்திர கற்றல் திரையிடல் நம்பிக்கை நிலை",
-        "res_indicators": "கவனிக்கப்பட்ட சாத்தியமான காட்சி குறிகாட்டிகள்",
-        "res_escalated": "குறைந்த நம்பிக்கை அல்லது தெரியாத வகை காரணமாக இந்த கவனிப்பு வல்லுநர் மதிப்பாய்வுக்கு தானாகவே அனுப்பப்பட்டுள்ளது.",
-        "res_validated": "வேளாண் வல்லுநரால் உறுதிப்படுத்தப்பட்டது",
+        "step1_title": "படி 1: பயிர் படத்தைப் பதிவேற்றவும் / பிடிக்கவும்",
+        "step1_sub": "பாதிக்கப்பட்ட தாவர இலை அல்லது பழத்தின் தெளிவான புகைப்படத்தை தேர்ந்தெடுக்கவும்.",
+        "step1_drag": "பயிர் புகைப்படத்தை தேர்ந்தெடுக்க இங்கே கிளிக் செய்யவும்",
 
-        // Quality Error
-        "qual_error_title": "படத்தின் தரம் போதாது",
-        "qual_error_msg": "படத்தின் தரம் போதாது. தயவுசெய்து தெளிவான பயிர் படத்தைப் பிடிக்கவும்."
+        "step2_title": "படி 2: பயிர் வகையைத் தேர்ந்தெடுக்கவும்",
+        "step3_title": "படி 3: வளர்ச்சி நிலையைத் தேர்ந்தெடுக்கவும்",
+        "step4_title": "படி 4: காணப்படும் அறிகுறிகளைத் தேர்ந்தெடுக்கவும்",
+        "step5_title": "படி 5: பிராந்தியத்தைத் தேர்ந்தெடுக்கவும்",
+
+        "btn_submit": "திரையிடலுக்கு கவனிப்பைச் சமர்ப்பிக்கவும்"
     }
 };
 
@@ -112,25 +85,21 @@ function setLanguage(lang) {
         }
     });
 
-    // Update active button state
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-        if (btn.getAttribute('data-lang') === lang) {
-            btn.classList.add('btn-success');
-            btn.classList.remove('btn-outline-secondary');
-        } else {
-            btn.classList.remove('btn-success');
-            btn.classList.add('btn-outline-secondary');
-        }
-    });
+    const langBtn = document.getElementById('langToggleBtn');
+    if (langBtn) {
+        langBtn.textContent = lang === 'en' ? 'தமிழ்' : 'English';
+    }
+}
+
+function toggleLanguage() {
+    const nextLang = currentLang === 'en' ? 'ta' : 'en';
+    setLanguage(nextLang);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     setLanguage(currentLang);
-
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const selectedLang = e.target.getAttribute('data-lang');
-            setLanguage(selectedLang);
-        });
-    });
+    const langBtn = document.getElementById('langToggleBtn');
+    if (langBtn) {
+        langBtn.addEventListener('click', toggleLanguage);
+    }
 });

@@ -2,130 +2,135 @@
 
 {% block content %}
 <div class="row justify-content-center">
-    <div class="col-lg-11">
+    <div class="col-lg-10">
         
-        <!-- Header Banner -->
-        <div class="card card-custom p-4 mb-4 bg-light border-start border-4 border-success">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <h3 class="fw-bold text-success m-0">👨‍🌾 Agricultural Expert Escalation Dashboard</h3>
-                    <p class="text-muted small m-0 mt-1">Review escalated low-confidence crop observations, validate screening predictions, and track time-to-review metrics.</p>
-                </div>
-                <span class="badge bg-warning text-dark fs-6">Pending Review Queue: {{ pending | length }}</span>
+        <!-- Header Banner matching screenshot media_1788927639163.png -->
+        <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+            <div>
+                <h2 class="fw-bold text-success m-0">👨‍🌾 Expert Review & Validation Portal</h2>
+                <p class="text-muted small m-0 mt-1">Review evidence photos, evaluate AI screening results, and validate crop disease observations.</p>
+            </div>
+            <div>
+                <span class="badge bg-danger fs-6 py-2 px-3">🔔 {{ pending | length }} Pending Reviews</span>
             </div>
         </div>
 
-        <!-- KEY METRIC: Time-to-Expert-Review Analytics Summary Cards -->
-        <div class="row g-3 mb-4">
-            <div class="col-md-2 col-6">
-                <div class="metrics-card">
-                    <div class="metrics-value text-dark">{{ analytics.total_observations }}</div>
-                    <div class="metrics-label">Total Observations</div>
-                </div>
-            </div>
-            <div class="col-md-2 col-6">
-                <div class="metrics-card" style="border-top-color: #f57c00;">
-                    <div class="metrics-value text-warning">{{ analytics.escalated_count }}</div>
-                    <div class="metrics-label">Escalated Cases</div>
-                </div>
-            </div>
-            <div class="col-md-2 col-6">
-                <div class="metrics-card" style="border-top-color: #0288d1;">
-                    <div class="metrics-value text-info">{{ analytics.reviewed_count }}</div>
-                    <div class="metrics-label">Reviewed Cases</div>
-                </div>
-            </div>
-            <div class="col-md-2 col-6">
-                <div class="metrics-card" style="border-top-color: #2e7d32;">
-                    <div class="metrics-value text-success">{{ analytics.avg_review_time_formatted }}</div>
-                    <div class="metrics-label">Average Review Time</div>
-                </div>
-            </div>
-            <div class="col-md-2 col-6">
-                <div class="metrics-card" style="border-top-color: #7b1fa2;">
-                    <div class="metrics-value text-primary">{{ analytics.median_review_time_formatted }}</div>
-                    <div class="metrics-label">Median Review Time</div>
-                </div>
-            </div>
-            <div class="col-md-2 col-6">
-                <div class="metrics-card" style="border-top-color: #c62828;">
-                    <div class="metrics-value text-danger">{{ analytics.fastest_review_time_formatted }}</div>
-                    <div class="metrics-label">Fastest Review</div>
-                </div>
-            </div>
-        </div>
+        <h4 class="fw-bold text-dark mb-3">⌛ Pending Escalated Observations</h4>
 
-        <!-- Section 1: Pending Expert Escalation Queue -->
-        <div class="card card-custom p-4 mb-4 border-top border-warning border-3">
-            <h5 class="fw-bold text-dark mb-3 d-flex align-items-center">
-                <span class="fs-5 me-2">⏳</span> Pending Escalation Queue (Needs Expert Validation)
-            </h5>
+        {% if pending %}
+            {% for obs in pending %}
+            <!-- Card Layout matching screenshot media_1788927639163.png -->
+            <div class="expert-card p-4">
+                <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-3">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="badge bg-secondary">Obs #{{ obs.id }}</span>
+                        <span class="badge badge-auto-escalated">⚠️ AUTO ESCALATED</span>
+                    </div>
+                    <span class="small text-muted">{{ obs.observation_timestamp.strftime('%b %d, %H:%M') }}</span>
+                </div>
 
-            {% if pending %}
+                <div class="row g-4">
+                    <!-- Left: Photo Preview & Metadata -->
+                    <div class="col-md-5">
+                        <div class="border rounded p-2 text-center bg-light mb-3">
+                            {% if obs.image_path %}
+                            <img src="{{ url_for('static', filename=obs.image_path) }}" 
+                                 alt="Escalated Crop Image" 
+                                 class="img-fluid rounded" 
+                                 style="max-height: 220px; object-fit: contain;">
+                            {% else %}
+                            <div class="bg-success text-white py-5 rounded fw-bold">Leaf Photo Preview</div>
+                            {% endif %}
+                            <div class="small text-muted mt-2">📍 {{ obs.location_region }}</div>
+                        </div>
+
+                        <div class="bg-light p-3 border rounded small">
+                            <h5 class="fw-bold text-success mb-1">{{ obs.crop }}</h5>
+                            <p class="mb-1"><strong>Stage:</strong> {{ obs.crop_stage }}</p>
+                            <p class="mb-1"><strong>Symptoms:</strong> {{ obs.symptom }}</p>
+                            {% if obs.observation_notes %}
+                            <p class="mb-0 text-muted"><strong>Notes:</strong> {{ obs.observation_notes }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Right: AI Prediction Box, Callout & Validation Form -->
+                    <div class="col-md-7">
+                        <!-- AI Prediction Box -->
+                        <div class="p-3 border rounded bg-light mb-3">
+                            <span class="small text-muted d-block">AI Prediction:</span>
+                            <h5 class="fw-bold text-primary m-0 mb-1">{{ obs.model_prediction or 'Uncertain' }}</h5>
+                            <span class="small fw-bold text-dark">
+                                Conf: {{ (obs.confidence * 100) | round(1) if obs.confidence else 0 }}% | 
+                                {% set conf = obs.confidence or 0.0 %}
+                                {% if conf >= 0.85 %}
+                                    <span class="text-success">Low Risk</span>
+                                {% elif conf >= 0.70 %}
+                                    <span class="text-warning">Med Risk</span>
+                                {% else %}
+                                    <span class="text-danger">High Risk</span>
+                                {% endif %}
+                            </span>
+                        </div>
+
+                        <!-- Escalation Reason Callout Box matching screenshot media_1788927639163.png -->
+                        <div class="callout-escalation">
+                            <strong>Escalation Reason:</strong> Model confidence ({{ (obs.confidence * 100) | round(1) if obs.confidence else 0 }}%) is below screening threshold (70%).
+                        </div>
+
+                        <!-- Expert Validation Form -->
+                        <form action="{{ url_for('main.expert_review', id=obs.id) }}" method="POST">
+                            <h6 class="fw-bold text-success mb-2">☑️ Validate & Update Status</h6>
+                            
+                            <div class="mb-3">
+                                <select class="form-select" name="expert_status" required>
+                                    <option value="Confirmed" selected>Validated (Confirmed)</option>
+                                    <option value="Corrected">Corrected (Updated Diagnosis)</option>
+                                    <option value="Uncertain">Uncertain (Requires Lab Sampling)</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <input type="text" class="form-control mb-2" name="expert_label" 
+                                       value="{{ obs.model_prediction or obs.crop + ' ' + obs.symptom }}" 
+                                       placeholder="Confirmed diagnosis label..." required>
+                                <textarea class="form-control" name="expert_comment" rows="2" 
+                                          placeholder="Enter expert diagnosis, treatment recommendations, or comments..."></textarea>
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-success fw-bold py-2">
+                                    ✈️ Submit Expert Validation
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="card card-custom p-5 text-center text-muted">
+                <div class="fs-1 mb-2">✅</div>
+                <h5>No pending escalated observations in queue!</h5>
+                <p class="small mb-0">All submitted observations have been triaged or expert-validated.</p>
+            </div>
+        {% endif %}
+
+        <!-- Completed Reviews Audit Table -->
+        {% if reviewed %}
+        <div class="card card-custom p-4 mt-5 border-top border-info border-3">
+            <h5 class="fw-bold text-dark mb-3">📋 Completed Expert Reviews & SLA Audit Log</h5>
             <div class="table-responsive">
-                <table class="table table-hover align-middle m-0">
+                <table class="table table-hover align-middle m-0 small">
                     <thead class="table-light">
                         <tr>
-                            <th>ID</th>
-                            <th>Image</th>
+                            <th>Obs #</th>
                             <th>Crop</th>
-                            <th>Symptom</th>
-                            <th>Region</th>
-                            <th>ML Prediction</th>
-                            <th>Confidence</th>
-                            <th>Submission Time</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for obs in pending %}
-                        <tr>
-                            <td><strong>#{{ obs.id }}</strong></td>
-                            <td>
-                                <img src="{{ url_for('static', filename=obs.image_path) }}" alt="Crop" class="rounded border" style="width: 48px; height: 48px; object-fit: cover;">
-                            </td>
-                            <td>{{ obs.crop }}</td>
-                            <td>{{ obs.symptom }}</td>
-                            <td><span class="badge bg-light text-dark border">{{ obs.location_region }}</span></td>
-                            <td>{{ obs.model_prediction or 'Uncertain' }}</td>
-                            <td>
-                                <span class="badge bg-warning text-dark">{{ (obs.confidence * 100) | round(1) if obs.confidence else 0 }}%</span>
-                            </td>
-                            <td class="small text-muted">{{ obs.observation_timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
-                            <td>
-                                <a href="{{ url_for('main.expert_review', id=obs.id) }}" class="btn btn-sm btn-success fw-bold">Validate / Review</a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            {% else %}
-            <div class="alert alert-light text-center py-4 text-muted m-0">
-                ✅ No pending escalated cases in queue. All observations have been triaged or reviewed!
-            </div>
-            {% endif %}
-        </div>
-
-        <!-- Section 2: Completed Expert Reviews & Time-to-Review Audit -->
-        <div class="card card-custom p-4 mb-4 border-top border-info border-3">
-            <h5 class="fw-bold text-dark mb-3 d-flex align-items-center">
-                <span class="fs-5 me-2">📋</span> Completed Expert Reviews & Time-to-Review Audit Log
-            </h5>
-
-            {% if reviewed %}
-            <div class="table-responsive">
-                <table class="table table-hover align-middle m-0">
-                    <thead class="table-light">
-                        <tr>
-                            <th>ID</th>
-                            <th>Crop</th>
-                            <th>ML Prediction</th>
+                            <th>AI Prediction</th>
                             <th>Expert Diagnosis</th>
-                            <th>Status</th>
-                            <th>Review Timestamp</th>
-                            <th>Time to Expert Review</th>
-                            <th>Expert Comments</th>
+                            <th>Decision</th>
+                            <th>SLA Time to Review</th>
+                            <th>Comments</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -133,55 +138,18 @@
                         <tr>
                             <td><strong>#{{ obs.id }}</strong></td>
                             <td>{{ obs.crop }}</td>
-                            <td><small class="text-muted">{{ obs.model_prediction }} ({{ (obs.confidence * 100) | round(1) }}%)</small></td>
+                            <td>{{ obs.model_prediction }} ({{ (obs.confidence * 100) | round(1) }}%)</td>
                             <td><strong class="text-success">{{ obs.expert_review.expert_label }}</strong></td>
                             <td><span class="badge bg-info">{{ obs.expert_review.expert_status }}</span></td>
-                            <td class="small text-muted">{{ obs.expert_review.review_timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
                             <td><strong class="text-primary">{{ obs.expert_review.format_time_to_review() }}</strong></td>
-                            <td class="small text-truncate" style="max-width: 200px;">{{ obs.expert_review.expert_comment or '-' }}</td>
+                            <td class="text-truncate" style="max-width: 200px;">{{ obs.expert_review.expert_comment or '-' }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
-            {% else %}
-            <div class="text-center py-3 text-muted">
-                No completed expert reviews recorded yet.
-            </div>
-            {% endif %}
         </div>
-
-        <!-- Section 3: Baseline vs MVP Evaluation Matrix -->
-        <div class="card card-custom p-4 mb-4">
-            <h5 class="fw-bold text-dark mb-2">📊 Baseline vs. MVP Evaluation Matrix</h5>
-            <p class="text-muted small mb-3">Comparing conventional manual crop observation escalation against digital ML triage MVP.</p>
-            
-            <div class="table-responsive">
-                <table class="table table-bordered align-middle m-0">
-                    <thead class="table-success">
-                        <tr>
-                            <th>Metric</th>
-                            <th>Conventional Baseline</th>
-                            <th>Digital ML Triage MVP</th>
-                            <th>Impact / Difference</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for item in comparison %}
-                        <tr>
-                            <td><strong>{{ item.metric }}</strong></td>
-                            <td class="text-muted">{{ item.baseline }}</td>
-                            <td class="text-success fw-bold">{{ item.mvp }}</td>
-                            <td><span class="badge bg-primary">{{ item.difference }}</span></td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <div class="form-text mt-2 text-muted">
-                * Note: Baseline values represent simulated manual process assumptions for prototype evaluation.
-            </div>
-        </div>
+        {% endif %}
 
     </div>
 </div>

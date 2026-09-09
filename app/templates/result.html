@@ -30,14 +30,36 @@
 
             <!-- Main Grid Layout -->
             <div class="row g-4">
-                <!-- Left Column: Image & Metadata -->
+                <!-- Left Column: Image & Grad-CAM Heatmap -->
                 <div class="col-md-5">
-                    <div class="border rounded p-2 text-center bg-light mb-3">
-                        <img src="{{ url_for('static', filename=observation.image_path) }}" 
-                             alt="Crop observation leaf image" 
-                             class="img-fluid rounded shadow-sm" 
-                             style="max-height: 280px; object-fit: contain;">
+                    <div class="card border mb-3">
+                        <div class="card-header bg-light py-2 fw-bold small text-secondary">
+                            📸 Original Photo & Visual Grad-CAM Heatmap
+                        </div>
+                        <div class="card-body p-2 text-center bg-light">
+                            <div class="row g-2">
+                                <div class="col-6">
+                                    <span class="small text-muted d-block mb-1">Original Photo</span>
+                                    <img src="{{ url_for('static', filename=observation.image_path) }}" 
+                                         alt="Crop observation leaf image" 
+                                         class="img-fluid rounded border shadow-sm" 
+                                         style="max-height: 180px; object-fit: contain;">
+                                </div>
+                                <div class="col-6">
+                                    <span class="small text-muted d-block mb-1">Grad-CAM Heatmap</span>
+                                    {% if observation.heatmap_path %}
+                                    <img src="{{ url_for('static', filename=observation.heatmap_path) }}" 
+                                         alt="Grad-CAM disease heatmap overlay" 
+                                         class="img-fluid rounded border shadow-sm" 
+                                         style="max-height: 180px; object-fit: contain;">
+                                    {% else %}
+                                    <div class="p-4 text-muted small bg-white border rounded">Heatmap N/A</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
                     <div class="bg-white p-3 border rounded">
                         <h6 class="fw-bold text-secondary mb-2">Observation Metadata</h6>
                         <ul class="list-unstyled small m-0">

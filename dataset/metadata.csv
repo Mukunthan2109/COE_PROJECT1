@@ -1,141 +1,361 @@
 image_id,image_path,crop,symptom,disease_label,location_region,crop_stage,source_type,expert_validation,license_or_source_note
-IMG_0001,dataset\images\tomato_healthy_01.jpg,Tomato,Healthy,Tomato Healthy,North Zone,Seedling,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0002,dataset\images\tomato_healthy_02.jpg,Tomato,Healthy,Tomato Healthy,South Zone,Seedling,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0003,dataset\images\tomato_healthy_03.jpg,Tomato,Healthy,Tomato Healthy,Central Region,Seedling,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0004,dataset\images\tomato_healthy_04.jpg,Tomato,Healthy,Tomato Healthy,East District,Seedling,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0005,dataset\images\tomato_healthy_05.jpg,Tomato,Healthy,Tomato Healthy,West Valley,Seedling,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0006,dataset\images\tomato_healthy_06.jpg,Tomato,Healthy,Tomato Healthy,North Zone,Seedling,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0007,dataset\images\tomato_healthy_07.jpg,Tomato,Healthy,Tomato Healthy,South Zone,Seedling,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0008,dataset\images\tomato_healthy_08.jpg,Tomato,Healthy,Tomato Healthy,Central Region,Seedling,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0009,dataset\images\tomato_healthy_09.jpg,Tomato,Healthy,Tomato Healthy,East District,Seedling,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0010,dataset\images\tomato_healthy_10.jpg,Tomato,Healthy,Tomato Healthy,West Valley,Seedling,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0011,dataset\images\tomato_healthy_11.jpg,Tomato,Healthy,Tomato Healthy,North Zone,Seedling,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0012,dataset\images\tomato_healthy_12.jpg,Tomato,Healthy,Tomato Healthy,South Zone,Seedling,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0013,dataset\images\tomato_healthy_13.jpg,Tomato,Healthy,Tomato Healthy,Central Region,Seedling,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0014,dataset\images\tomato_healthy_14.jpg,Tomato,Healthy,Tomato Healthy,East District,Seedling,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0015,dataset\images\tomato_healthy_15.jpg,Tomato,Healthy,Tomato Healthy,West Valley,Seedling,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0016,dataset\images\tomato_healthy_16.jpg,Tomato,Healthy,Tomato Healthy,North Zone,Seedling,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0017,dataset\images\tomato_healthy_17.jpg,Tomato,Healthy,Tomato Healthy,South Zone,Seedling,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0018,dataset\images\tomato_healthy_18.jpg,Tomato,Healthy,Tomato Healthy,Central Region,Seedling,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0019,dataset\images\tomato_healthy_19.jpg,Tomato,Healthy,Tomato Healthy,East District,Seedling,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0020,dataset\images\tomato_healthy_20.jpg,Tomato,Healthy,Tomato Healthy,West Valley,Seedling,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0021,dataset\images\tomato_leaf_spot_01.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,North Zone,Vegetative,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0022,dataset\images\tomato_leaf_spot_02.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,South Zone,Vegetative,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0023,dataset\images\tomato_leaf_spot_03.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,Central Region,Vegetative,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0024,dataset\images\tomato_leaf_spot_04.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,East District,Vegetative,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0025,dataset\images\tomato_leaf_spot_05.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,West Valley,Vegetative,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0026,dataset\images\tomato_leaf_spot_06.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,North Zone,Vegetative,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0027,dataset\images\tomato_leaf_spot_07.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,South Zone,Vegetative,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0028,dataset\images\tomato_leaf_spot_08.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,Central Region,Vegetative,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0029,dataset\images\tomato_leaf_spot_09.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,East District,Vegetative,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0030,dataset\images\tomato_leaf_spot_10.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,West Valley,Vegetative,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0031,dataset\images\tomato_leaf_spot_11.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,North Zone,Vegetative,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0032,dataset\images\tomato_leaf_spot_12.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,South Zone,Vegetative,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0033,dataset\images\tomato_leaf_spot_13.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,Central Region,Vegetative,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0034,dataset\images\tomato_leaf_spot_14.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,East District,Vegetative,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0035,dataset\images\tomato_leaf_spot_15.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,West Valley,Vegetative,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0036,dataset\images\tomato_leaf_spot_16.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,North Zone,Vegetative,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0037,dataset\images\tomato_leaf_spot_17.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,South Zone,Vegetative,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0038,dataset\images\tomato_leaf_spot_18.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,Central Region,Vegetative,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0039,dataset\images\tomato_leaf_spot_19.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,East District,Vegetative,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0040,dataset\images\tomato_leaf_spot_20.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,West Valley,Vegetative,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0041,dataset\images\tomato_early_blight_01.jpg,Tomato,Early Blight,Tomato Early Blight,North Zone,Fruiting,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0042,dataset\images\tomato_early_blight_02.jpg,Tomato,Early Blight,Tomato Early Blight,South Zone,Fruiting,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0043,dataset\images\tomato_early_blight_03.jpg,Tomato,Early Blight,Tomato Early Blight,Central Region,Fruiting,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0044,dataset\images\tomato_early_blight_04.jpg,Tomato,Early Blight,Tomato Early Blight,East District,Fruiting,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0045,dataset\images\tomato_early_blight_05.jpg,Tomato,Early Blight,Tomato Early Blight,West Valley,Fruiting,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0046,dataset\images\tomato_early_blight_06.jpg,Tomato,Early Blight,Tomato Early Blight,North Zone,Fruiting,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0047,dataset\images\tomato_early_blight_07.jpg,Tomato,Early Blight,Tomato Early Blight,South Zone,Fruiting,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0048,dataset\images\tomato_early_blight_08.jpg,Tomato,Early Blight,Tomato Early Blight,Central Region,Fruiting,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0049,dataset\images\tomato_early_blight_09.jpg,Tomato,Early Blight,Tomato Early Blight,East District,Fruiting,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0050,dataset\images\tomato_early_blight_10.jpg,Tomato,Early Blight,Tomato Early Blight,West Valley,Fruiting,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0051,dataset\images\tomato_early_blight_11.jpg,Tomato,Early Blight,Tomato Early Blight,North Zone,Fruiting,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0052,dataset\images\tomato_early_blight_12.jpg,Tomato,Early Blight,Tomato Early Blight,South Zone,Fruiting,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0053,dataset\images\tomato_early_blight_13.jpg,Tomato,Early Blight,Tomato Early Blight,Central Region,Fruiting,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0054,dataset\images\tomato_early_blight_14.jpg,Tomato,Early Blight,Tomato Early Blight,East District,Fruiting,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0055,dataset\images\tomato_early_blight_15.jpg,Tomato,Early Blight,Tomato Early Blight,West Valley,Fruiting,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0056,dataset\images\tomato_early_blight_16.jpg,Tomato,Early Blight,Tomato Early Blight,North Zone,Fruiting,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0057,dataset\images\tomato_early_blight_17.jpg,Tomato,Early Blight,Tomato Early Blight,South Zone,Fruiting,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0058,dataset\images\tomato_early_blight_18.jpg,Tomato,Early Blight,Tomato Early Blight,Central Region,Fruiting,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0059,dataset\images\tomato_early_blight_19.jpg,Tomato,Early Blight,Tomato Early Blight,East District,Fruiting,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0060,dataset\images\tomato_early_blight_20.jpg,Tomato,Early Blight,Tomato Early Blight,West Valley,Fruiting,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0061,dataset\images\potato_healthy_01.jpg,Potato,Healthy,Potato Healthy,North Zone,Vegetative,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0062,dataset\images\potato_healthy_02.jpg,Potato,Healthy,Potato Healthy,South Zone,Vegetative,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0063,dataset\images\potato_healthy_03.jpg,Potato,Healthy,Potato Healthy,Central Region,Vegetative,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0064,dataset\images\potato_healthy_04.jpg,Potato,Healthy,Potato Healthy,East District,Vegetative,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0065,dataset\images\potato_healthy_05.jpg,Potato,Healthy,Potato Healthy,West Valley,Vegetative,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0066,dataset\images\potato_healthy_06.jpg,Potato,Healthy,Potato Healthy,North Zone,Vegetative,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0067,dataset\images\potato_healthy_07.jpg,Potato,Healthy,Potato Healthy,South Zone,Vegetative,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0068,dataset\images\potato_healthy_08.jpg,Potato,Healthy,Potato Healthy,Central Region,Vegetative,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0069,dataset\images\potato_healthy_09.jpg,Potato,Healthy,Potato Healthy,East District,Vegetative,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0070,dataset\images\potato_healthy_10.jpg,Potato,Healthy,Potato Healthy,West Valley,Vegetative,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0071,dataset\images\potato_healthy_11.jpg,Potato,Healthy,Potato Healthy,North Zone,Vegetative,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0072,dataset\images\potato_healthy_12.jpg,Potato,Healthy,Potato Healthy,South Zone,Vegetative,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0073,dataset\images\potato_healthy_13.jpg,Potato,Healthy,Potato Healthy,Central Region,Vegetative,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0074,dataset\images\potato_healthy_14.jpg,Potato,Healthy,Potato Healthy,East District,Vegetative,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0075,dataset\images\potato_healthy_15.jpg,Potato,Healthy,Potato Healthy,West Valley,Vegetative,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0076,dataset\images\potato_healthy_16.jpg,Potato,Healthy,Potato Healthy,North Zone,Vegetative,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0077,dataset\images\potato_healthy_17.jpg,Potato,Healthy,Potato Healthy,South Zone,Vegetative,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0078,dataset\images\potato_healthy_18.jpg,Potato,Healthy,Potato Healthy,Central Region,Vegetative,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0079,dataset\images\potato_healthy_19.jpg,Potato,Healthy,Potato Healthy,East District,Vegetative,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0080,dataset\images\potato_healthy_20.jpg,Potato,Healthy,Potato Healthy,West Valley,Vegetative,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0081,dataset\images\potato_late_blight_01.jpg,Potato,Late Blight,Potato Late Blight,North Zone,Flowering,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0082,dataset\images\potato_late_blight_02.jpg,Potato,Late Blight,Potato Late Blight,South Zone,Flowering,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0083,dataset\images\potato_late_blight_03.jpg,Potato,Late Blight,Potato Late Blight,Central Region,Flowering,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0084,dataset\images\potato_late_blight_04.jpg,Potato,Late Blight,Potato Late Blight,East District,Flowering,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0085,dataset\images\potato_late_blight_05.jpg,Potato,Late Blight,Potato Late Blight,West Valley,Flowering,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0086,dataset\images\potato_late_blight_06.jpg,Potato,Late Blight,Potato Late Blight,North Zone,Flowering,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0087,dataset\images\potato_late_blight_07.jpg,Potato,Late Blight,Potato Late Blight,South Zone,Flowering,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0088,dataset\images\potato_late_blight_08.jpg,Potato,Late Blight,Potato Late Blight,Central Region,Flowering,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0089,dataset\images\potato_late_blight_09.jpg,Potato,Late Blight,Potato Late Blight,East District,Flowering,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0090,dataset\images\potato_late_blight_10.jpg,Potato,Late Blight,Potato Late Blight,West Valley,Flowering,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0091,dataset\images\potato_late_blight_11.jpg,Potato,Late Blight,Potato Late Blight,North Zone,Flowering,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0092,dataset\images\potato_late_blight_12.jpg,Potato,Late Blight,Potato Late Blight,South Zone,Flowering,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0093,dataset\images\potato_late_blight_13.jpg,Potato,Late Blight,Potato Late Blight,Central Region,Flowering,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0094,dataset\images\potato_late_blight_14.jpg,Potato,Late Blight,Potato Late Blight,East District,Flowering,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0095,dataset\images\potato_late_blight_15.jpg,Potato,Late Blight,Potato Late Blight,West Valley,Flowering,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0096,dataset\images\potato_late_blight_16.jpg,Potato,Late Blight,Potato Late Blight,North Zone,Flowering,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0097,dataset\images\potato_late_blight_17.jpg,Potato,Late Blight,Potato Late Blight,South Zone,Flowering,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0098,dataset\images\potato_late_blight_18.jpg,Potato,Late Blight,Potato Late Blight,Central Region,Flowering,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0099,dataset\images\potato_late_blight_19.jpg,Potato,Late Blight,Potato Late Blight,East District,Flowering,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0100,dataset\images\potato_late_blight_20.jpg,Potato,Late Blight,Potato Late Blight,West Valley,Flowering,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0101,dataset\images\chili_healthy_01.jpg,Chili,Healthy,Chili Healthy,North Zone,Flowering,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0102,dataset\images\chili_healthy_02.jpg,Chili,Healthy,Chili Healthy,South Zone,Flowering,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0103,dataset\images\chili_healthy_03.jpg,Chili,Healthy,Chili Healthy,Central Region,Flowering,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0104,dataset\images\chili_healthy_04.jpg,Chili,Healthy,Chili Healthy,East District,Flowering,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0105,dataset\images\chili_healthy_05.jpg,Chili,Healthy,Chili Healthy,West Valley,Flowering,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0106,dataset\images\chili_healthy_06.jpg,Chili,Healthy,Chili Healthy,North Zone,Flowering,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0107,dataset\images\chili_healthy_07.jpg,Chili,Healthy,Chili Healthy,South Zone,Flowering,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0108,dataset\images\chili_healthy_08.jpg,Chili,Healthy,Chili Healthy,Central Region,Flowering,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0109,dataset\images\chili_healthy_09.jpg,Chili,Healthy,Chili Healthy,East District,Flowering,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0110,dataset\images\chili_healthy_10.jpg,Chili,Healthy,Chili Healthy,West Valley,Flowering,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0111,dataset\images\chili_healthy_11.jpg,Chili,Healthy,Chili Healthy,North Zone,Flowering,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0112,dataset\images\chili_healthy_12.jpg,Chili,Healthy,Chili Healthy,South Zone,Flowering,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0113,dataset\images\chili_healthy_13.jpg,Chili,Healthy,Chili Healthy,Central Region,Flowering,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0114,dataset\images\chili_healthy_14.jpg,Chili,Healthy,Chili Healthy,East District,Flowering,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0115,dataset\images\chili_healthy_15.jpg,Chili,Healthy,Chili Healthy,West Valley,Flowering,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0116,dataset\images\chili_healthy_16.jpg,Chili,Healthy,Chili Healthy,North Zone,Flowering,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0117,dataset\images\chili_healthy_17.jpg,Chili,Healthy,Chili Healthy,South Zone,Flowering,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0118,dataset\images\chili_healthy_18.jpg,Chili,Healthy,Chili Healthy,Central Region,Flowering,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0119,dataset\images\chili_healthy_19.jpg,Chili,Healthy,Chili Healthy,East District,Flowering,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0120,dataset\images\chili_healthy_20.jpg,Chili,Healthy,Chili Healthy,West Valley,Flowering,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0121,dataset\images\chili_leaf_curl_01.jpg,Chili,Leaf Curl,Chili Leaf Curl,North Zone,Fruiting,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0122,dataset\images\chili_leaf_curl_02.jpg,Chili,Leaf Curl,Chili Leaf Curl,South Zone,Fruiting,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0123,dataset\images\chili_leaf_curl_03.jpg,Chili,Leaf Curl,Chili Leaf Curl,Central Region,Fruiting,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0124,dataset\images\chili_leaf_curl_04.jpg,Chili,Leaf Curl,Chili Leaf Curl,East District,Fruiting,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0125,dataset\images\chili_leaf_curl_05.jpg,Chili,Leaf Curl,Chili Leaf Curl,West Valley,Fruiting,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0126,dataset\images\chili_leaf_curl_06.jpg,Chili,Leaf Curl,Chili Leaf Curl,North Zone,Fruiting,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0127,dataset\images\chili_leaf_curl_07.jpg,Chili,Leaf Curl,Chili Leaf Curl,South Zone,Fruiting,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0128,dataset\images\chili_leaf_curl_08.jpg,Chili,Leaf Curl,Chili Leaf Curl,Central Region,Fruiting,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0129,dataset\images\chili_leaf_curl_09.jpg,Chili,Leaf Curl,Chili Leaf Curl,East District,Fruiting,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0130,dataset\images\chili_leaf_curl_10.jpg,Chili,Leaf Curl,Chili Leaf Curl,West Valley,Fruiting,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0131,dataset\images\chili_leaf_curl_11.jpg,Chili,Leaf Curl,Chili Leaf Curl,North Zone,Fruiting,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0132,dataset\images\chili_leaf_curl_12.jpg,Chili,Leaf Curl,Chili Leaf Curl,South Zone,Fruiting,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0133,dataset\images\chili_leaf_curl_13.jpg,Chili,Leaf Curl,Chili Leaf Curl,Central Region,Fruiting,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0134,dataset\images\chili_leaf_curl_14.jpg,Chili,Leaf Curl,Chili Leaf Curl,East District,Fruiting,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0135,dataset\images\chili_leaf_curl_15.jpg,Chili,Leaf Curl,Chili Leaf Curl,West Valley,Fruiting,project_created,verified,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0136,dataset\images\chili_leaf_curl_16.jpg,Chili,Leaf Curl,Chili Leaf Curl,North Zone,Fruiting,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0137,dataset\images\chili_leaf_curl_17.jpg,Chili,Leaf Curl,Chili Leaf Curl,South Zone,Fruiting,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0138,dataset\images\chili_leaf_curl_18.jpg,Chili,Leaf Curl,Chili Leaf Curl,Central Region,Fruiting,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0139,dataset\images\chili_leaf_curl_19.jpg,Chili,Leaf Curl,Chili Leaf Curl,East District,Fruiting,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
-IMG_0140,dataset\images\chili_leaf_curl_20.jpg,Chili,Leaf Curl,Chili Leaf Curl,West Valley,Fruiting,project_created,pending,Project-created synthetic/demo dataset for Review 1 MVP evaluation
+IMG_0001,dataset\images\tomato_healthy_01.jpg,Tomato,Healthy,Tomato Healthy,North Zone,Seedling,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0002,dataset\images\tomato_healthy_02.jpg,Tomato,Healthy,Tomato Healthy,South Zone,Seedling,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0003,dataset\images\tomato_healthy_03.jpg,Tomato,Healthy,Tomato Healthy,Central Region,Seedling,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0004,dataset\images\tomato_healthy_04.jpg,Tomato,Healthy,Tomato Healthy,East District,Seedling,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0005,dataset\images\tomato_healthy_05.jpg,Tomato,Healthy,Tomato Healthy,West Valley,Seedling,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0006,dataset\images\tomato_healthy_06.jpg,Tomato,Healthy,Tomato Healthy,North Zone,Seedling,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0007,dataset\images\tomato_healthy_07.jpg,Tomato,Healthy,Tomato Healthy,South Zone,Seedling,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0008,dataset\images\tomato_healthy_08.jpg,Tomato,Healthy,Tomato Healthy,Central Region,Seedling,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0009,dataset\images\tomato_healthy_09.jpg,Tomato,Healthy,Tomato Healthy,East District,Seedling,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0010,dataset\images\tomato_healthy_10.jpg,Tomato,Healthy,Tomato Healthy,West Valley,Seedling,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0011,dataset\images\tomato_healthy_11.jpg,Tomato,Healthy,Tomato Healthy,North Zone,Seedling,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0012,dataset\images\tomato_healthy_12.jpg,Tomato,Healthy,Tomato Healthy,South Zone,Seedling,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0013,dataset\images\tomato_healthy_13.jpg,Tomato,Healthy,Tomato Healthy,Central Region,Seedling,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0014,dataset\images\tomato_healthy_14.jpg,Tomato,Healthy,Tomato Healthy,East District,Seedling,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0015,dataset\images\tomato_healthy_15.jpg,Tomato,Healthy,Tomato Healthy,West Valley,Seedling,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0016,dataset\images\tomato_healthy_16.jpg,Tomato,Healthy,Tomato Healthy,North Zone,Seedling,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0017,dataset\images\tomato_healthy_17.jpg,Tomato,Healthy,Tomato Healthy,South Zone,Seedling,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0018,dataset\images\tomato_healthy_18.jpg,Tomato,Healthy,Tomato Healthy,Central Region,Seedling,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0019,dataset\images\tomato_healthy_19.jpg,Tomato,Healthy,Tomato Healthy,East District,Seedling,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0020,dataset\images\tomato_healthy_20.jpg,Tomato,Healthy,Tomato Healthy,West Valley,Seedling,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0021,dataset\images\tomato_leaf_spot_01.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,North Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0022,dataset\images\tomato_leaf_spot_02.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,South Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0023,dataset\images\tomato_leaf_spot_03.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,Central Region,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0024,dataset\images\tomato_leaf_spot_04.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,East District,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0025,dataset\images\tomato_leaf_spot_05.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,West Valley,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0026,dataset\images\tomato_leaf_spot_06.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,North Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0027,dataset\images\tomato_leaf_spot_07.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,South Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0028,dataset\images\tomato_leaf_spot_08.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,Central Region,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0029,dataset\images\tomato_leaf_spot_09.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,East District,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0030,dataset\images\tomato_leaf_spot_10.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,West Valley,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0031,dataset\images\tomato_leaf_spot_11.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,North Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0032,dataset\images\tomato_leaf_spot_12.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,South Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0033,dataset\images\tomato_leaf_spot_13.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,Central Region,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0034,dataset\images\tomato_leaf_spot_14.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,East District,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0035,dataset\images\tomato_leaf_spot_15.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,West Valley,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0036,dataset\images\tomato_leaf_spot_16.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,North Zone,Vegetative,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0037,dataset\images\tomato_leaf_spot_17.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,South Zone,Vegetative,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0038,dataset\images\tomato_leaf_spot_18.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,Central Region,Vegetative,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0039,dataset\images\tomato_leaf_spot_19.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,East District,Vegetative,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0040,dataset\images\tomato_leaf_spot_20.jpg,Tomato,Leaf Spot,Tomato Leaf Spot,West Valley,Vegetative,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0041,dataset\images\tomato_early_blight_01.jpg,Tomato,Early Blight,Tomato Early Blight,North Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0042,dataset\images\tomato_early_blight_02.jpg,Tomato,Early Blight,Tomato Early Blight,South Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0043,dataset\images\tomato_early_blight_03.jpg,Tomato,Early Blight,Tomato Early Blight,Central Region,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0044,dataset\images\tomato_early_blight_04.jpg,Tomato,Early Blight,Tomato Early Blight,East District,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0045,dataset\images\tomato_early_blight_05.jpg,Tomato,Early Blight,Tomato Early Blight,West Valley,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0046,dataset\images\tomato_early_blight_06.jpg,Tomato,Early Blight,Tomato Early Blight,North Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0047,dataset\images\tomato_early_blight_07.jpg,Tomato,Early Blight,Tomato Early Blight,South Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0048,dataset\images\tomato_early_blight_08.jpg,Tomato,Early Blight,Tomato Early Blight,Central Region,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0049,dataset\images\tomato_early_blight_09.jpg,Tomato,Early Blight,Tomato Early Blight,East District,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0050,dataset\images\tomato_early_blight_10.jpg,Tomato,Early Blight,Tomato Early Blight,West Valley,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0051,dataset\images\tomato_early_blight_11.jpg,Tomato,Early Blight,Tomato Early Blight,North Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0052,dataset\images\tomato_early_blight_12.jpg,Tomato,Early Blight,Tomato Early Blight,South Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0053,dataset\images\tomato_early_blight_13.jpg,Tomato,Early Blight,Tomato Early Blight,Central Region,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0054,dataset\images\tomato_early_blight_14.jpg,Tomato,Early Blight,Tomato Early Blight,East District,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0055,dataset\images\tomato_early_blight_15.jpg,Tomato,Early Blight,Tomato Early Blight,West Valley,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0056,dataset\images\tomato_early_blight_16.jpg,Tomato,Early Blight,Tomato Early Blight,North Zone,Fruiting,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0057,dataset\images\tomato_early_blight_17.jpg,Tomato,Early Blight,Tomato Early Blight,South Zone,Fruiting,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0058,dataset\images\tomato_early_blight_18.jpg,Tomato,Early Blight,Tomato Early Blight,Central Region,Fruiting,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0059,dataset\images\tomato_early_blight_19.jpg,Tomato,Early Blight,Tomato Early Blight,East District,Fruiting,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0060,dataset\images\tomato_early_blight_20.jpg,Tomato,Early Blight,Tomato Early Blight,West Valley,Fruiting,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0061,dataset\images\tomato_late_blight_01.jpg,Tomato,Late Blight,Tomato Late Blight,North Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0062,dataset\images\tomato_late_blight_02.jpg,Tomato,Late Blight,Tomato Late Blight,South Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0063,dataset\images\tomato_late_blight_03.jpg,Tomato,Late Blight,Tomato Late Blight,Central Region,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0064,dataset\images\tomato_late_blight_04.jpg,Tomato,Late Blight,Tomato Late Blight,East District,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0065,dataset\images\tomato_late_blight_05.jpg,Tomato,Late Blight,Tomato Late Blight,West Valley,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0066,dataset\images\tomato_late_blight_06.jpg,Tomato,Late Blight,Tomato Late Blight,North Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0067,dataset\images\tomato_late_blight_07.jpg,Tomato,Late Blight,Tomato Late Blight,South Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0068,dataset\images\tomato_late_blight_08.jpg,Tomato,Late Blight,Tomato Late Blight,Central Region,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0069,dataset\images\tomato_late_blight_09.jpg,Tomato,Late Blight,Tomato Late Blight,East District,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0070,dataset\images\tomato_late_blight_10.jpg,Tomato,Late Blight,Tomato Late Blight,West Valley,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0071,dataset\images\tomato_late_blight_11.jpg,Tomato,Late Blight,Tomato Late Blight,North Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0072,dataset\images\tomato_late_blight_12.jpg,Tomato,Late Blight,Tomato Late Blight,South Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0073,dataset\images\tomato_late_blight_13.jpg,Tomato,Late Blight,Tomato Late Blight,Central Region,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0074,dataset\images\tomato_late_blight_14.jpg,Tomato,Late Blight,Tomato Late Blight,East District,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0075,dataset\images\tomato_late_blight_15.jpg,Tomato,Late Blight,Tomato Late Blight,West Valley,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0076,dataset\images\tomato_late_blight_16.jpg,Tomato,Late Blight,Tomato Late Blight,North Zone,Fruiting,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0077,dataset\images\tomato_late_blight_17.jpg,Tomato,Late Blight,Tomato Late Blight,South Zone,Fruiting,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0078,dataset\images\tomato_late_blight_18.jpg,Tomato,Late Blight,Tomato Late Blight,Central Region,Fruiting,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0079,dataset\images\tomato_late_blight_19.jpg,Tomato,Late Blight,Tomato Late Blight,East District,Fruiting,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0080,dataset\images\tomato_late_blight_20.jpg,Tomato,Late Blight,Tomato Late Blight,West Valley,Fruiting,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0081,dataset\images\potato_healthy_01.jpg,Potato,Healthy,Potato Healthy,North Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0082,dataset\images\potato_healthy_02.jpg,Potato,Healthy,Potato Healthy,South Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0083,dataset\images\potato_healthy_03.jpg,Potato,Healthy,Potato Healthy,Central Region,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0084,dataset\images\potato_healthy_04.jpg,Potato,Healthy,Potato Healthy,East District,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0085,dataset\images\potato_healthy_05.jpg,Potato,Healthy,Potato Healthy,West Valley,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0086,dataset\images\potato_healthy_06.jpg,Potato,Healthy,Potato Healthy,North Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0087,dataset\images\potato_healthy_07.jpg,Potato,Healthy,Potato Healthy,South Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0088,dataset\images\potato_healthy_08.jpg,Potato,Healthy,Potato Healthy,Central Region,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0089,dataset\images\potato_healthy_09.jpg,Potato,Healthy,Potato Healthy,East District,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0090,dataset\images\potato_healthy_10.jpg,Potato,Healthy,Potato Healthy,West Valley,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0091,dataset\images\potato_healthy_11.jpg,Potato,Healthy,Potato Healthy,North Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0092,dataset\images\potato_healthy_12.jpg,Potato,Healthy,Potato Healthy,South Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0093,dataset\images\potato_healthy_13.jpg,Potato,Healthy,Potato Healthy,Central Region,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0094,dataset\images\potato_healthy_14.jpg,Potato,Healthy,Potato Healthy,East District,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0095,dataset\images\potato_healthy_15.jpg,Potato,Healthy,Potato Healthy,West Valley,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0096,dataset\images\potato_healthy_16.jpg,Potato,Healthy,Potato Healthy,North Zone,Vegetative,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0097,dataset\images\potato_healthy_17.jpg,Potato,Healthy,Potato Healthy,South Zone,Vegetative,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0098,dataset\images\potato_healthy_18.jpg,Potato,Healthy,Potato Healthy,Central Region,Vegetative,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0099,dataset\images\potato_healthy_19.jpg,Potato,Healthy,Potato Healthy,East District,Vegetative,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0100,dataset\images\potato_healthy_20.jpg,Potato,Healthy,Potato Healthy,West Valley,Vegetative,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0101,dataset\images\potato_early_blight_01.jpg,Potato,Early Blight,Potato Early Blight,North Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0102,dataset\images\potato_early_blight_02.jpg,Potato,Early Blight,Potato Early Blight,South Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0103,dataset\images\potato_early_blight_03.jpg,Potato,Early Blight,Potato Early Blight,Central Region,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0104,dataset\images\potato_early_blight_04.jpg,Potato,Early Blight,Potato Early Blight,East District,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0105,dataset\images\potato_early_blight_05.jpg,Potato,Early Blight,Potato Early Blight,West Valley,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0106,dataset\images\potato_early_blight_06.jpg,Potato,Early Blight,Potato Early Blight,North Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0107,dataset\images\potato_early_blight_07.jpg,Potato,Early Blight,Potato Early Blight,South Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0108,dataset\images\potato_early_blight_08.jpg,Potato,Early Blight,Potato Early Blight,Central Region,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0109,dataset\images\potato_early_blight_09.jpg,Potato,Early Blight,Potato Early Blight,East District,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0110,dataset\images\potato_early_blight_10.jpg,Potato,Early Blight,Potato Early Blight,West Valley,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0111,dataset\images\potato_early_blight_11.jpg,Potato,Early Blight,Potato Early Blight,North Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0112,dataset\images\potato_early_blight_12.jpg,Potato,Early Blight,Potato Early Blight,South Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0113,dataset\images\potato_early_blight_13.jpg,Potato,Early Blight,Potato Early Blight,Central Region,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0114,dataset\images\potato_early_blight_14.jpg,Potato,Early Blight,Potato Early Blight,East District,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0115,dataset\images\potato_early_blight_15.jpg,Potato,Early Blight,Potato Early Blight,West Valley,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0116,dataset\images\potato_early_blight_16.jpg,Potato,Early Blight,Potato Early Blight,North Zone,Vegetative,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0117,dataset\images\potato_early_blight_17.jpg,Potato,Early Blight,Potato Early Blight,South Zone,Vegetative,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0118,dataset\images\potato_early_blight_18.jpg,Potato,Early Blight,Potato Early Blight,Central Region,Vegetative,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0119,dataset\images\potato_early_blight_19.jpg,Potato,Early Blight,Potato Early Blight,East District,Vegetative,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0120,dataset\images\potato_early_blight_20.jpg,Potato,Early Blight,Potato Early Blight,West Valley,Vegetative,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0121,dataset\images\potato_late_blight_01.jpg,Potato,Late Blight,Potato Late Blight,North Zone,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0122,dataset\images\potato_late_blight_02.jpg,Potato,Late Blight,Potato Late Blight,South Zone,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0123,dataset\images\potato_late_blight_03.jpg,Potato,Late Blight,Potato Late Blight,Central Region,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0124,dataset\images\potato_late_blight_04.jpg,Potato,Late Blight,Potato Late Blight,East District,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0125,dataset\images\potato_late_blight_05.jpg,Potato,Late Blight,Potato Late Blight,West Valley,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0126,dataset\images\potato_late_blight_06.jpg,Potato,Late Blight,Potato Late Blight,North Zone,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0127,dataset\images\potato_late_blight_07.jpg,Potato,Late Blight,Potato Late Blight,South Zone,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0128,dataset\images\potato_late_blight_08.jpg,Potato,Late Blight,Potato Late Blight,Central Region,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0129,dataset\images\potato_late_blight_09.jpg,Potato,Late Blight,Potato Late Blight,East District,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0130,dataset\images\potato_late_blight_10.jpg,Potato,Late Blight,Potato Late Blight,West Valley,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0131,dataset\images\potato_late_blight_11.jpg,Potato,Late Blight,Potato Late Blight,North Zone,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0132,dataset\images\potato_late_blight_12.jpg,Potato,Late Blight,Potato Late Blight,South Zone,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0133,dataset\images\potato_late_blight_13.jpg,Potato,Late Blight,Potato Late Blight,Central Region,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0134,dataset\images\potato_late_blight_14.jpg,Potato,Late Blight,Potato Late Blight,East District,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0135,dataset\images\potato_late_blight_15.jpg,Potato,Late Blight,Potato Late Blight,West Valley,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0136,dataset\images\potato_late_blight_16.jpg,Potato,Late Blight,Potato Late Blight,North Zone,Flowering,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0137,dataset\images\potato_late_blight_17.jpg,Potato,Late Blight,Potato Late Blight,South Zone,Flowering,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0138,dataset\images\potato_late_blight_18.jpg,Potato,Late Blight,Potato Late Blight,Central Region,Flowering,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0139,dataset\images\potato_late_blight_19.jpg,Potato,Late Blight,Potato Late Blight,East District,Flowering,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0140,dataset\images\potato_late_blight_20.jpg,Potato,Late Blight,Potato Late Blight,West Valley,Flowering,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0141,dataset\images\chili_healthy_01.jpg,Chili,Healthy,Chili Healthy,North Zone,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0142,dataset\images\chili_healthy_02.jpg,Chili,Healthy,Chili Healthy,South Zone,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0143,dataset\images\chili_healthy_03.jpg,Chili,Healthy,Chili Healthy,Central Region,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0144,dataset\images\chili_healthy_04.jpg,Chili,Healthy,Chili Healthy,East District,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0145,dataset\images\chili_healthy_05.jpg,Chili,Healthy,Chili Healthy,West Valley,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0146,dataset\images\chili_healthy_06.jpg,Chili,Healthy,Chili Healthy,North Zone,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0147,dataset\images\chili_healthy_07.jpg,Chili,Healthy,Chili Healthy,South Zone,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0148,dataset\images\chili_healthy_08.jpg,Chili,Healthy,Chili Healthy,Central Region,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0149,dataset\images\chili_healthy_09.jpg,Chili,Healthy,Chili Healthy,East District,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0150,dataset\images\chili_healthy_10.jpg,Chili,Healthy,Chili Healthy,West Valley,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0151,dataset\images\chili_healthy_11.jpg,Chili,Healthy,Chili Healthy,North Zone,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0152,dataset\images\chili_healthy_12.jpg,Chili,Healthy,Chili Healthy,South Zone,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0153,dataset\images\chili_healthy_13.jpg,Chili,Healthy,Chili Healthy,Central Region,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0154,dataset\images\chili_healthy_14.jpg,Chili,Healthy,Chili Healthy,East District,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0155,dataset\images\chili_healthy_15.jpg,Chili,Healthy,Chili Healthy,West Valley,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0156,dataset\images\chili_healthy_16.jpg,Chili,Healthy,Chili Healthy,North Zone,Flowering,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0157,dataset\images\chili_healthy_17.jpg,Chili,Healthy,Chili Healthy,South Zone,Flowering,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0158,dataset\images\chili_healthy_18.jpg,Chili,Healthy,Chili Healthy,Central Region,Flowering,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0159,dataset\images\chili_healthy_19.jpg,Chili,Healthy,Chili Healthy,East District,Flowering,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0160,dataset\images\chili_healthy_20.jpg,Chili,Healthy,Chili Healthy,West Valley,Flowering,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0161,dataset\images\chili_leaf_curl_01.jpg,Chili,Leaf Curl,Chili Leaf Curl,North Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0162,dataset\images\chili_leaf_curl_02.jpg,Chili,Leaf Curl,Chili Leaf Curl,South Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0163,dataset\images\chili_leaf_curl_03.jpg,Chili,Leaf Curl,Chili Leaf Curl,Central Region,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0164,dataset\images\chili_leaf_curl_04.jpg,Chili,Leaf Curl,Chili Leaf Curl,East District,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0165,dataset\images\chili_leaf_curl_05.jpg,Chili,Leaf Curl,Chili Leaf Curl,West Valley,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0166,dataset\images\chili_leaf_curl_06.jpg,Chili,Leaf Curl,Chili Leaf Curl,North Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0167,dataset\images\chili_leaf_curl_07.jpg,Chili,Leaf Curl,Chili Leaf Curl,South Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0168,dataset\images\chili_leaf_curl_08.jpg,Chili,Leaf Curl,Chili Leaf Curl,Central Region,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0169,dataset\images\chili_leaf_curl_09.jpg,Chili,Leaf Curl,Chili Leaf Curl,East District,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0170,dataset\images\chili_leaf_curl_10.jpg,Chili,Leaf Curl,Chili Leaf Curl,West Valley,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0171,dataset\images\chili_leaf_curl_11.jpg,Chili,Leaf Curl,Chili Leaf Curl,North Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0172,dataset\images\chili_leaf_curl_12.jpg,Chili,Leaf Curl,Chili Leaf Curl,South Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0173,dataset\images\chili_leaf_curl_13.jpg,Chili,Leaf Curl,Chili Leaf Curl,Central Region,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0174,dataset\images\chili_leaf_curl_14.jpg,Chili,Leaf Curl,Chili Leaf Curl,East District,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0175,dataset\images\chili_leaf_curl_15.jpg,Chili,Leaf Curl,Chili Leaf Curl,West Valley,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0176,dataset\images\chili_leaf_curl_16.jpg,Chili,Leaf Curl,Chili Leaf Curl,North Zone,Fruiting,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0177,dataset\images\chili_leaf_curl_17.jpg,Chili,Leaf Curl,Chili Leaf Curl,South Zone,Fruiting,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0178,dataset\images\chili_leaf_curl_18.jpg,Chili,Leaf Curl,Chili Leaf Curl,Central Region,Fruiting,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0179,dataset\images\chili_leaf_curl_19.jpg,Chili,Leaf Curl,Chili Leaf Curl,East District,Fruiting,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0180,dataset\images\chili_leaf_curl_20.jpg,Chili,Leaf Curl,Chili Leaf Curl,West Valley,Fruiting,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0181,dataset\images\chili_anthracnose_01.jpg,Chili,Anthracnose,Chili Anthracnose,North Zone,Harvest,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0182,dataset\images\chili_anthracnose_02.jpg,Chili,Anthracnose,Chili Anthracnose,South Zone,Harvest,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0183,dataset\images\chili_anthracnose_03.jpg,Chili,Anthracnose,Chili Anthracnose,Central Region,Harvest,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0184,dataset\images\chili_anthracnose_04.jpg,Chili,Anthracnose,Chili Anthracnose,East District,Harvest,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0185,dataset\images\chili_anthracnose_05.jpg,Chili,Anthracnose,Chili Anthracnose,West Valley,Harvest,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0186,dataset\images\chili_anthracnose_06.jpg,Chili,Anthracnose,Chili Anthracnose,North Zone,Harvest,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0187,dataset\images\chili_anthracnose_07.jpg,Chili,Anthracnose,Chili Anthracnose,South Zone,Harvest,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0188,dataset\images\chili_anthracnose_08.jpg,Chili,Anthracnose,Chili Anthracnose,Central Region,Harvest,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0189,dataset\images\chili_anthracnose_09.jpg,Chili,Anthracnose,Chili Anthracnose,East District,Harvest,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0190,dataset\images\chili_anthracnose_10.jpg,Chili,Anthracnose,Chili Anthracnose,West Valley,Harvest,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0191,dataset\images\chili_anthracnose_11.jpg,Chili,Anthracnose,Chili Anthracnose,North Zone,Harvest,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0192,dataset\images\chili_anthracnose_12.jpg,Chili,Anthracnose,Chili Anthracnose,South Zone,Harvest,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0193,dataset\images\chili_anthracnose_13.jpg,Chili,Anthracnose,Chili Anthracnose,Central Region,Harvest,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0194,dataset\images\chili_anthracnose_14.jpg,Chili,Anthracnose,Chili Anthracnose,East District,Harvest,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0195,dataset\images\chili_anthracnose_15.jpg,Chili,Anthracnose,Chili Anthracnose,West Valley,Harvest,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0196,dataset\images\chili_anthracnose_16.jpg,Chili,Anthracnose,Chili Anthracnose,North Zone,Harvest,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0197,dataset\images\chili_anthracnose_17.jpg,Chili,Anthracnose,Chili Anthracnose,South Zone,Harvest,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0198,dataset\images\chili_anthracnose_18.jpg,Chili,Anthracnose,Chili Anthracnose,Central Region,Harvest,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0199,dataset\images\chili_anthracnose_19.jpg,Chili,Anthracnose,Chili Anthracnose,East District,Harvest,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0200,dataset\images\chili_anthracnose_20.jpg,Chili,Anthracnose,Chili Anthracnose,West Valley,Harvest,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0201,dataset\images\corn_healthy_01.jpg,Corn,Healthy,Corn Healthy,North Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0202,dataset\images\corn_healthy_02.jpg,Corn,Healthy,Corn Healthy,South Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0203,dataset\images\corn_healthy_03.jpg,Corn,Healthy,Corn Healthy,Central Region,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0204,dataset\images\corn_healthy_04.jpg,Corn,Healthy,Corn Healthy,East District,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0205,dataset\images\corn_healthy_05.jpg,Corn,Healthy,Corn Healthy,West Valley,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0206,dataset\images\corn_healthy_06.jpg,Corn,Healthy,Corn Healthy,North Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0207,dataset\images\corn_healthy_07.jpg,Corn,Healthy,Corn Healthy,South Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0208,dataset\images\corn_healthy_08.jpg,Corn,Healthy,Corn Healthy,Central Region,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0209,dataset\images\corn_healthy_09.jpg,Corn,Healthy,Corn Healthy,East District,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0210,dataset\images\corn_healthy_10.jpg,Corn,Healthy,Corn Healthy,West Valley,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0211,dataset\images\corn_healthy_11.jpg,Corn,Healthy,Corn Healthy,North Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0212,dataset\images\corn_healthy_12.jpg,Corn,Healthy,Corn Healthy,South Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0213,dataset\images\corn_healthy_13.jpg,Corn,Healthy,Corn Healthy,Central Region,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0214,dataset\images\corn_healthy_14.jpg,Corn,Healthy,Corn Healthy,East District,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0215,dataset\images\corn_healthy_15.jpg,Corn,Healthy,Corn Healthy,West Valley,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0216,dataset\images\corn_healthy_16.jpg,Corn,Healthy,Corn Healthy,North Zone,Vegetative,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0217,dataset\images\corn_healthy_17.jpg,Corn,Healthy,Corn Healthy,South Zone,Vegetative,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0218,dataset\images\corn_healthy_18.jpg,Corn,Healthy,Corn Healthy,Central Region,Vegetative,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0219,dataset\images\corn_healthy_19.jpg,Corn,Healthy,Corn Healthy,East District,Vegetative,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0220,dataset\images\corn_healthy_20.jpg,Corn,Healthy,Corn Healthy,West Valley,Vegetative,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0221,dataset\images\corn_common_rust_01.jpg,Corn,Common Rust,Corn Common Rust,North Zone,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0222,dataset\images\corn_common_rust_02.jpg,Corn,Common Rust,Corn Common Rust,South Zone,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0223,dataset\images\corn_common_rust_03.jpg,Corn,Common Rust,Corn Common Rust,Central Region,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0224,dataset\images\corn_common_rust_04.jpg,Corn,Common Rust,Corn Common Rust,East District,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0225,dataset\images\corn_common_rust_05.jpg,Corn,Common Rust,Corn Common Rust,West Valley,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0226,dataset\images\corn_common_rust_06.jpg,Corn,Common Rust,Corn Common Rust,North Zone,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0227,dataset\images\corn_common_rust_07.jpg,Corn,Common Rust,Corn Common Rust,South Zone,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0228,dataset\images\corn_common_rust_08.jpg,Corn,Common Rust,Corn Common Rust,Central Region,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0229,dataset\images\corn_common_rust_09.jpg,Corn,Common Rust,Corn Common Rust,East District,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0230,dataset\images\corn_common_rust_10.jpg,Corn,Common Rust,Corn Common Rust,West Valley,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0231,dataset\images\corn_common_rust_11.jpg,Corn,Common Rust,Corn Common Rust,North Zone,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0232,dataset\images\corn_common_rust_12.jpg,Corn,Common Rust,Corn Common Rust,South Zone,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0233,dataset\images\corn_common_rust_13.jpg,Corn,Common Rust,Corn Common Rust,Central Region,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0234,dataset\images\corn_common_rust_14.jpg,Corn,Common Rust,Corn Common Rust,East District,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0235,dataset\images\corn_common_rust_15.jpg,Corn,Common Rust,Corn Common Rust,West Valley,Flowering,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0236,dataset\images\corn_common_rust_16.jpg,Corn,Common Rust,Corn Common Rust,North Zone,Flowering,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0237,dataset\images\corn_common_rust_17.jpg,Corn,Common Rust,Corn Common Rust,South Zone,Flowering,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0238,dataset\images\corn_common_rust_18.jpg,Corn,Common Rust,Corn Common Rust,Central Region,Flowering,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0239,dataset\images\corn_common_rust_19.jpg,Corn,Common Rust,Corn Common Rust,East District,Flowering,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0240,dataset\images\corn_common_rust_20.jpg,Corn,Common Rust,Corn Common Rust,West Valley,Flowering,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0241,dataset\images\corn_northern_leaf_blight_01.jpg,Corn,Northern Leaf Blight,Corn Northern Leaf Blight,North Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0242,dataset\images\corn_northern_leaf_blight_02.jpg,Corn,Northern Leaf Blight,Corn Northern Leaf Blight,South Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0243,dataset\images\corn_northern_leaf_blight_03.jpg,Corn,Northern Leaf Blight,Corn Northern Leaf Blight,Central Region,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0244,dataset\images\corn_northern_leaf_blight_04.jpg,Corn,Northern Leaf Blight,Corn Northern Leaf Blight,East District,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0245,dataset\images\corn_northern_leaf_blight_05.jpg,Corn,Northern Leaf Blight,Corn Northern Leaf Blight,West Valley,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0246,dataset\images\corn_northern_leaf_blight_06.jpg,Corn,Northern Leaf Blight,Corn Northern Leaf Blight,North Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0247,dataset\images\corn_northern_leaf_blight_07.jpg,Corn,Northern Leaf Blight,Corn Northern Leaf Blight,South Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0248,dataset\images\corn_northern_leaf_blight_08.jpg,Corn,Northern Leaf Blight,Corn Northern Leaf Blight,Central Region,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0249,dataset\images\corn_northern_leaf_blight_09.jpg,Corn,Northern Leaf Blight,Corn Northern Leaf Blight,East District,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0250,dataset\images\corn_northern_leaf_blight_10.jpg,Corn,Northern Leaf Blight,Corn Northern Leaf Blight,West Valley,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0251,dataset\images\corn_northern_leaf_blight_11.jpg,Corn,Northern Leaf Blight,Corn Northern Leaf Blight,North Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0252,dataset\images\corn_northern_leaf_blight_12.jpg,Corn,Northern Leaf Blight,Corn Northern Leaf Blight,South Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0253,dataset\images\corn_northern_leaf_blight_13.jpg,Corn,Northern Leaf Blight,Corn Northern Leaf Blight,Central Region,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0254,dataset\images\corn_northern_leaf_blight_14.jpg,Corn,Northern Leaf Blight,Corn Northern Leaf Blight,East District,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0255,dataset\images\corn_northern_leaf_blight_15.jpg,Corn,Northern Leaf Blight,Corn Northern Leaf Blight,West Valley,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0256,dataset\images\corn_northern_leaf_blight_16.jpg,Corn,Northern Leaf Blight,Corn Northern Leaf Blight,North Zone,Fruiting,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0257,dataset\images\corn_northern_leaf_blight_17.jpg,Corn,Northern Leaf Blight,Corn Northern Leaf Blight,South Zone,Fruiting,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0258,dataset\images\corn_northern_leaf_blight_18.jpg,Corn,Northern Leaf Blight,Corn Northern Leaf Blight,Central Region,Fruiting,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0259,dataset\images\corn_northern_leaf_blight_19.jpg,Corn,Northern Leaf Blight,Corn Northern Leaf Blight,East District,Fruiting,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0260,dataset\images\corn_northern_leaf_blight_20.jpg,Corn,Northern Leaf Blight,Corn Northern Leaf Blight,West Valley,Fruiting,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0261,dataset\images\rice_healthy_01.jpg,Rice,Healthy,Rice Healthy,North Zone,Seedling,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0262,dataset\images\rice_healthy_02.jpg,Rice,Healthy,Rice Healthy,South Zone,Seedling,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0263,dataset\images\rice_healthy_03.jpg,Rice,Healthy,Rice Healthy,Central Region,Seedling,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0264,dataset\images\rice_healthy_04.jpg,Rice,Healthy,Rice Healthy,East District,Seedling,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0265,dataset\images\rice_healthy_05.jpg,Rice,Healthy,Rice Healthy,West Valley,Seedling,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0266,dataset\images\rice_healthy_06.jpg,Rice,Healthy,Rice Healthy,North Zone,Seedling,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0267,dataset\images\rice_healthy_07.jpg,Rice,Healthy,Rice Healthy,South Zone,Seedling,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0268,dataset\images\rice_healthy_08.jpg,Rice,Healthy,Rice Healthy,Central Region,Seedling,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0269,dataset\images\rice_healthy_09.jpg,Rice,Healthy,Rice Healthy,East District,Seedling,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0270,dataset\images\rice_healthy_10.jpg,Rice,Healthy,Rice Healthy,West Valley,Seedling,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0271,dataset\images\rice_healthy_11.jpg,Rice,Healthy,Rice Healthy,North Zone,Seedling,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0272,dataset\images\rice_healthy_12.jpg,Rice,Healthy,Rice Healthy,South Zone,Seedling,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0273,dataset\images\rice_healthy_13.jpg,Rice,Healthy,Rice Healthy,Central Region,Seedling,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0274,dataset\images\rice_healthy_14.jpg,Rice,Healthy,Rice Healthy,East District,Seedling,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0275,dataset\images\rice_healthy_15.jpg,Rice,Healthy,Rice Healthy,West Valley,Seedling,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0276,dataset\images\rice_healthy_16.jpg,Rice,Healthy,Rice Healthy,North Zone,Seedling,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0277,dataset\images\rice_healthy_17.jpg,Rice,Healthy,Rice Healthy,South Zone,Seedling,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0278,dataset\images\rice_healthy_18.jpg,Rice,Healthy,Rice Healthy,Central Region,Seedling,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0279,dataset\images\rice_healthy_19.jpg,Rice,Healthy,Rice Healthy,East District,Seedling,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0280,dataset\images\rice_healthy_20.jpg,Rice,Healthy,Rice Healthy,West Valley,Seedling,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0281,dataset\images\rice_bacterial_blight_01.jpg,Rice,Bacterial Blight,Rice Bacterial Blight,North Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0282,dataset\images\rice_bacterial_blight_02.jpg,Rice,Bacterial Blight,Rice Bacterial Blight,South Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0283,dataset\images\rice_bacterial_blight_03.jpg,Rice,Bacterial Blight,Rice Bacterial Blight,Central Region,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0284,dataset\images\rice_bacterial_blight_04.jpg,Rice,Bacterial Blight,Rice Bacterial Blight,East District,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0285,dataset\images\rice_bacterial_blight_05.jpg,Rice,Bacterial Blight,Rice Bacterial Blight,West Valley,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0286,dataset\images\rice_bacterial_blight_06.jpg,Rice,Bacterial Blight,Rice Bacterial Blight,North Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0287,dataset\images\rice_bacterial_blight_07.jpg,Rice,Bacterial Blight,Rice Bacterial Blight,South Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0288,dataset\images\rice_bacterial_blight_08.jpg,Rice,Bacterial Blight,Rice Bacterial Blight,Central Region,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0289,dataset\images\rice_bacterial_blight_09.jpg,Rice,Bacterial Blight,Rice Bacterial Blight,East District,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0290,dataset\images\rice_bacterial_blight_10.jpg,Rice,Bacterial Blight,Rice Bacterial Blight,West Valley,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0291,dataset\images\rice_bacterial_blight_11.jpg,Rice,Bacterial Blight,Rice Bacterial Blight,North Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0292,dataset\images\rice_bacterial_blight_12.jpg,Rice,Bacterial Blight,Rice Bacterial Blight,South Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0293,dataset\images\rice_bacterial_blight_13.jpg,Rice,Bacterial Blight,Rice Bacterial Blight,Central Region,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0294,dataset\images\rice_bacterial_blight_14.jpg,Rice,Bacterial Blight,Rice Bacterial Blight,East District,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0295,dataset\images\rice_bacterial_blight_15.jpg,Rice,Bacterial Blight,Rice Bacterial Blight,West Valley,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0296,dataset\images\rice_bacterial_blight_16.jpg,Rice,Bacterial Blight,Rice Bacterial Blight,North Zone,Vegetative,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0297,dataset\images\rice_bacterial_blight_17.jpg,Rice,Bacterial Blight,Rice Bacterial Blight,South Zone,Vegetative,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0298,dataset\images\rice_bacterial_blight_18.jpg,Rice,Bacterial Blight,Rice Bacterial Blight,Central Region,Vegetative,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0299,dataset\images\rice_bacterial_blight_19.jpg,Rice,Bacterial Blight,Rice Bacterial Blight,East District,Vegetative,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0300,dataset\images\rice_bacterial_blight_20.jpg,Rice,Bacterial Blight,Rice Bacterial Blight,West Valley,Vegetative,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0301,dataset\images\wheat_healthy_01.jpg,Wheat,Healthy,Wheat Healthy,North Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0302,dataset\images\wheat_healthy_02.jpg,Wheat,Healthy,Wheat Healthy,South Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0303,dataset\images\wheat_healthy_03.jpg,Wheat,Healthy,Wheat Healthy,Central Region,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0304,dataset\images\wheat_healthy_04.jpg,Wheat,Healthy,Wheat Healthy,East District,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0305,dataset\images\wheat_healthy_05.jpg,Wheat,Healthy,Wheat Healthy,West Valley,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0306,dataset\images\wheat_healthy_06.jpg,Wheat,Healthy,Wheat Healthy,North Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0307,dataset\images\wheat_healthy_07.jpg,Wheat,Healthy,Wheat Healthy,South Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0308,dataset\images\wheat_healthy_08.jpg,Wheat,Healthy,Wheat Healthy,Central Region,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0309,dataset\images\wheat_healthy_09.jpg,Wheat,Healthy,Wheat Healthy,East District,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0310,dataset\images\wheat_healthy_10.jpg,Wheat,Healthy,Wheat Healthy,West Valley,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0311,dataset\images\wheat_healthy_11.jpg,Wheat,Healthy,Wheat Healthy,North Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0312,dataset\images\wheat_healthy_12.jpg,Wheat,Healthy,Wheat Healthy,South Zone,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0313,dataset\images\wheat_healthy_13.jpg,Wheat,Healthy,Wheat Healthy,Central Region,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0314,dataset\images\wheat_healthy_14.jpg,Wheat,Healthy,Wheat Healthy,East District,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0315,dataset\images\wheat_healthy_15.jpg,Wheat,Healthy,Wheat Healthy,West Valley,Vegetative,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0316,dataset\images\wheat_healthy_16.jpg,Wheat,Healthy,Wheat Healthy,North Zone,Vegetative,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0317,dataset\images\wheat_healthy_17.jpg,Wheat,Healthy,Wheat Healthy,South Zone,Vegetative,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0318,dataset\images\wheat_healthy_18.jpg,Wheat,Healthy,Wheat Healthy,Central Region,Vegetative,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0319,dataset\images\wheat_healthy_19.jpg,Wheat,Healthy,Wheat Healthy,East District,Vegetative,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0320,dataset\images\wheat_healthy_20.jpg,Wheat,Healthy,Wheat Healthy,West Valley,Vegetative,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0321,dataset\images\apple_apple_scab_01.jpg,Apple,Apple Scab,Apple Scab,North Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0322,dataset\images\apple_apple_scab_02.jpg,Apple,Apple Scab,Apple Scab,South Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0323,dataset\images\apple_apple_scab_03.jpg,Apple,Apple Scab,Apple Scab,Central Region,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0324,dataset\images\apple_apple_scab_04.jpg,Apple,Apple Scab,Apple Scab,East District,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0325,dataset\images\apple_apple_scab_05.jpg,Apple,Apple Scab,Apple Scab,West Valley,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0326,dataset\images\apple_apple_scab_06.jpg,Apple,Apple Scab,Apple Scab,North Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0327,dataset\images\apple_apple_scab_07.jpg,Apple,Apple Scab,Apple Scab,South Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0328,dataset\images\apple_apple_scab_08.jpg,Apple,Apple Scab,Apple Scab,Central Region,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0329,dataset\images\apple_apple_scab_09.jpg,Apple,Apple Scab,Apple Scab,East District,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0330,dataset\images\apple_apple_scab_10.jpg,Apple,Apple Scab,Apple Scab,West Valley,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0331,dataset\images\apple_apple_scab_11.jpg,Apple,Apple Scab,Apple Scab,North Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0332,dataset\images\apple_apple_scab_12.jpg,Apple,Apple Scab,Apple Scab,South Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0333,dataset\images\apple_apple_scab_13.jpg,Apple,Apple Scab,Apple Scab,Central Region,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0334,dataset\images\apple_apple_scab_14.jpg,Apple,Apple Scab,Apple Scab,East District,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0335,dataset\images\apple_apple_scab_15.jpg,Apple,Apple Scab,Apple Scab,West Valley,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0336,dataset\images\apple_apple_scab_16.jpg,Apple,Apple Scab,Apple Scab,North Zone,Fruiting,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0337,dataset\images\apple_apple_scab_17.jpg,Apple,Apple Scab,Apple Scab,South Zone,Fruiting,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0338,dataset\images\apple_apple_scab_18.jpg,Apple,Apple Scab,Apple Scab,Central Region,Fruiting,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0339,dataset\images\apple_apple_scab_19.jpg,Apple,Apple Scab,Apple Scab,East District,Fruiting,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0340,dataset\images\apple_apple_scab_20.jpg,Apple,Apple Scab,Apple Scab,West Valley,Fruiting,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0341,dataset\images\grape_black_rot_01.jpg,Grape,Black Rot,Grape Black Rot,North Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0342,dataset\images\grape_black_rot_02.jpg,Grape,Black Rot,Grape Black Rot,South Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0343,dataset\images\grape_black_rot_03.jpg,Grape,Black Rot,Grape Black Rot,Central Region,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0344,dataset\images\grape_black_rot_04.jpg,Grape,Black Rot,Grape Black Rot,East District,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0345,dataset\images\grape_black_rot_05.jpg,Grape,Black Rot,Grape Black Rot,West Valley,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0346,dataset\images\grape_black_rot_06.jpg,Grape,Black Rot,Grape Black Rot,North Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0347,dataset\images\grape_black_rot_07.jpg,Grape,Black Rot,Grape Black Rot,South Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0348,dataset\images\grape_black_rot_08.jpg,Grape,Black Rot,Grape Black Rot,Central Region,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0349,dataset\images\grape_black_rot_09.jpg,Grape,Black Rot,Grape Black Rot,East District,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0350,dataset\images\grape_black_rot_10.jpg,Grape,Black Rot,Grape Black Rot,West Valley,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0351,dataset\images\grape_black_rot_11.jpg,Grape,Black Rot,Grape Black Rot,North Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0352,dataset\images\grape_black_rot_12.jpg,Grape,Black Rot,Grape Black Rot,South Zone,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0353,dataset\images\grape_black_rot_13.jpg,Grape,Black Rot,Grape Black Rot,Central Region,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0354,dataset\images\grape_black_rot_14.jpg,Grape,Black Rot,Grape Black Rot,East District,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0355,dataset\images\grape_black_rot_15.jpg,Grape,Black Rot,Grape Black Rot,West Valley,Fruiting,project_created,verified,Project-created demo dataset for 100% Full Project evaluation
+IMG_0356,dataset\images\grape_black_rot_16.jpg,Grape,Black Rot,Grape Black Rot,North Zone,Fruiting,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0357,dataset\images\grape_black_rot_17.jpg,Grape,Black Rot,Grape Black Rot,South Zone,Fruiting,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0358,dataset\images\grape_black_rot_18.jpg,Grape,Black Rot,Grape Black Rot,Central Region,Fruiting,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0359,dataset\images\grape_black_rot_19.jpg,Grape,Black Rot,Grape Black Rot,East District,Fruiting,project_created,pending,Project-created demo dataset for 100% Full Project evaluation
+IMG_0360,dataset\images\grape_black_rot_20.jpg,Grape,Black Rot,Grape Black Rot,West Valley,Fruiting,project_created,pending,Project-created demo dataset for 100% Full Project evaluation

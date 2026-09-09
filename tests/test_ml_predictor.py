@@ -17,6 +17,7 @@ def test_predict_supported_category(sample_leaf_image):
     assert 'prediction' in result
     assert isinstance(result['confidence'], float)
     assert len(result['explainability']) > 0
+    assert result.get('heatmap_path') is not None
 
 def test_predict_unsupported_category_edge_case(sample_leaf_image):
     """

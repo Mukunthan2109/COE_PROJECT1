@@ -1,0 +1,18 @@
+{
+  "name": "Crop Health Triage & Escalation App",
+  "short_name": "CropTriage",
+  "description": "Farmer-Friendly Crop Disease Observation, ML Triage and Expert Escalation Platform",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#2e7d32",
+  "theme_color": "#2e7d32",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/static/css/style.css",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

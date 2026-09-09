@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        
+        <div class="text-center mb-4">
+            <h2 class="fw-bold text-success d-flex align-items-center justify-content-center">
+                ⚡ Instant AI Crop Disease Scanner
+            </h2>
+            <p class="text-muted">
+                Upload any crop photo directly from your device. The project ML model automatically analyzes the crop type, disease condition, visual heatmap, and food-processing quality grade!
+            </p>
+        </div>
+
+        {% if quality_failed %}
+        <div class="alert alert-danger border-danger shadow-sm mb-4">
+            <h5 class="fw-bold d-flex align-items-center mb-2">⚠️ Image Quality Inspection Failed</h5>
+            <p class="mb-2">The uploaded image did not meet minimum image quality standards for ML analysis.</p>
+            {% if quality_details %}
+            <div class="bg-white p-2 rounded small text-secondary">
+                <strong>Details:</strong> {{ quality_details.reason }}
+                {% if quality_details.brightness %} | Brightness: {{ quality_details.brightness }}{% endif %}
+                {% if quality_details.blur_score %} | Blur Score: {{ quality_details.blur_score }}{% endif %}
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <!-- Upload Card -->
+        <div class="card card-custom p-4 mb-4">
+            <h4 class="fw-bold text-dark mb-3">📸 Upload Plant Photo for Automated AI Diagnosis</h4>
+            <form action="{{ url_for('main.scan') }}" method="POST" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <input type="file" class="form-control form-control-lg" id="scan_image" name="crop_image" accept="image/*" required>
+                </div>
+                <div class="upload-drag-zone p-4 text-center border-dashed rounded bg-light cursor-pointer mb-3" onclick="document.getElementById('scan_image').click();">
+                    <div class="fs-1 text-success mb-2">📤</div>
+                    <span class="fw-semibold text-dark d-block">Click or drop a plant leaf / crop photo here</span>
+                    <span class="text-muted small">Supports JPG, PNG, WEBP (Max 5MB)</span>
+                </div>
+                <button type="submit" class="btn btn-agri-yellow py-3 fs-5 w-100 fw-bold">
+                    🔍 Analyze Crop Disease with AI
+                </button>
+            </form>
+        </div>
+
+        <!-- Scan Result Display -->
+        {% if result %}
+        <div class="card card-custom p-4 mb-4 border-success">
+            <div class="d-flex flex-wrap justify-content-between align-items-center border-bottom pb-3 mb-3">
+                <div>
+                    <h3 class="fw-bold text-success m-0">🔬 AI Diagnostic Analysis Result</h3>
+                    <span class="text-muted small">Observation Tracked #{{ observation.id if observation else 'N/A' }}</span>
+                </div>
+                <div>
+                    {% if status == 'Initial screening result' %}
+                    <span class="badge badge-screening fs-6">Auto-Triaged (High Confidence)</span>
+                    {% else %}
+                    <span class="badge badge-escalated fs-6">Escalated to Expert Review</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <!-- Left Column: Photos & Heatmaps -->
+                <div class="col-md-5">
+                    <div class="card border mb-3">
+                        <div class="card-header bg-light py-2 fw-bold small text-secondary">
+                            📸 Original Photo & Grad-CAM Heatmap Overlay
+                        </div>
+                        <div class="card-body p-2 text-center bg-light">
+                            <div class="row g-2">
+                                <div class="col-6">
+                                    <span class="small text-muted d-block mb-1">Uploaded Photo</span>
+                                    <img src="{{ url_for('static', filename=image_path) }}" 
+                                         alt="Uploaded Crop Image" 
+                                         class="img-fluid rounded border shadow-sm" 
+                                         style="max-height: 180px; object-fit: contain;">
+                                </div>
+                                <div class="col-6">
+                                    <span class="small text-muted d-block mb-1">Grad-CAM Heatmap</span>
+                                    {% if heatmap_path %}
+                                    <img src="{{ url_for('static', filename=heatmap_path) }}" 
+                                         alt="Grad-CAM visual heatmap" 
+                                         class="img-fluid rounded border shadow-sm" 
+                                         style="max-height: 180px; object-fit: contain;">
+                                    {% else %}
+                                    <div class="p-4 text-muted small bg-white border rounded">Heatmap N/A</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-3 border rounded">
+                        <h6 class="fw-bold text-secondary mb-2">📋 Auto-Detected Crop Details</h6>
+                        <ul class="list-unstyled small m-0">
+                            <li class="py-1 border-bottom"><strong>Auto-Detected Crop:</strong> <span class="badge bg-success fs-6">{{ result.detected_crop }}</span></li>
+                            <li class="py-1 border-bottom"><strong>Auto-Detected Disease:</strong> <span class="badge bg-danger fs-6">{{ result.detected_symptom }}</span></li>
+                            <li class="py-1 border-bottom"><strong>Image Quality:</strong> <span class="text-success fw-bold">✓ {{ quality_msg or 'Passed Inspection' }}</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Right Column: Model Analysis & Impact -->
+                <div class="col-md-7">
+                    <div class="bg-light p-4 rounded border mb-4">
+                        <h5 class="fw-bold mb-3">ML Screening Classification</h5>
+                        
+                        <div class="mb-3">
+                            <span class="text-muted d-block small">Predicted Classification:</span>
+                            <span class="fs-3 fw-bold text-success">{{ result.prediction }}</span>
+                        </div>
+
+                        <!-- Confidence Bar -->
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="fw-semibold small">ML Screening Confidence Score</span>
+                                <span class="fw-bold text-dark">{{ confidence_pct }}</span>
+                            </div>
+                            <div class="progress" style="height: 22px;">
+                                <div class="progress-bar {% if result.confidence >= 0.70 %}bg-success{% else %}bg-warning text-dark{% endif %}" 
+                                     role="progressbar" 
+                                     style="width: {{ confidence_pct }};">
+                                    {{ confidence_pct }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Explainability -->
+                        <div class="mb-3">
+                            <h6 class="fw-bold text-dark mb-2">🔍 Visual Leaf Feature Explainability:</h6>
+                            <ul class="list-group list-group-flush border rounded">
+                                {% for item in result.explainability %}
+                                <li class="list-group-item bg-white small">📌 {{ item }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <a href="{{ url_for('main.result', id=observation.id) }}" class="btn btn-success flex-fill">View Full Report (#{{ observation.id }})</a>
+                        <a href="{{ url_for('main.scan') }}" class="btn btn-outline-secondary">Scan Another Image</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}
