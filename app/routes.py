@@ -2,7 +2,7 @@ import os
 import uuid
 from datetime import datetime
 from functools import wraps
-from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app, jsonify
+from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app, jsonify, session
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.utils import secure_filename
 
@@ -12,8 +12,31 @@ from app.services.predictor import predict_crop_disease
 from app.services.escalation import determine_escalation, calculate_time_to_review, get_escalation_analytics, get_baseline_vs_mvp_comparison
 from app.services.batch_qa_service import create_batch_inspection
 from app.services.analytics_service import get_dashboard_analytics_payload
+from app.translations import get_translation, TRANSLATIONS
 
 main_bp = Blueprint('main', __name__)
+
+@main_bp.context_processor
+def inject_translations():
+    lang = session.get('lang', request.args.get('lang', 'en'))
+    if lang not in ['en', 'ta']:
+        lang = 'en'
+    def t(key):
+        return get_translation(lang, key)
+    return dict(t=t, current_lang=lang, TRANSLATIONS=TRANSLATIONS)
+
+@main_bp.route('/set_language/<lang>')
+def set_language(lang):
+    if lang in ['en', 'ta']:
+        session['lang'] = lang
+    next_page = request.referrer or url_for('main.index')
+    return redirect(next_page)
+
+
+@main_bp.route('/health')
+def health():
+    return jsonify({'status': 'ok'})
+
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in current_app.config['ALLOWED_EXTENSIONS']
@@ -99,10 +122,62 @@ def logout():
 
 @main_bp.route('/')
 def index():
-    recent_observations = Observation.query.order_by(Observation.created_at.desc()).limit(5).all()
-    analytics = get_escalation_analytics()
+    from app.services.predictor import MODEL_DIR
+    model_path = os.path.join(MODEL_DIR, 'model.pkl')
+    encoder_path = os.path.join(MODEL_DIR, 'label_encoder.pkl')
+    model_operational = os.path.exists(model_path) and os.path.exists(encoder_path)
+
+    payload = get_dashboard_analytics_payload()
+
+    total_obs = payload['total_observations']
+    high_risk_count = payload['high_risk_count']
+    pending_count = payload['pending_count']
+    crop_counts = payload['crop_counts']
+
+    if total_obs == 0:
+        dynamic_insight_en = "Not enough observations to generate a crop health trend."
+        dynamic_insight_ta = "பயிர் ஆரோக்கியப் போக்கை உருவாக்க போதுமான கவனிப்புகள் இல்லை."
+    elif high_risk_count > 0:
+        dynamic_insight_en = f"{high_risk_count} high-risk case(s) flagged for immediate expert triage."
+        dynamic_insight_ta = f"{high_risk_count} அவசர ஆபத்து வழக்குகள் உடனடி நிபுணர் கவனிப்பிற்கு அனுப்பப்பட்டுள்ளன."
+    elif pending_count > 0:
+        dynamic_insight_en = "Most recent cases are currently awaiting expert review."
+        dynamic_insight_ta = "சமீபத்திய வழக்குகள் தற்போது நிபுணர் பரிசீலனைக்கு காத்திருக்கின்றன."
+    else:
+        top_crop = max(crop_counts.items(), key=lambda x: x[1])[0] if crop_counts else "Tomato"
+        dynamic_insight_en = f"{top_crop} observations are currently the most frequently submitted crop."
+        dynamic_insight_ta = f"தற்போது {top_crop} பயிர் கவனிப்புகள் அதிகம் சமர்ப்பிக்கப்பட்டுள்ளன."
+
+    pending_queue = Observation.query.filter_by(status='Needs expert review').order_by(Observation.created_at.desc()).limit(5).all()
+    recent_observations = Observation.query.order_by(Observation.created_at.desc()).limit(8).all()
     active_alerts = OutbreakAlert.query.filter_by(status='Active').all()
-    return render_template('index.html', recent=recent_observations, analytics=analytics, alerts=active_alerts)
+
+    dashboard_data = {
+        'model_operational': model_operational,
+        'total_observations': total_obs,
+        'ai_screened_count': payload['ai_screened_count'],
+        'pending_count': pending_count,
+        'reviewed_count': payload['reviewed_count'],
+        'escalated_count': payload['escalated_count'],
+        'high_risk_count': high_risk_count,
+        'avg_review_time': payload['avg_review_time'],
+        'escalation_rate_pct': payload['escalation_rate_pct'],
+        'disease_counts': payload['disease_counts'],
+        'crop_counts': crop_counts,
+        'avg_confidence': payload['avg_confidence'],
+        'high_conf_count': payload['high_conf_count'],
+        'med_conf_count': payload['med_conf_count'],
+        'low_conf_count': payload['low_conf_count'],
+        'pending_queue': pending_queue,
+        'recent_observations': recent_observations,
+        'dynamic_insight_en': dynamic_insight_en,
+        'dynamic_insight_ta': dynamic_insight_ta,
+        'active_alerts': active_alerts
+    }
+
+    return render_template('index.html', d=dashboard_data, analytics=payload['summary'], alerts=active_alerts, recent=recent_observations)
+
+
 
 
 @main_bp.route('/observe', methods=['GET', 'POST'])
@@ -111,6 +186,8 @@ def observe():
         return render_template('observe.html')
 
     crop = request.form.get('crop', 'Tomato').strip()
+    if crop in ("Corn", "Maize"):
+        crop = "Maize"
     symptom = request.form.get('symptom', 'Yellowing leaves').strip()
     crop_stage = request.form.get('crop_stage', 'Vegetative').strip()
     location_region = request.form.get('location_region', 'Coimbatore').strip()
@@ -248,8 +325,11 @@ def scan():
         flash(f"⚠️ Duplicate Image Detected: Exact same photo previously recorded (#Observation {existing_obs.id}).", "warning")
         return redirect(url_for('main.observation_detail', id=existing_obs.id))
 
-    # Step 2: Auto Disease & Crop Analysis
-    pred_res = predict_crop_disease(save_path, crop="Auto", symptom="Auto")
+    # Step 2: Disease Analysis within Selected Crop
+    crop = request.form.get('crop', 'Tomato').strip()
+    if crop in ("Corn", "Maize"):
+        crop = "Maize"
+    pred_res = predict_crop_disease(save_path, crop=crop, symptom="Auto")
     prediction = pred_res['prediction']
     confidence = pred_res['confidence']
     risk_level = pred_res.get('risk_level', 'Medium')
@@ -445,7 +525,8 @@ def expert_review(id):
         return render_template('expert_review.html', observation=observation)
 
     review_time = datetime.utcnow()
-    time_to_review_sec = calculate_time_to_review(observation.observation_timestamp, review_time)
+    start_time = observation.first_symptom_time if observation.first_symptom_time else observation.observation_timestamp
+    time_to_review_sec = calculate_time_to_review(start_time, review_time)
     expert_user_id = current_user.id if current_user.is_authenticated else None
 
     existing_review = ExpertReview.query.filter_by(observation_id=observation.id).first()
@@ -485,7 +566,16 @@ def analytics_dashboard():
 
 @main_bp.route('/evaluation')
 def evaluation():
-    return render_template('evaluation.html')
+    import json
+    metrics_path = os.path.abspath(os.path.join(current_app.root_path, '..', 'ml', 'saved_model', 'metrics.json'))
+    metrics = None
+    if os.path.exists(metrics_path):
+        try:
+            with open(metrics_path, 'r', encoding='utf-8') as f:
+                metrics = json.load(f)
+        except Exception:
+            metrics = None
+    return render_template('evaluation.html', metrics=metrics)
 
 
 @main_bp.route('/feedback', methods=['GET', 'POST'])
@@ -514,10 +604,17 @@ def batch_qa():
     diseased_count = request.form.get('diseased_sample_count', type=int)
     notes = request.form.get('inspection_notes', '').strip()
 
-    if not crop or not supplier_region or not total_weight_kg or sample_size is None or diseased_count is None:
-        flash("Please enter all required batch inspection parameters.", "danger")
-        return redirect(url_for('main.batch_qa'))
-
     batch = create_batch_inspection(crop, supplier_region, total_weight_kg, sample_size, diseased_count, notes)
-    flash(f"Batch {batch.batch_code} Inspected! Result: {batch.quality_grade} ({batch.defect_rate_percent}% Defect Rate - {batch.intake_status})", "success")
+    flash(f"Batch #{batch.batch_code} recorded successfully! Quality Status: {batch.procurement_status}.", "success")
     return redirect(url_for('main.batch_qa'))
+
+
+@main_bp.app_errorhandler(404)
+def not_found_error(error):
+    return render_template('404.html'), 404
+
+
+@main_bp.app_errorhandler(500)
+def internal_error(error):
+    db.session.rollback()
+    return render_template('500.html'), 500

@@ -5,16 +5,16 @@
     <div class="col-lg-10">
         
         <div class="text-center mb-4">
-            <h2 class="fw-bold text-success d-flex align-items-center justify-content-center" data-i18n="form_title">
-                📷 New Observation
+            <h2 class="fw-bold text-success d-flex align-items-center justify-content-center">
+                📷 <span data-i18n="form_title">{{ t('form_title') }}</span>
             </h2>
-            <p class="text-muted" data-i18n="form_sub">Please fill in the crop details and upload a clear photo of the observed symptoms.</p>
+            <p class="text-muted" data-i18n="form_sub">{{ t('form_sub') }}</p>
         </div>
 
         {% if quality_failed %}
         <div class="alert alert-danger border-danger shadow-sm mb-4">
-            <h5 class="fw-bold d-flex align-items-center mb-2" data-i18n="qual_error_title">⚠️ Image Quality Check Failed</h5>
-            <p class="mb-2" data-i18n="qual_error_msg">Image quality is insufficient. Please capture a clearer crop image.</p>
+            <h5 class="fw-bold d-flex align-items-center mb-2" data-i18n="msg_image_blurry">⚠️ {{ t('msg_image_blurry') }}</h5>
+            <p class="mb-2" data-i18n="step1_sub">{{ t('step1_sub') }}</p>
             {% if quality_details %}
             <div class="bg-white p-2 rounded small text-secondary">
                 <strong>Failure Reason:</strong> {{ quality_details.reason }}
@@ -27,190 +27,167 @@
 
         <form action="{{ url_for('main.observe') }}" method="POST" enctype="multipart/form-data" id="observationForm">
             
-            <!-- Step 1: Upload / Capture Crop Image matching screenshot media_1788927639079.png -->
+            <!-- Step 1: Upload / Capture Crop Image -->
             <div class="card card-custom p-4 mb-4">
-                <div class="step-header" data-i18n="step1_title">Step 1: Upload / Capture Crop Image</div>
+                <div class="step-header" data-i18n="step1_title">{{ t('step1_title') }}</div>
                 <p class="text-muted small mb-3" data-i18n="step1_sub">
-                    Select a clear photo of the affected plant foliage, stem, or fruit from your gallery or mobile camera. (Max 5 MB, JPG/PNG)
+                    {{ t('step1_sub') }}
                 </p>
 
                 <div class="input-group mb-3">
-                    <input type="file" class="form-control form-control-lg" id="crop_image" name="crop_image" accept="image/*" required onchange="handleImageSelected(this)">
+                    <input type="file" class="form-control form-control-lg" id="crop_image" name="crop_image" accept="image/*" capture="environment" required onchange="handleImageSelected(this)">
                 </div>
 
                 <div class="upload-drag-zone" onclick="document.getElementById('crop_image').click();">
                     <div class="fs-1 text-success mb-2">⬆️</div>
-                    <span class="fw-semibold text-dark d-block" data-i18n="step1_drag">Click or tap above to select / capture a crop photo</span>
+                    <span class="fw-semibold text-dark d-block" data-i18n="step1_drag">{{ t('step1_drag') }}</span>
+                    <span class="small text-muted" data-i18n="supports_file">{{ t('supports_file') }}</span>
                 </div>
 
-                <!-- AI Live Analysis Preview Card -->
-                <div id="ai_analysis_badge" class="mt-3 p-3 bg-light border border-success rounded d-none">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div>
-                            <span class="badge bg-success mb-1">✨ AI Live Diagnosis Ready</span>
-                            <h6 id="ai_pred_title" class="fw-bold text-dark m-0">Analyzing image...</h6>
-                            <small id="ai_pred_sub" class="text-muted">Detected Crop & Disease from photo</small>
-                        </div>
-                        <button type="button" class="btn btn-sm btn-outline-success" onclick="autoFillAIDiagnosis()">
-                            ⚡ Auto-Fill Form from AI
-                        </button>
-                    </div>
-                </div>
             </div>
 
-            <!-- Step 2: Select Crop Type matching screenshot media_1788927639131.png -->
+            <!-- Step 2: Select Crop Type -->
             <div class="card card-custom p-4 mb-4">
-                <div class="step-header" data-i18n="step2_title">Step 2: Select Crop Type</div>
+                <div class="step-header" data-i18n="step2_title">{{ t('step2_title') }}</div>
                 <input type="hidden" name="crop" id="selected_crop" value="Tomato" required>
                 
                 <div class="row g-3">
                     <div class="col-6 col-md-3">
-                        <div class="crop-card-option border-warning bg-warning-subtle" onclick="selectCrop(this, 'Auto')">
-                            <div class="crop-icon">🤖</div>
-                            <div class="crop-name fw-bold text-success">Auto-Detect AI</div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-3">
                         <div class="crop-card-option selected" onclick="selectCrop(this, 'Tomato')">
                             <div class="crop-icon">🍅</div>
-                            <div class="crop-name">Tomato</div>
+                            <div class="crop-name" data-i18n="crop_tomato">{{ t('crop_tomato') }}</div>
                         </div>
                     </div>
                     <div class="col-6 col-md-3">
                         <div class="crop-card-option" onclick="selectCrop(this, 'Potato')">
                             <div class="crop-icon">🥔</div>
-                            <div class="crop-name">Potato</div>
+                            <div class="crop-name" data-i18n="crop_potato">{{ t('crop_potato') }}</div>
                         </div>
                     </div>
                     <div class="col-6 col-md-3">
                         <div class="crop-card-option" onclick="selectCrop(this, 'Rice')">
                             <div class="crop-icon">🌾</div>
-                            <div class="crop-name">Rice</div>
+                            <div class="crop-name" data-i18n="crop_rice">{{ t('crop_rice') }}</div>
                         </div>
                     </div>
                     <div class="col-6 col-md-3">
-                        <div class="crop-card-option" onclick="selectCrop(this, 'Corn')">
+                        <div class="crop-card-option" onclick="selectCrop(this, 'Maize')">
                             <div class="crop-icon">🌽</div>
-                            <div class="crop-name">Maize / Corn</div>
+                            <div class="crop-name" data-i18n="crop_maize">{{ t('crop_maize') }}</div>
                         </div>
                     </div>
-                    <div class="col-6 col-md-3">
+                    <div class="col-6 col-md-4">
                         <div class="crop-card-option" onclick="selectCrop(this, 'Chili')">
                             <div class="crop-icon">🌶️</div>
-                            <div class="crop-name">Chili</div>
+                            <div class="crop-name" data-i18n="crop_chili">{{ t('crop_chili') }}</div>
                         </div>
                     </div>
-                    <div class="col-6 col-md-3">
-                        <div class="crop-card-option" onclick="selectCrop(this, 'Wheat')">
-                            <div class="crop-icon">🥖</div>
-                            <div class="crop-name">Wheat</div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <div class="crop-card-option" onclick="selectCrop(this, 'Apple')">
-                            <div class="crop-icon">🍎</div>
-                            <div class="crop-name">Apple</div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-3">
+                    <div class="col-6 col-md-4">
                         <div class="crop-card-option" onclick="selectCrop(this, 'Grape')">
                             <div class="crop-icon">🍇</div>
-                            <div class="crop-name">Grape</div>
+                            <div class="crop-name" data-i18n="crop_grape">{{ t('crop_grape') }}</div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="crop-card-option" onclick="selectCrop(this, 'Apple')">
+                            <div class="crop-icon">🍎</div>
+                            <div class="crop-name" data-i18n="crop_apple">{{ t('crop_apple') }}</div>
                         </div>
                     </div>
                 </div>
+
             </div>
 
-            <!-- Step 3: Select Growth Stage matching screenshot media_1788927639131.png -->
+            <!-- Step 3: Select Growth Stage -->
             <div class="card card-custom p-4 mb-4">
-                <div class="step-header" data-i18n="step3_title">Step 3: Select Growth Stage</div>
+                <div class="step-header" data-i18n="step3_title">{{ t('step3_title') }}</div>
                 <input type="hidden" name="crop_stage" id="selected_stage" value="Vegetative" required>
 
                 <div class="d-flex flex-wrap gap-2 justify-content-between">
-                    <button type="button" class="stage-pill flex-grow-1" onclick="selectStage(this, 'Seedling')">Seedling</button>
-                    <button type="button" class="stage-pill flex-grow-1 selected" onclick="selectStage(this, 'Vegetative')">Vegetative</button>
-                    <button type="button" class="stage-pill flex-grow-1" onclick="selectStage(this, 'Flowering')">Flowering</button>
-                    <button type="button" class="stage-pill flex-grow-1" onclick="selectStage(this, 'Fruiting')">Fruiting</button>
-                    <button type="button" class="stage-pill flex-grow-1" onclick="selectStage(this, 'Harvest')">Harvest</button>
+                    <button type="button" class="stage-pill flex-grow-1" onclick="selectStage(this, 'Seedling')" data-i18n="stage_seedling">{{ t('stage_seedling') }}</button>
+                    <button type="button" class="stage-pill flex-grow-1 selected" onclick="selectStage(this, 'Vegetative')" data-i18n="stage_vegetative">{{ t('stage_vegetative') }}</button>
+                    <button type="button" class="stage-pill flex-grow-1" onclick="selectStage(this, 'Flowering')" data-i18n="stage_flowering">{{ t('stage_flowering') }}</button>
+                    <button type="button" class="stage-pill flex-grow-1" onclick="selectStage(this, 'Fruiting')" data-i18n="stage_fruiting">{{ t('stage_fruiting') }}</button>
+                    <button type="button" class="stage-pill flex-grow-1" onclick="selectStage(this, 'Harvest')" data-i18n="stage_harvest">{{ t('stage_harvest') }}</button>
                 </div>
             </div>
 
-            <!-- Step 4: Select Visible Symptoms matching screenshot media_1788927639131.png -->
+            <!-- Step 4: Select Visible Symptoms -->
             <div class="card card-custom p-4 mb-4">
-                <div class="step-header" data-i18n="step4_title">Step 4: Select Visible Symptoms</div>
+                <div class="step-header" data-i18n="step4_title">{{ t('step4_title') }}</div>
                 <input type="hidden" name="symptom" id="primary_symptom" value="Yellowing leaves" required>
 
                 <div class="row g-3">
                     <div class="col-md-4 col-6">
                         <label class="symptom-check-card">
                             <input type="checkbox" name="symptom_list" value="Yellowing leaves" checked onchange="updateSymptoms()">
-                            <span>Yellowing leaves</span>
+                            <span data-i18n="sym_yellowing_leaves">{{ t('sym_yellowing_leaves') }}</span>
                         </label>
                     </div>
                     <div class="col-md-4 col-6">
                         <label class="symptom-check-card">
                             <input type="checkbox" name="symptom_list" value="Brown spots" onchange="updateSymptoms()">
-                            <span>Brown spots</span>
+                            <span data-i18n="sym_brown_spots">{{ t('sym_brown_spots') }}</span>
                         </label>
                     </div>
                     <div class="col-md-4 col-6">
                         <label class="symptom-check-card">
                             <input type="checkbox" name="symptom_list" value="White patches" onchange="updateSymptoms()">
-                            <span>White patches</span>
+                            <span data-i18n="sym_white_patches">{{ t('sym_white_patches') }}</span>
                         </label>
                     </div>
                     <div class="col-md-4 col-6">
                         <label class="symptom-check-card">
                             <input type="checkbox" name="symptom_list" value="Leaf curling" onchange="updateSymptoms()">
-                            <span>Leaf curling</span>
+                            <span data-i18n="sym_leaf_curling">{{ t('sym_leaf_curling') }}</span>
                         </label>
                     </div>
                     <div class="col-md-4 col-6">
                         <label class="symptom-check-card">
                             <input type="checkbox" name="symptom_list" value="Wilting" onchange="updateSymptoms()">
-                            <span>Wilting</span>
+                            <span data-i18n="sym_wilting">{{ t('sym_wilting') }}</span>
                         </label>
                     </div>
                     <div class="col-md-4 col-6">
                         <label class="symptom-check-card">
                             <input type="checkbox" name="symptom_list" value="Holes in leaves" onchange="updateSymptoms()">
-                            <span>Holes in leaves</span>
+                            <span data-i18n="sym_holes_in_leaves">{{ t('sym_holes_in_leaves') }}</span>
                         </label>
                     </div>
                     <div class="col-md-4 col-6">
                         <label class="symptom-check-card">
                             <input type="checkbox" name="symptom_list" value="Black spots" onchange="updateSymptoms()">
-                            <span>Black spots</span>
+                            <span data-i18n="sym_black_spots">{{ t('sym_black_spots') }}</span>
                         </label>
                     </div>
                     <div class="col-md-4 col-6">
                         <label class="symptom-check-card">
                             <input type="checkbox" name="symptom_list" value="Powdery appearance" onchange="updateSymptoms()">
-                            <span>Powdery appearance</span>
+                            <span data-i18n="sym_powdery_appearance">{{ t('sym_powdery_appearance') }}</span>
                         </label>
                     </div>
                     <div class="col-md-4 col-6">
                         <label class="symptom-check-card">
                             <input type="checkbox" name="symptom_list" value="Stem discoloration" onchange="updateSymptoms()">
-                            <span>Stem discoloration</span>
+                            <span data-i18n="sym_stem_discoloration">{{ t('sym_stem_discoloration') }}</span>
                         </label>
                     </div>
                     <div class="col-md-4 col-6">
                         <label class="symptom-check-card">
                             <input type="checkbox" name="symptom_list" value="Fruit discoloration" onchange="updateSymptoms()">
-                            <span>Fruit discoloration</span>
+                            <span data-i18n="sym_fruit_discoloration">{{ t('sym_fruit_discoloration') }}</span>
                         </label>
                     </div>
                     <div class="col-md-4 col-6">
                         <label class="symptom-check-card">
                             <input type="checkbox" name="symptom_list" value="Unusual growth" onchange="updateSymptoms()">
-                            <span>Unusual growth</span>
+                            <span data-i18n="sym_unusual_growth">{{ t('sym_unusual_growth') }}</span>
                         </label>
                     </div>
                     <div class="col-md-4 col-6">
                         <label class="symptom-check-card">
                             <input type="checkbox" name="symptom_list" value="Other" onchange="updateSymptoms()">
-                            <span>Other</span>
+                            <span data-i18n="sym_other">{{ t('sym_other') }}</span>
                         </label>
                     </div>
                 </div>
@@ -218,31 +195,23 @@
 
             <!-- Step 5: Region & First Symptom Timing -->
             <div class="card card-custom p-4 mb-4">
-                <div class="step-header" data-i18n="step5_title">Step 5: Select Location & First Symptom Timing</div>
+                <div class="step-header" data-i18n="step5_title">{{ t('step5_title') }}</div>
                 
                 <div class="row g-3">
                     <div class="col-md-6">
-                        <label class="form-label fw-bold">First Noticed Symptom Date & Time</label>
+                        <label class="form-label fw-bold" data-i18n="label_symptom_time">{{ t('label_symptom_time') }}</label>
                         <input type="datetime-local" class="form-control form-control-lg" name="first_symptom_time" id="first_symptom_time">
-                        <small class="text-muted">When were symptoms first observed in the field?</small>
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label fw-bold">Location / Region</label>
-                        <select class="form-select form-select-lg" name="location_region" required>
-                            <option value="Coimbatore" selected>Coimbatore</option>
-                            <option value="North Zone">North Zone</option>
-                            <option value="South Zone">South Zone</option>
-                            <option value="Central Region">Central Region</option>
-                            <option value="East District">East District</option>
-                            <option value="West Valley">West Valley</option>
-                        </select>
+                        <label class="form-label fw-bold" data-i18n="label_location">{{ t('label_location') }}</label>
+                        <input type="text" class="form-control form-control-lg" name="location_region" data-i18n-placeholder="placeholder_location" placeholder="{{ t('placeholder_location') }}" value="Coimbatore" required>
                     </div>
                 </div>
             </div>
 
             <div class="d-grid mb-5">
                 <button type="submit" class="btn btn-agri-yellow py-3 fs-5" data-i18n="btn_submit">
-                    Submit Observation for Screening
+                    {{ t('btn_submit') }}
                 </button>
             </div>
         </form>

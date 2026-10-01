@@ -67,7 +67,7 @@ def evaluate_image_quality(image_path, min_width=100, min_height=100, blur_thres
         # Blur check (Laplacian Variance)
         laplacian_var = cv2.Laplacian(gray, cv2.CV_64F).var()
         if laplacian_var < blur_threshold:
-            return (False, "Image quality is insufficient. Crop image is blurry or out of focus. Please capture a clearer crop image.", {
+            return (False, "Image quality is too low for reliable AI screening. Please upload a clearer crop image.", {
                 'reason': 'blurry',
                 'blur_score': round(float(laplacian_var), 2)
             })

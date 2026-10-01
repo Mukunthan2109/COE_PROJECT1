@@ -4,44 +4,34 @@
 <div class="row justify-content-center">
     <div class="col-md-6">
         <div class="card card-custom p-4">
-            <h4 class="fw-bold text-success mb-3 text-center">User Registration</h4>
+            <h4 class="fw-bold text-success mb-3 text-center" data-i18n="btn_register">{{ t('btn_register') }}</h4>
             <form action="{{ url_for('main.register') }}" method="POST">
                 <div class="mb-3">
-                    <label for="username" class="form-label">Username *</label>
-                    <input type="text" class="form-control" id="username" name="username" required placeholder="Choose a username">
+                    <label for="username" class="form-label" data-i18n="label_username">{{ t('label_username') }} *</label>
+                    <input type="text" class="form-control" id="username" name="username" required data-i18n-placeholder="placeholder_username" placeholder="{{ t('placeholder_username') }}">
                 </div>
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email Address *</label>
-                    <input type="email" class="form-control" id="email" name="email" required placeholder="name@example.com">
+                    <label for="email" class="form-label" data-i18n="label_email">{{ t('label_email') }} *</label>
+                    <input type="email" class="form-control" id="email" name="email" required data-i18n-placeholder="placeholder_email" placeholder="{{ t('placeholder_email') }}">
                 </div>
                 <div class="mb-3">
-                    <label for="password" class="form-label">Password *</label>
-                    <input type="password" class="form-control" id="password" name="password" required placeholder="Choose password">
+                    <label for="password" class="form-label" data-i18n="label_password">{{ t('label_password') }} *</label>
+                    <input type="password" class="form-control" id="password" name="password" required data-i18n-placeholder="placeholder_password" placeholder="{{ t('placeholder_password') }}">
                 </div>
                 <div class="mb-3">
-                    <label for="role" class="form-label">Select System Role *</label>
+                    <label for="role" class="form-label" data-i18n="label_role">{{ t('label_role') }} *</label>
                     <select class="form-select" id="role" name="role" required>
-                        <option value="farmer" selected>Farmer / Crop Producer</option>
-                        <option value="expert">Agronomist / Agricultural Expert</option>
-                        <option value="qa_manager">Procurement QA Manager / Admin</option>
-                    </select>
-                </div>
-                <div class="mb-4">
-                    <label for="region" class="form-label">Select General Region</label>
-                    <select class="form-select" id="region" name="region">
-                        <option value="North Zone" selected>North Zone</option>
-                        <option value="South Zone">South Zone</option>
-                        <option value="Central Region">Central Region</option>
-                        <option value="East District">East District</option>
-                        <option value="West Valley">West Valley</option>
+                        <option value="farmer" selected data-i18n="role_farmer">{{ t('role_farmer') }}</option>
+                        <option value="expert" data-i18n="role_expert">{{ t('role_expert') }}</option>
+                        <option value="qa_manager" data-i18n="role_processor">{{ t('role_processor') }}</option>
                     </select>
                 </div>
                 <div class="d-grid mb-3">
-                    <button type="submit" class="btn btn-farmer py-2">Create Account</button>
+                    <button type="submit" class="btn btn-farmer py-2" data-i18n="btn_register">{{ t('btn_register') }}</button>
                 </div>
             </form>
             <div class="text-center small text-muted">
-                Already registered? <a href="{{ url_for('main.login') }}" class="text-success fw-bold">Sign in here</a>
+                <span data-i18n="already_have_account">{{ t('already_have_account') }}</span> <a href="{{ url_for('main.login') }}" class="text-success fw-bold" data-i18n="btn_login">{{ t('btn_login') }}</a>
             </div>
         </div>
     </div>

@@ -1,0 +1,3 @@
+Experiment,Total Samples,Classes,Accuracy,Macro Precision,Macro Recall,Macro F1,Weighted F1
+Experiment A: Core 360 Dataset (12 Classes),360,12,29.17%,28.81%,29.17%,28.90%,28.90%
+Experiment B: Expanded 460 Dataset (17 Classes),460,17,23.91%,25.34%,24.02%,23.68%,23.60%

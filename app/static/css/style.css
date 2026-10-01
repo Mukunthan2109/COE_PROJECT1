@@ -275,3 +275,164 @@ body {
     padding: 2rem 0;
     margin-top: 3rem;
 }
+
+/* Premium AgriTech Dashboard Redesign */
+.dash-card {
+    background: #ffffff;
+    border: 1px solid #e2ece3;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(27, 67, 50, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dash-card:hover {
+    box-shadow: 0 6px 20px rgba(27, 67, 50, 0.09);
+}
+
+.dash-kpi-card {
+    background: #ffffff;
+    border: 1px solid #e0eae1;
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(27, 67, 50, 0.04);
+}
+
+.dash-kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--agri-secondary);
+}
+
+.dash-kpi-card.kpi-ai::before { background: #2a9d8f; }
+.dash-kpi-card.kpi-review::before { background: #e76f51; }
+.dash-kpi-card.kpi-validated::before { background: #264653; }
+
+.dash-kpi-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: #eef7f0;
+    color: var(--agri-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+}
+
+.dash-kpi-num {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #0f281e;
+    line-height: 1.1;
+    margin: 0.4rem 0 0.2rem 0;
+}
+
+.dash-kpi-label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #1b4332;
+}
+
+.dash-kpi-sub {
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+.status-badge-op {
+    background-color: #e8f5e9;
+    color: #1b5e20;
+    border: 1px solid #c8e6c9;
+    padding: 0.35rem 0.85rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.status-badge-un {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ffcdd2;
+    padding: 0.35rem 0.85rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.pulse-dot-green {
+    width: 8px;
+    height: 8px;
+    background-color: #2e7d32;
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 0 0 rgba(46, 125, 50, 0.7);
+    animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 125, 50, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(46, 125, 50, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 125, 50, 0); }
+}
+
+.workflow-pipeline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.wf-pipe-step {
+    flex: 1;
+    min-width: 130px;
+    background: #f8faf8;
+    border: 1px solid #e0ebe2;
+    border-radius: 12px;
+    padding: 1rem 0.75rem;
+    text-align: center;
+}
+
+.wf-pipe-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.3rem;
+}
+
+.wf-pipe-arrow {
+    font-size: 1.2rem;
+    color: #8fae96;
+    font-weight: bold;
+}
+
+.queue-item {
+    border-bottom: 1px solid #eef3ef;
+    padding: 0.85rem 0;
+    transition: background 0.15s ease;
+}
+
+.queue-item:last-child {
+    border-bottom: none;
+}
+
+.queue-item:hover {
+    background: #fafdfa;
+}
+
+.dynamic-insight-box {
+    background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+    border-left: 4px solid var(--agri-primary);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+}
+

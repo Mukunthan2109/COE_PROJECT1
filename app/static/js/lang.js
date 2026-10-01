@@ -1,5 +1,5 @@
 /**
- * AgriShield Bilingual UI Toggle (English / Tamil)
+ * AgriShield Bilingual UI Toggle & Internationalization Engine (English / Tamil)
  */
 
 const translations = {
@@ -7,81 +7,527 @@ const translations = {
         "brand_name": "AgriShield",
         "nav_home": "Home",
         "nav_observe": "New Observation",
+        "nav_scan": "Instant AI Scanner",
         "nav_history": "History",
         "nav_expert": "Expert Portal",
         "nav_analytics": "Analytics Dashboard",
         "nav_evaluation": "System Evaluation",
         "nav_feedback": "Feedback",
-        
+        "nav_batch_qa": "Batch QA",
+        "nav_login": "Login",
+        "nav_register": "Register",
+        "nav_logout": "Logout",
+        "footer_title": "AgriShield Escalation System — Food-Processing Quality Assurance",
+        "footer_sub": "Early Observation • Screening • Expert Escalation • Rapid Verification",
+
         "hero_heading": "Early Crop Disease Observation & Expert Escalation",
         "hero_sub": "Submit crop health photos and visible symptoms for instant ML screening and rapid agricultural expert verification.",
         "btn_report": "Submit New Observation",
         "btn_expert_dash": "View Expert Dashboard",
-        
         "card_total_obs": "Total Recorded Observations",
         "card_escalated": "Escalated to Experts",
         "card_validated": "Expert Validated Cases",
-        
+        "workflow_title": "AgriShield Workflow",
+        "wf_step1_title": "1. Farmer Observation Submissions",
+        "wf_step1_desc": "Farmers capture and upload plant photo with crop type, growth stage, and observed symptoms.",
+        "wf_step2_title": "2. Automated ML Screening",
+        "wf_step2_desc": "Machine learning predictor evaluates disease probability and calculates screening confidence level.",
+        "wf_step3_title": "3. Expert Escalation Triage",
+        "wf_step3_desc": "Low confidence cases (<70%) or high-risk diseases automatically escalate to plant pathologists.",
+
+        "dash_header_title": "AgriShield Dashboard",
+        "dash_header_sub": "AI-powered crop health monitoring and expert review overview",
+        "crop_health_overview": "Crop Health Overview",
+        "hero_status_sub": "Monitor submitted observations, AI screening and expert validation in one place.",
+        "status_operational": "AI Screening System: Operational",
+        "status_unavailable": "AI Screening System: Unavailable",
+
+        "kpi_total_sub": "All submitted observations",
+        "kpi_ai_screened": "AI Screened",
+        "kpi_ai_sub": "Images processed by AI",
+        "kpi_expert_review": "Expert Review",
+        "kpi_review_sub": "Cases requiring expert attention",
+        "kpi_expert_validated": "Expert Validated",
+        "kpi_validated_sub": "Cases reviewed by experts",
+
+        "kpi_avg_review_time": "Average Time to Expert Review",
+        "kpi_avg_time_sub": "Average turnaround time",
+        "kpi_escalation_rate": "AI Escalation Rate",
+        "kpi_escalation_rate_sub": "Cases referred to experts",
+        "kpi_high_risk": "High Risk Cases",
+        "kpi_high_risk_sub": "Severe risk flagged",
+
+        "chart_disease_dist": "Disease Distribution",
+        "chart_crop_dist": "Crop-wise Observations",
+        "card_ai_confidence": "AI Screening Confidence",
+        "confidence_summary": "Confidence Distribution",
+        "expert_queue_title": "Expert Review Queue",
+        "no_pending_reviews": "✓ No pending expert reviews",
+        "recent_obs_title": "Recent Observations",
+        "insight_title": "Crop Health Insight",
+
+        "empty_dash_title": "Your dashboard is ready",
+        "empty_dash_sub": "Submit your first crop observation to start monitoring crop health.",
+        "btn_new_observation": "+ New Observation",
+        "btn_review_case": "Review Case",
+        "empty_disease_chart": "No disease observations available yet",
+        "empty_crop_chart": "No crop observations available yet",
+
+        "wf_farmer_upload": "Farmer Upload",
+        "wf_ai_screening": "AI Screening",
+        "wf_risk_assessment": "Risk Assessment",
+        "wf_expert_review": "Expert Review",
+        "wf_validated_result": "Validated Result",
+
         "form_title": "New Observation",
         "form_sub": "Please fill in the crop details and upload a clear photo of the observed symptoms.",
-        
+        "scan_card_title": "📸 Upload Plant Photo for Automated AI Diagnosis",
+        "scan_card_sub": "Upload a clear photo of the crop leaf or plant. The AI engine will analyze the image to detect possible diseases.",
         "step1_title": "Step 1: Upload / Capture Crop Image",
-        "step1_sub": "Select a clear photo of the affected plant foliage, stem, or fruit from your gallery or mobile camera. (Max 5 MB, JPG/PNG)",
-        "step1_drag": "Click or tap above to select / capture a crop photo",
-
+        "step1_sub": "Select a clear photo of the affected plant foliage, stem, or fruit from your gallery or mobile camera. (Max 5MB, JPG/PNG/WEBP)",
+        "step1_drag": "Click or drop a plant leaf / crop photo here",
+        "choose_file": "Choose File",
+        "no_file_chosen": "No file chosen",
+        "supports_file": "Supports JPG, PNG, WEBP (Max 5MB)",
         "step2_title": "Step 2: Select Crop Type",
         "step3_title": "Step 3: Select Growth Stage",
         "step4_title": "Step 4: Select Visible Symptoms",
         "step5_title": "Step 5: Select Location & First Symptom Timing",
-
+        "label_location": "Location / Farm Block",
+        "placeholder_location": "e.g. Madurai - Block 4",
+        "label_symptom_time": "First Symptom Noticed",
         "btn_submit": "Submit Observation for Screening",
+        "btn_analyze_ai": "Analyze Crop Disease with AI",
+
+        "crop_tomato": "Tomato",
+        "crop_potato": "Potato",
+        "crop_rice": "Rice",
+        "crop_maize": "Maize",
+        "crop_chili": "Chili",
+        "crop_grape": "Grape",
+        "crop_apple": "Apple",
+        "Chili": "Chili",
+        "Grape": "Grape",
+        "Apple": "Apple",
+        "select_crop_prompt": "-- Select Crop --",
+
+        "stage_seedling": "Seedling",
+        "stage_vegetative": "Vegetative",
+        "stage_flowering": "Flowering",
+        "stage_fruiting": "Fruiting",
+        "stage_harvest": "Harvest",
+        "select_stage_prompt": "-- Select Growth Stage --",
+
+        "sym_yellowing_leaves": "Yellowing leaves",
+        "sym_brown_spots": "Brown spots",
+        "sym_white_patches": "White patches",
+        "sym_leaf_curling": "Leaf curling",
+        "sym_wilting": "Wilting",
+        "sym_holes_in_leaves": "Holes in leaves",
+        "sym_black_spots": "Black spots",
+        "sym_powdery_appearance": "Powdery appearance",
+        "sym_stem_discoloration": "Stem discoloration",
+        "sym_fruit_discoloration": "Fruit discoloration",
+        "sym_unusual_growth": "Unusual growth",
+        "sym_other": "Other",
+
+        "ai_prediction": "AI Prediction",
+        "possible_disease": "Possible Disease",
+        "healthy_crop": "Healthy Crop",
+        "disease_healthy": "Healthy Crop",
+        "disease_early_blight": "Early Blight",
+        "disease_late_blight": "Late Blight",
+        "disease_brown_spot": "Brown Spot",
+        "disease_leaf_blast": "Leaf Blast",
+        "disease_common_rust": "Common Rust",
+        "disease_leaf_blight": "Leaf Blight",
+        "disease_anthracnose": "Anthracnose",
+        "disease_leaf_curl": "Leaf Curl",
+        "disease_black_rot": "Black Rot",
+        "disease_apple_scab": "Apple Scab",
+        "Chili Healthy": "Chili Healthy",
+        "Chili Anthracnose": "Chili Anthracnose",
+        "Chili Leaf Curl": "Chili Leaf Curl",
+        "Grape Black Rot": "Grape Black Rot",
+        "Apple Apple Scab": "Apple Scab",
+
+
+        "confidence": "Confidence",
+        "risk_level": "Risk Level",
+        "risk_low": "Low Risk",
+        "risk_medium": "Medium Risk",
+        "risk_high": "High Risk",
+
+        "expert_review_required": "Expert Review Required",
+        "auto_escalated": "Automatically Escalated",
+        "pending_review": "Pending Review",
+        "screening_complete": "Screening Complete",
+        "escalation_reason_low_conf": "Confidence is below the screening threshold. Expert review is required.",
 
         "res_header": "Observation Record Details",
         "res_disclaimer": "AI screening is an initial triage assessment, not a final expert diagnosis.",
         "res_confidence": "ML Screening Confidence",
         "res_escalated": "The system screening confidence is low (<70%). This observation has been automatically escalated to an agricultural expert.",
         "res_indicators": "Possible Visual Indicators & Triage Notes:",
-        "res_validated": "Expert Validation & SLA Assessment"
+        "feature_vis": "Visual Feature Visualization",
+        "res_validated": "Expert Validation & SLA Assessment",
+        "obs_id": "Observation #",
+        "reported_by": "Reported By",
+        "submission_time": "Submission Time",
+        "btn_back_history": "Back to History",
+
+        "history_title": "Observation History",
+        "history_sub": "View all recorded crop health observations, ML screening results, and expert validations.",
+        "filter_crop": "Filter by Crop",
+        "filter_status": "Filter by Status",
+        "btn_clear_filters": "Clear Filters",
+        "all_crops": "All Crops",
+        "all_statuses": "All Statuses",
+        "th_photo": "Photo",
+        "th_obs_num": "Observation #",
+        "th_crop": "Crop",
+        "th_prediction": "AI Prediction",
+        "th_confidence": "Confidence",
+        "th_risk": "Risk Level",
+        "th_status": "Escalation & Expert Status",
+        "th_reported": "Reported Time",
+        "th_duration": "Review Duration",
+        "th_action": "Action",
+        "btn_view_details": "View Details",
+        "empty_history": "No observations submitted yet.",
+
+        "expert_title": "Expert Review & Validation Portal",
+        "expert_sub": "Review evidence photos, validate AI screening results, and provide treatment recommendations.",
+        "pending_reviews": "Pending Escalated Observations",
+        "badge_auto_escalated": "AUTO ESCALATED",
+        "btn_view_full_img": "View Full Image",
+        "ai_screening_pred": "AI Screening Prediction",
+        "validate_update_status": "Validate & Update Status",
+        "status_validated": "Validated",
+        "status_not_confirmed": "Not Confirmed",
+        "status_needs_info": "Needs More Information",
+        "label_expert_diag": "Expert Diagnosis",
+        "label_treatment_rec": "Treatment Recommendation",
+        "label_comments": "Comments",
+        "placeholder_diag": "Enter diagnosis details...",
+        "placeholder_rec": "Enter recommended treatments / fungicides...",
+        "placeholder_comments": "Additional notes for farmer...",
+        "btn_submit_review": "Submit Expert Review",
+        "empty_expert": "No pending expert reviews.",
+
+        "analytics_title": "Analytics Dashboard",
+        "analytics_sub": "Real-time crop observation metrics, expert review turnaround times, and regional disease alerts.",
+        "card_total_obs": "Total Observations",
+        "card_pending_reviews": "Pending Reviews",
+        "card_escalated_cases": "Escalated Cases",
+        "card_validated_cases": "Validated Cases",
+        "card_avg_review_time": "Average Review Time",
+        "not_enough_data": "Not enough data yet.",
+        "chart_disease_dist": "Disease Distribution",
+        "chart_crop_dist": "Crop Distribution",
+        "chart_risk_dist": "Risk Distribution",
+        "regional_alerts_title": "Regional Disease Alerts",
+        "empty_alert": "No regional outbreak alert.",
+
+        "eval_title": "System Evaluation & ML Metrics",
+        "eval_sub": "Performance metrics of the AgriShield 12-class Random Forest disease classification baseline.",
+        "eval_accuracy": "Test Accuracy",
+        "eval_precision": "Weighted Precision",
+        "eval_recall": "Weighted Recall",
+        "eval_f1": "Weighted F1-Score",
+        "eval_cm": "Confusion Matrix",
+        "dataset_size": "Dataset Size",
+        "train_samples": "Training Samples",
+        "test_samples": "Test Samples",
+        "comparison_title": "Baseline vs AgriShield Digital MVP",
+
+        "feedback_title": "User Feedback & Usability Evaluation",
+        "feedback_sub": "Help us improve AgriShield by rating your experience and submitting operational feedback.",
+        "label_your_role": "Your Role",
+        "role_farmer": "Farmer / Producer",
+        "role_expert": "Agricultural Expert / Pathologist",
+        "role_processor": "Food Processor / QA Auditor",
+        "label_usability_rating": "System Usability Rating",
+        "label_comments": "Comments / Suggestions for Improvement",
+        "placeholder_feedback": "Share your thoughts on ease of use, speed, and accuracy...",
+        "btn_submit_feedback": "Submit Feedback",
+
+        "label_username": "Username",
+        "label_email": "Email",
+        "label_password": "Password",
+        "label_confirm_password": "Confirm Password",
+        "label_role": "Account Role",
+        "placeholder_username": "Enter username",
+        "placeholder_email": "Enter email address",
+        "placeholder_password": "Enter password",
+        "placeholder_confirm_password": "Confirm password",
+        "btn_login": "Login",
+        "btn_register": "Register",
+        "no_account": "Don't have an account?",
+        "already_have_account": "Already have an account?"
     },
     ta: {
         "brand_name": "அக்ரிஷீல்ட் (AgriShield)",
         "nav_home": "முகப்பு",
         "nav_observe": "புதிய கவனிப்பு",
+        "nav_scan": "உடனடி AI ஸ்கேனர்",
         "nav_history": "வரலாறு",
-        "nav_expert": "வல்லுநர் போர்ட்டல்",
-        "nav_analytics": "பகுப்பாய்வு டாஷ்போர்டு",
-        "nav_evaluation": "அமைப்பின் மதிப்பீடு",
-        "nav_feedback": "கருத்துக்கள்",
+        "nav_expert": "நிபுணர் போர்டல்",
+        "nav_analytics": "பகுப்பாய்வு பலகை",
+        "nav_evaluation": "அமைப்பு மதிப்பீடு",
+        "nav_feedback": "கருத்து",
+        "nav_batch_qa": "மொத்தத் தரக் கட்டுப்பாடு",
+        "nav_login": "உள்நுழைவு",
+        "nav_register": "பதிவு",
+        "nav_logout": "வெளியேறவும்",
+        "footer_title": "அக்ரிஷீல்ட் பரிந்துரை அமைப்பு — உணவு பதப்படுத்துதல் தர உத்தரவாதம்",
+        "footer_sub": "ஆரம்ப கவனிப்பு • கணினி திரையிடல் • நிபுணர் பரிந்துரை • விரைவான சரிபார்ப்பு",
 
-        "hero_heading": "ஆரம்ப பயிர் நோய் கவனிப்பு மற்றும் வல்லுநர் பரிந்துரை",
-        "hero_sub": "உடனடி கணினி திரையிடல் மற்றும் விரைவான வேளாண் வல்லுநர் சரிபார்ப்புக்கு பயிர் சுகாதார படங்கள் மற்றும் அறிகுறிகளை சமர்ப்பிக்கவும்.",
+        "hero_heading": "பயிர் நோய்களை முன்கூட்டியே கண்டறிதல் மற்றும் நிபுணர் பரிந்துரை",
+        "hero_sub": "உடனடி ML பரிசோதனை மற்றும் வேளாண்மை நிபுணரின் விரைவான சரிபார்ப்பிற்காக பயிரின் உடல்நிலை புகைப்படங்கள் மற்றும் காணக்கூடிய அறிகுறிகளை சமர்ப்பிக்கவும்.",
         "btn_report": "புதிய கவனிப்பை சமர்ப்பிக்கவும்",
-        "btn_expert_dash": "வல்லுநர் டாஷ்போர்டைக் காண்க",
+        "btn_expert_dash": "நிபுணர் பலகையைப் பார்க்கவும்",
+        "card_total_obs": "மொத்த பதிவுசெய்யப்பட்ட கவனிப்புகள்",
+        "card_escalated": "நிபுணர்களுக்கு அனுப்பப்பட்டவை",
+        "card_validated": "நிபுணரால் சரிபார்க்கப்பட்ட வழக்குகள்",
+        "workflow_title": "அக்ரிஷீல்ட் செயல்பாட்டு வரைபடம்",
+        "wf_step1_title": "1. விவசாயி கவனிப்பு சமர்ப்பிப்புகள்",
+        "wf_step1_desc": "விவசாயிகள் பயிர் வகை, வளர்ச்சி நிலை மற்றும் அறிகுறிகளுடன் தாவர புகைப்படத்தை பதிவேற்றுகின்றனர்.",
+        "wf_step2_title": "2. தானியங்கி ML திரையிடல்",
+        "wf_step2_desc": "இயந்திர வழிமுறைகள் நோய் சாத்தியக்கூறுகளை மதிப்பிட்டு திரையிடல் நம்பிக்கை நிலையை கணக்கிடுகின்றன.",
+        "wf_step3_title": "3. நிபுணர் பரிந்துரை வரிசைப்பாடு",
+        "wf_step3_desc": "குறைந்த நம்பிக்கை நிலை (<70%) அல்லது அதிக ஆபத்துள்ள நோய்கள் தானாகவே தாவர நோயியல் நிபுணர்களுக்கு அனுப்பப்படுகின்றன.",
 
-        "card_total_obs": "பதிவு செய்யப்பட்ட மொத்த கவனிப்புகள்",
-        "card_escalated": "வல்லுநர்களுக்கு பரிந்துரைக்கப்பட்டவை",
-        "card_validated": "வல்லுநரால் உறுதிப்படுத்தப்பட்டவை",
+        "dash_header_title": "அக்ரிஷீல்ட் கட்டுப்பாட்டுப் பலகை",
+        "dash_header_sub": "AI பயிர் சுகாதார கண்காணிப்பு மற்றும் நிபுணர் பரிசோதனை சுருக்கம்",
+        "crop_health_overview": "பயிர் சுகாதார மேலோட்டம்",
+        "hero_status_sub": "சமர்ப்பிக்கப்பட்ட கவனிப்புகள், AI திரையிடல் மற்றும் நிபுணர் சரிபார்ப்புகளை ஒரே இடத்தில் கண்காணிக்கவும்.",
+        "status_operational": "AI திரையிடல் முறைமை: செயல்பாட்டில் உள்ளது",
+        "status_unavailable": "AI திரையிடல் முறைமை: கிடைக்கவில்லை",
+
+        "kpi_total_sub": "சமர்ப்பிக்கப்பட்ட அனைத்து கவனிப்புகள்",
+        "kpi_ai_screened": "AI மூலம் திரையிடப்பட்டவை",
+        "kpi_ai_sub": "AI மூலம் பகுப்பாய்வு செய்யப்பட்ட புகைப்படங்கள்",
+        "kpi_expert_review": "நிபுணர் பரிசோதனை",
+        "kpi_review_sub": "நிபுணர் கவனம் தேவைப்படும் வழக்குகள்",
+        "kpi_expert_validated": "நிபுணரால் சரிபார்க்கப்பட்டது",
+        "kpi_validated_sub": "நிபுணர்களால் சரிபார்க்கப்பட்ட வழக்குகள்",
+
+        "kpi_avg_review_time": "நிபுணர் பரிசோதனைக்கான சராசரி நேரம்",
+        "kpi_avg_time_sub": "சராசரி பதில் நேரம்",
+        "kpi_escalation_rate": "AI பரிந்துரை வீதம்",
+        "kpi_escalation_rate_sub": "நிபுணர்களுக்கு அனுப்பப்பட்ட வழக்குகள்",
+        "kpi_high_risk": "அதிக ஆபத்து வழக்குகள்",
+        "kpi_high_risk_sub": "அவசர ஆபத்து குறிக்கப்பட்ட வழக்குகள்",
+
+        "chart_disease_dist": "நோய் பரவல் விநியோகம்",
+        "chart_crop_dist": "பயிர்களின்படி கவனிப்புகள்",
+        "card_ai_confidence": "AI திரையிடல் நம்பகத்தன்மை",
+        "confidence_summary": "நம்பகத்தன்மை விநியோகம்",
+        "expert_queue_title": "நிலுவையில் உள்ள நிபுணர் பரிசோதனை வரிசை",
+        "no_pending_reviews": "✓ நிலுவையில் உள்ள நிபுணர் பரிசோதனைகள் எதுவுமில்லை",
+        "recent_obs_title": "சமீபத்திய கவனிப்புகள்",
+        "insight_title": "பயிர் சுகாதார நுண்ணறிவு",
+
+        "empty_dash_title": "உங்கள் பலகை தயார் நிலையில் உள்ளது",
+        "empty_dash_sub": "பயிர் ஆரோக்கியத்தைக் கண்காணிக்க உங்கள் முதல் பயிர் கவனிப்பைச் சமர்ப்பிக்கவும்.",
+        "btn_new_observation": "+ புதிய கவனிப்பு",
+        "btn_review_case": "வழக்கை பரிசீலிக்கவும்",
+        "empty_disease_chart": "இதுவரை எந்த நோய் கவனிப்புகளும் இல்லை",
+        "empty_crop_chart": "இதுவரை எந்த பயிர் கவனிப்புகளும் இல்லை",
+
+        "wf_farmer_upload": "விவசாயி பதிவேற்றம்",
+        "wf_ai_screening": "AI திரையிடல்",
+        "wf_risk_assessment": "ஆபத்து மதிப்பீடு",
+        "wf_expert_review": "நிபுணர் பரிசோதனை",
+        "wf_validated_result": "சரிபார்க்கப்பட்ட முடிவு",
 
         "form_title": "புதிய கவனிப்பு",
         "form_sub": "பயிர் விவரங்களை பூர்த்தி செய்து, கவனிக்கப்பட்ட அறிகுறிகளின் தெளிவான புகைப்படத்தை பதிவேற்றவும்.",
-
-        "step1_title": "படி 1: பயிர் படத்தைப் பதிவேற்றவும் / பிடிக்கவும்",
-        "step1_sub": "பாதிக்கப்பட்ட தாவர இலை அல்லது பழத்தின் தெளிவான புகைப்படத்தை தேர்ந்தெடுக்கவும்.",
-        "step1_drag": "பயிர் புகைப்படத்தை தேர்ந்தெடுக்க இங்கே கிளிக் செய்யவும்",
-
-        "step2_title": "படி 2: பயிர் வகையைத் தேர்ந்தெடுக்கவும்",
+        "scan_card_title": "📸 தானியங்கி AI நோயறிதலுக்காக தாவர புகைப்படத்தைப் பதிவேற்றவும்",
+        "scan_card_sub": "பயிரின் இலை அல்லது செடியின் தெளிவான புகைப்படத்தை பதிவேற்றவும். சாத்தியமான நோய்களைக் கண்டறிய AI இயந்திரம் புகைப்படத்தை பகுப்பாய்வு செய்யும்.",
+        "step1_title": "படி 1: பயிரின் புகைப்படத்தைப் பதிவேற்றவும்",
+        "step1_sub": "பாதிக்கப்பட்ட தாவர இலை அல்லது பழத்தின் தெளிவான புகைப்படத்தை தேர்ந்தெடுக்கவும். (அதிகபட்சம் 5MB, JPG/PNG/WEBP)",
+        "step1_drag": "தாவர இலை / பயிர் புகைப்படத்தை இங்கே கிளிக் செய்து தேர்ந்தெடுக்கவும் அல்லது இழுத்து விடவும்",
+        "choose_file": "கோப்பைத் தேர்ந்தெடுக்கவும்",
+        "no_file_chosen": "கோப்பு தேர்ந்தெடுக்கப்படவில்லை",
+        "supports_file": "JPG, PNG, WEBP கோப்புகளை ஆதரிக்கிறது (அதிகபட்சம் 5MB)",
+        "step2_title": "படி 2: பயிரைத் தேர்ந்தெடுக்கவும்",
         "step3_title": "படி 3: வளர்ச்சி நிலையைத் தேர்ந்தெடுக்கவும்",
         "step4_title": "படி 4: காணப்படும் அறிகுறிகளைத் தேர்ந்தெடுக்கவும்",
         "step5_title": "படி 5: இடம் மற்றும் முதல் அறிகுறி நேரத்தைத் தேர்ந்தெடுக்கவும்",
-
+        "label_location": "இடம் / பண்ணை பிரிவு",
+        "placeholder_location": "எ.கா. மதுரை - பிரிவு 4",
+        "label_symptom_time": "முதல் அறிகுறி கவனிக்கப்பட்ட நேரம்",
         "btn_submit": "திரையிடலுக்கு கவனிப்பைச் சமர்ப்பிக்கவும்",
+        "btn_analyze_ai": "AI மூலம் பயிர் நோயை பகுப்பாய்வு செய்யவும்",
+
+        "crop_tomato": "தக்காளி",
+        "crop_potato": "உருளைக்கிழங்கு",
+        "crop_rice": "நெல்",
+        "crop_maize": "மக்காச்சோளம்",
+        "crop_chili": "மிளகாய்",
+        "crop_grape": "திராட்சை",
+        "crop_apple": "ஆப்பிள்",
+        "Chili": "மிளகாய்",
+        "Grape": "திராட்சை",
+        "Apple": "ஆப்பிள்",
+        "select_crop_prompt": "-- பயிரைத் தேர்ந்தெடுக்கவும் --",
+
+        "stage_seedling": "நாற்று நிலை",
+        "stage_vegetative": "தாவர வளர்ச்சி நிலை",
+        "stage_flowering": "பூக்கும் நிலை",
+        "stage_fruiting": "காய்/பழம் உருவாகும் நிலை",
+        "stage_harvest": "அறுவடை நிலை",
+        "select_stage_prompt": "-- வளர்ச்சி நிலையைத் தேர்ந்தெடுக்கவும் --",
+
+        "sym_yellowing_leaves": "இலைகள் மஞ்சள் நிறமாகுதல்",
+        "sym_brown_spots": "பழுப்பு நிற புள்ளிகள்",
+        "sym_white_patches": "வெள்ளைத் திட்டுகள்",
+        "sym_leaf_curling": "இலை சுருட்டல்",
+        "sym_wilting": "வாடுதல்",
+        "sym_holes_in_leaves": "இலைகளில் துளைகள்",
+        "sym_black_spots": "கருப்பு புள்ளிகள்",
+        "sym_powdery_appearance": "மாவுப் போன்ற தோற்றம்",
+        "sym_stem_discoloration": "தண்டு நிறமாற்றம்",
+        "sym_fruit_discoloration": "காய்/பழ நிறமாற்றம்",
+        "sym_unusual_growth": "வழக்கத்திற்கு மாறான வளர்ச்சி",
+        "sym_other": "மற்றவை",
+
+        "ai_prediction": "AI கணிப்பு",
+        "possible_disease": "சாத்தியமான நோய்",
+        "healthy_crop": "ஆரோக்கியமான பயிர்",
+        "disease_healthy": "ஆரோக்கியமான பயிர்",
+        "disease_early_blight": "ஆரம்பகால கருகல் நோய்",
+        "disease_late_blight": "தாமதகால கருகல் நோய்",
+        "disease_brown_spot": "பழுப்பு புள்ளி நோய்",
+        "disease_leaf_blast": "இலை வெடிப்பு நோய்",
+        "disease_common_rust": "பொதுவான துரு நோய்",
+        "disease_leaf_blight": "இலை கருகல் நோய்",
+        "disease_anthracnose": "ஆந்த்ராக்னோஸ் நோய்",
+        "disease_leaf_curl": "இலை சுருட்டல் நோய்",
+        "disease_black_rot": "கருப்பு அழுகல் நோய்",
+        "disease_apple_scab": "சொறி நோய் (Scab)",
+        "Chili Healthy": "மிளகாய் - ஆரோக்கியமான பயிர்",
+        "Chili Anthracnose": "மிளகாய் - ஆந்த்ராக்னோஸ் நோய்",
+        "Chili Leaf Curl": "மிளகாய் - இலை சுருட்டல் நோய்",
+        "Grape Black Rot": "திராட்சை - கருப்பு அழுகல் நோய்",
+        "Apple Apple Scab": "ஆப்பிள் - சொறி நோய் (Scab)",
+
+
+        "confidence": "நம்பகத்தன்மை",
+        "risk_level": "ஆபத்து நிலை",
+        "risk_low": "குறைந்த ஆபத்து",
+        "risk_medium": "நடுத்தர ஆபத்து",
+        "risk_high": "அதிக ஆபத்து",
+
+        "expert_review_required": "நிபுணர் பரிசோதனை தேவை",
+        "auto_escalated": "தானாகவே நிபுணரிடம் அனுப்பப்பட்டது",
+        "pending_review": "பரிசோதனை நிலுவையில் உள்ளது",
+        "screening_complete": "ஆரம்ப பரிசோதனை முடிந்தது",
+        "escalation_reason_low_conf": "நம்பகத்தன்மை ஆரம்ப பரிசோதனை வரம்பை விட குறைவாக உள்ளது. நிபுணர் பரிசோதனை தேவை.",
 
         "res_header": "கவனிப்பு பதிவு விவரங்கள்",
         "res_disclaimer": "செயற்கை நுண்ணறிவு திரையிடல் ஒரு ஆரம்ப தரம் பிரித்தல் மட்டுமே, இறுதியான வல்லுநர் முடிவு அல்ல.",
         "res_confidence": "கணினி திரையிடல் நம்பிக்கை நிலை",
         "res_escalated": "திரையிடல் நம்பிக்கை குறைவாக உள்ளது (<70%). இந்த கவனிப்பு தானாகவே வேளாண் வல்லுநருக்கு அனுப்பப்பட்டுள்ளது.",
         "res_indicators": "காணப்படும் காட்சி குறிகாட்டிகள்:",
-        "res_validated": "வல்லுநர் உறுதிப்படுத்தல் மற்றும் SLA மதிப்பீடு"
+        "feature_vis": "காட்சி பண்புகள் வரைபடம் (Visual Feature Visualization)",
+        "res_validated": "வல்லுநர் உறுதிப்படுத்தல் மற்றும் SLA மதிப்பீடு",
+        "obs_id": "கவனிப்பு எண்",
+        "reported_by": "பதிவு செய்தவர்",
+        "submission_time": "சமர்ப்பித்த நேரம்",
+        "btn_back_history": "வரலாற்றிற்குச் செல்லவும்",
+
+        "history_title": "கவனிப்பு வரலாறு",
+        "history_sub": "பதிவு செய்யப்பட்ட அனைத்து பயிர் சுகாதார கவனிப்புகள், ML திரையிடல் முடிவுகள் மற்றும் நிபுணர் சரிபார்ப்புகளைப் பார்க்கவும்.",
+        "filter_crop": "பயிரின்படி வடிகட்டவும்",
+        "filter_status": "நிலையின்படி வடிகட்டவும்",
+        "btn_clear_filters": "வடிப்பான்களை அழிக்கவும்",
+        "all_crops": "அனைத்து பயிர்களும்",
+        "all_statuses": "அனைத்து நிலைகளும்",
+        "th_photo": "புகைப்படம்",
+        "th_obs_num": "கவனிப்பு எண்",
+        "th_crop": "பயிர்",
+        "th_prediction": "AI கணிப்பு",
+        "th_confidence": "நம்பகத்தன்மை",
+        "th_risk": "ஆபத்து நிலை",
+        "th_status": "பரிந்துரை மற்றும் நிபுணர் நிலை",
+        "th_reported": "பதிவு செய்த நேரம்",
+        "th_duration": "பரிசோதனை கால அளவு",
+        "th_action": "செயல்",
+        "btn_view_details": "விவரங்களைப் பார்க்கவும்",
+        "empty_history": "இதுவரை எந்த கவனிப்பும் சமர்ப்பிக்கப்படவில்லை.",
+
+        "expert_title": "நிபுணர் பரிசோதனை மற்றும் சரிபார்ப்பு போர்டல்",
+        "expert_sub": "ஆதார புகைப்படங்களைப் பரிசோதிக்கவும், AI திரையிடல் முடிவுகளை சரிபார்க்கவும் மற்றும் சிகிச்சை பரிந்துரைகளை வழங்கவும்.",
+        "pending_reviews": "நிலுவையில் உள்ள நிபுணர் பரிசோதனை கவனிப்புகள்",
+        "badge_auto_escalated": "தானியங்கி பரிந்துரை",
+        "btn_view_full_img": "முழு புகைப்படத்தைப் பார்க்கவும்",
+        "ai_screening_pred": "AI ஆரம்ப பரிசோதனை கணிப்பு",
+        "validate_update_status": "நிலையை சரிபார்த்து புதுப்பிக்கவும்",
+        "status_validated": "சரிபார்க்கப்பட்டது",
+        "status_not_confirmed": "உறுதிப்படுத்தப்படவில்லை",
+        "status_needs_info": "கூடுதல் தகவல் தேவை",
+        "label_expert_diag": "நிபுணர் நோயறிதல்",
+        "label_treatment_rec": "சிகிச்சை பரிந்துரை",
+        "label_comments": "கருத்துகள்",
+        "placeholder_diag": "நோயறிதல் விவரங்களை உள்ளிடவும்...",
+        "placeholder_rec": "பரிந்துரைக்கப்பட்ட சிகிச்சைகளை உள்ளிடவும்...",
+        "placeholder_comments": "விவசாயிக்கான கூடுதல் குறிப்புகள்...",
+        "btn_submit_review": "நிபுணர் பரிசோதனையைச் சமர்ப்பிக்கவும்",
+        "empty_expert": "நிலுவையில் உள்ள நிபுணர் பரிசோதனைகள் எதுவும் இல்லை.",
+
+        "analytics_title": "பகுப்பாய்வு பலகை",
+        "analytics_sub": "நேரலை பயிர் கவனிப்பு அளவீடுகள், நிபுணர் பரிசோதனை மாற்ற நேரங்கள் மற்றும் பிராந்திய நோய் எச்சரிக்கைகள்.",
+        "card_total_obs": "மொத்த கவனிப்புகள்",
+        "card_pending_reviews": "நிலுவையில் உள்ள பரிசோதனைகள்",
+        "card_escalated_cases": "நிபுணரிடம் அனுப்பப்பட்ட வழக்குகள்",
+        "card_validated_cases": "சரிபார்க்கப்பட்ட வழக்குகள்",
+        "card_avg_review_time": "சராசரி பரிசோதனை நேரம்",
+        "not_enough_data": "தற்போது போதுமான தரவு இல்லை.",
+        "chart_disease_dist": "நோய் விநியோகம்",
+        "chart_crop_dist": "பயிர் விநியோகம்",
+        "chart_risk_dist": "ஆபத்து நிலை விநியோகம்",
+        "regional_alerts_title": "பிராந்திய நோய் எச்சரிக்கைகள்",
+        "empty_alert": "பிராந்திய நோய் பரவல் எச்சரிக்கை எதுவும் இல்லை.",
+
+        "eval_title": "அமைப்பு மதிப்பீடு மற்றும் ML அளவீடுகள்",
+        "eval_sub": "AgriShield 12-வகுப்பு சீரற்ற வன நோய் வகைப்படுத்தல் மாதிரியின் செயல்திறன் அளவீடுகள்.",
+        "eval_accuracy": "சோதனை துல்லியம்",
+        "eval_precision": "எடையிடப்பட்ட துல்லிய மதிப்பு",
+        "eval_recall": "எடையிடப்பட்ட மீட்டெடுப்பு மதிப்பு",
+        "eval_f1": "எடையிடப்பட்ட F1 மதிப்பெண்",
+        "eval_cm": "குழப்ப அணி",
+        "dataset_size": "தரவுத்தொகுப்பு அளவு",
+        "train_samples": "பயிற்சி மாதிரிகள்",
+        "test_samples": "சோதனை மாதிரிகள்",
+        "comparison_title": "அடிப்படை செயல்முறை vs AgriShield டிஜிட்டல் MVP",
+
+        "feedback_title": "பயனர் கருத்து மற்றும் பயன்பாட்டு மதிப்பீடு",
+        "feedback_sub": "உங்கள் அனுபவத்தை மதிப்பிட்டு செயல்பாட்டுக் கருத்துகளைச் சமர்ப்பிப்பதன் மூலம் அக்ரிஷீல்டை மேம்படுத்த உதவுங்கள்.",
+        "label_your_role": "உங்கள் பங்கு",
+        "role_farmer": "விவசாயி / உற்பத்தியாளர்",
+        "role_expert": "வேளாண் நிபுணர் / நோயியல் வல்லுநர்",
+        "role_processor": "உணவு பதப்படுத்துபவர் / QA தணிக்கையாளர்",
+        "label_usability_rating": "அமைப்பின் பயன்பாட்டு மதிப்பீடு",
+        "label_comments": "மேம்பாட்டிற்கான கருத்துகள் / பரிந்துரைகள்",
+        "placeholder_feedback": "பயன்பாட்டின் எளிமை, வேகம் மற்றும் துல்லியம் பற்றிய உங்கள் எண்ணங்களைப் பகிர்ந்து கொள்ளுங்கள்...",
+        "btn_submit_feedback": "கருத்தை சமர்ப்பிக்கவும்",
+
+        "label_username": "பயனர் பெயர்",
+        "label_email": "மின்னஞ்சல்",
+        "label_password": "கடவுச்சொல்",
+        "label_confirm_password": "கடவுச்சொல்லை உறுதிப்படுத்தவும்",
+        "label_role": "கணக்கு பங்கு",
+        "placeholder_username": "பயனர் பெயரை உள்ளிடவும்",
+        "placeholder_email": "மின்னஞ்சல் முகவரியை உள்ளிடவும்",
+        "placeholder_password": "கடவுச்சொல்லை உள்ளிடவும்",
+        "placeholder_confirm_password": "கடவுச்சொல்லை உறுதிப்படுத்தவும்",
+        "btn_login": "உள்நுழைவு",
+        "btn_register": "பதிவு செய்யவும்",
+        "no_account": "கணக்கு இல்லையா?",
+        "already_have_account": "ஏற்கனவே கணக்கு உள்ளதா?"
     }
 };
 
@@ -92,6 +538,7 @@ function setLanguage(lang) {
     currentLang = lang;
     localStorage.setItem('app_lang', lang);
 
+    // Update text content
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (translations[lang][key]) {
@@ -99,6 +546,39 @@ function setLanguage(lang) {
         }
     });
 
+    // Update placeholders
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (translations[lang][key]) {
+            el.placeholder = translations[lang][key];
+        }
+    });
+
+    // Update titles
+    document.querySelectorAll('[data-i18n-title]').forEach(el => {
+        const key = el.getAttribute('data-i18n-title');
+        if (translations[lang][key]) {
+            el.title = translations[lang][key];
+        }
+    });
+
+    // Update alt text
+    document.querySelectorAll('[data-i18n-alt]').forEach(el => {
+        const key = el.getAttribute('data-i18n-alt');
+        if (translations[lang][key]) {
+            el.alt = translations[lang][key];
+        }
+    });
+
+    // Update value attribute (e.g. submit buttons)
+    document.querySelectorAll('[data-i18n-value]').forEach(el => {
+        const key = el.getAttribute('data-i18n-value');
+        if (translations[lang][key]) {
+            el.value = translations[lang][key];
+        }
+    });
+
+    // Update language toggle button text
     const langBtn = document.getElementById('langToggleBtn');
     if (langBtn) {
         langBtn.textContent = lang === 'en' ? 'தமிழ்' : 'English';
@@ -108,12 +588,21 @@ function setLanguage(lang) {
 function toggleLanguage() {
     const nextLang = currentLang === 'en' ? 'ta' : 'en';
     setLanguage(nextLang);
+    // Sync with Flask session
+    fetch('/set_language/' + nextLang)
+        .then(() => {
+            window.location.reload();
+        })
+        .catch(err => console.error('Language sync error:', err));
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     setLanguage(currentLang);
     const langBtn = document.getElementById('langToggleBtn');
     if (langBtn) {
-        langBtn.addEventListener('click', toggleLanguage);
+        langBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            toggleLanguage();
+        });
     }
 });

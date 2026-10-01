@@ -8,7 +8,7 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     UPLOAD_FOLDER = os.path.join(BASE_DIR, 'static', 'uploads')
     HEATMAP_FOLDER = os.path.join(BASE_DIR, 'static', 'heatmaps')
-    MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16 MB max upload limit
+    MAX_CONTENT_LENGTH = 5 * 1024 * 1024  # 5 MB max upload limit
     ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'webp'}
     CONFIDENCE_THRESHOLD = float(os.environ.get('CONFIDENCE_THRESHOLD', 0.70))
     OUTBREAK_ALERT_THRESHOLD = int(os.environ.get('OUTBREAK_ALERT_THRESHOLD', 3)) # Alert if >=3 cases in 48h

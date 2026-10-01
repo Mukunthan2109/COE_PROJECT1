@@ -1,49 +1,56 @@
-# User Usability Validation Protocol & Evaluation Template
+# AgriShield User Validation & Usability Testing Protocol
 
-This document provides the standardized user validation protocol and feedback collection template for evaluating the **Farmer-Friendly Disease Observation and Escalation App** with representative farmer and expert participants.
+## 1. Validation Study Protocol Overview
 
 > [!IMPORTANT]
-> **STATUS**: **PENDING USER VALIDATION**  
-> *Note*: In accordance with academic review ethics, no fake user participants, survey scores, or user quotes have been fabricated. User validation will be conducted with actual agricultural stakeholders prior to final project submission.
+> **Status**: `PENDING USER VALIDATION`  
+> *Note: This document defines the standardized usability testing framework and evaluation metrics for conducting pilot user studies with agricultural workers, agronomists, and procurement officers prior to field deployment.*
 
 ---
 
-## 1. Usability Test Tasks
+## 2. Target Stakeholder Groups
 
-Participants are asked to perform the following 6 core tasks on `http://127.0.0.1:5000`:
+1. **Smallholder Farmers / Agricultural Workers**: Non-technical field users submitting disease observations.
+2. **Agricultural Experts / Agronomists**: Pathologists validating escalated high-risk crop observations.
+3. **Quality Assurance Procurement Officers**: Industrial buyers assessing batch quality scores.
 
-| Task ID | Task Description | Target System Page | Success Criteria |
+---
+
+## 3. Standardized Usability Test Tasks (11 Tasks)
+
+| # | Task Description | Expected Outcome | Success Criteria |
 |---|---|---|---|
-| **T1** | **Select Language Preference** | Home / Navbar | Successfully toggle between English and Tamil interfaces. |
-| **T2** | **Create Crop Observation** | `/observe` | Select crop type, visible symptom, growth stage, and general region. |
-| **T3** | **Upload Crop Image** | `/observe` | Select and attach a crop leaf photo from local device. |
-| **T4** | **Read Triage Result** | `/result/<id>` | Locate and read the predicted disease label and screening status. |
-| **T5** | **Understand Confidence Score** | `/result/<id>` | Interpret the ML screening confidence percentage progress bar (`%`). |
-| **T6** | **Understand Expert Escalation** | `/result/<id>` | Read and comprehend the escalation notice when confidence is low (`<70%`). |
+| 1 | **Language Selection** | Switch application language between English and Tamil | UI elements render in selected language |
+| 2 | **Start Observation** | Navigate to `/observe` form | Observation intake page loads cleanly |
+| 3 | **Select Crop Type** | Select target crop (*e.g., Tomato crop*) | Crop selection highlighted |
+| 4 | **Select Symptom** | Choose visual symptom (*e.g., Yellowing leaves*) | Primary symptom stored |
+| 5 | **Select Growth Stage** | Choose crop growth stage (*e.g., Vegetative*) | Stage pill selected |
+| 6 | **Select Region** | Select administrative zone (*e.g., North Zone*) | Region setting active |
+| 7 | **Upload Image** | Capture/select leaf photo | Image quality check passes |
+| 8 | **Understand Result** | View initial screening prediction | Disease category clearly understood |
+| 9 | **Understand Confidence** | View screening confidence score | User understands triage certainty level |
+| 10 | **Understand Escalation** | Note whether expert review is required | Escalation badge clearly recognized |
+| 11 | **Track Status** | Lookup observation via ID at `/status` | Real-time review timeline displayed |
 
 ---
 
-## 2. Qualitative Usability Evaluation Questions
+## 4. Evaluation Metrics (1–5 Likert Scale)
 
-Following completion of the test tasks, participants answer 6 standardized usability questions (rated 1 = Strongly Disagree to 5 = Strongly Agree):
-
-1. **Ease of Use**: Was the interface easy to navigate and understand?
-2. **Label Clarity**: Were form controls and crop/symptom labels clear and unambiguous?
-3. **Language Support**: Was the language (English / Tamil) natural and understandable?
-4. **Explainability**: Was the prediction explanation and visual indicators list understandable?
-5. **Escalation Clarity**: Was the expert review escalation message clear regarding next steps?
-6. **Autonomy**: Could you complete the observation submission without technical assistance?
+- **Task Completion Rate (%)**: Percentage of tasks completed without facilitator intervention.
+- **Task Difficulty (1 = Very Hard, 5 = Very Easy)**: Perceived effort for intake submission.
+- **Language Clarity (1 = Poor, 5 = Excellent)**: Accessibility of Tamil and English wording.
+- **Explainability Understanding (1 = Confusing, 5 = Clear)**: User comprehension of visual indicators.
+- **Navigation Clarity (1 = Confusing, 5 = Intuitive)**: Ease of finding status tracking and history.
+- **Overall System Usability (1 = Unsatisfactory, 5 = Outstanding)**: General user satisfaction score.
 
 ---
 
-## 3. User Feedback Collection Table
+## 5. Pilot Study Template Summary Table
 
-*(To be populated during live stakeholder testing sessions)*
-
-| Participant ID | Role (Farmer / Expert) | Tasks Completed (T1–T6) | Avg Rating (1–5) | Key Feedback / Comments | Testing Date |
-|---|---|---|---|---|---|
-| *P-01* | *Pending User Validation* | *Pending* | *Pending* | *Testing session scheduled* | *Pending* |
-| *P-02* | *Pending User Validation* | *Pending* | *Pending* | *Testing session scheduled* | *Pending* |
-| *P-03* | *Pending User Validation* | *Pending* | *Pending* | *Testing session scheduled* | *Pending* |
-| *P-04* | *Pending User Validation* | *Pending* | *Pending* | *Testing session scheduled* | *Pending* |
-| *P-05* | *Pending User Validation* | *Pending* | *Pending* | *Testing session scheduled* | *Pending* |
+```text
+Participant ID | Role | Task Completion (11/11) | Avg Difficulty (1-5) | Language Clarity | Status
+--------------------------------------------------------------------------------------------------
+P-001 (Template)| Farmer     | Pending Field Trial  | Pending Evaluation   | Pending Trial    | PENDING
+P-002 (Template)| Agronomist | Pending Field Trial  | Pending Evaluation   | Pending Trial    | PENDING
+P-003 (Template)| QA Manager | Pending Field Trial  | Pending Evaluation   | Pending Trial    | PENDING
+```

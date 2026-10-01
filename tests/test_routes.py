@@ -193,4 +193,26 @@ def test_analyze_image_api(client):
     assert 'prediction' in json_data
     assert 'detected_crop' in json_data
 
+def test_empty_database_history_state(client):
+    with client.application.app_context():
+        Observation.query.delete()
+        db.session.commit()
+    res = client.get('/history')
+    assert res.status_code == 200
+    assert b"No observations submitted yet." in res.data
+
+def test_empty_database_expert_portal_state(client):
+    with client.application.app_context():
+        Observation.query.delete()
+        db.session.commit()
+    res = client.get('/expert')
+    assert res.status_code == 200
+    assert b"No pending expert reviews." in res.data
+
+def test_evaluation_page_12_class(client):
+    res = client.get('/evaluation')
+    assert res.status_code == 200
+    assert b"Test Accuracy (12-Class)" in res.data
+
+
 

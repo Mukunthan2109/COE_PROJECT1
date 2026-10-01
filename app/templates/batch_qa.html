@@ -8,10 +8,9 @@
         <div class="card card-custom p-4 mb-4 bg-light border-start border-4 border-warning">
             <div class="d-flex justify-content-between align-items-center">
                 <div>
-                    <h3 class="fw-bold text-dark m-0">📦 Crop Delivery Batch Quality Inspection</h3>
-                    <p class="text-muted small m-0 mt-1">Grade incoming crop batches for food-processing unit intake approval based on disease defect rates.</p>
+                    <h3 class="fw-bold text-dark m-0">📦 <span data-i18n="batch_qa_title">{{ t('batch_qa_title') }}</span></h3>
+                    <p class="text-muted small m-0 mt-1" data-i18n="batch_qa_sub">{{ t('batch_qa_sub') }}</p>
                 </div>
-                <span class="badge bg-warning text-dark fs-6">Quality Assurance Intake</span>
             </div>
         </div>
 
@@ -19,31 +18,20 @@
             <!-- Left: Batch Inspection Input Form -->
             <div class="col-md-5">
                 <div class="card card-custom p-4">
-                    <h5 class="fw-bold text-success mb-3">Inspect New Crop Batch</h5>
+                    <h5 class="fw-bold text-success mb-3" data-i18n="batch_qa_title">{{ t('batch_qa_title') }}</h5>
                     <form action="{{ url_for('main.batch_qa') }}" method="POST">
                         <div class="mb-3">
-                            <label for="crop" class="form-label">Select Crop Type *</label>
+                            <label for="crop" class="form-label" data-i18n="step2_title">{{ t('step2_title') }} *</label>
                             <select class="form-select" id="crop" name="crop" required>
-                                <option value="Tomato" selected>Tomato</option>
-                                <option value="Potato">Potato</option>
-                                <option value="Chili">Chili</option>
-                                <option value="Corn">Corn / Maize</option>
-                                <option value="Rice">Rice</option>
-                                <option value="Wheat">Wheat</option>
-                                <option value="Apple">Apple</option>
-                                <option value="Grape">Grape</option>
-                                <option value="Cotton">Cotton</option>
+                                <option value="Tomato" selected data-i18n="crop_tomato">{{ t('crop_tomato') }}</option>
+                                <option value="Potato" data-i18n="crop_potato">{{ t('crop_potato') }}</option>
+                                <option value="Rice" data-i18n="crop_rice">{{ t('crop_rice') }}</option>
+                                <option value="Maize" data-i18n="crop_maize">{{ t('crop_maize') }}</option>
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="supplier_region" class="form-label">Supplier Region / Zone *</label>
-                            <select class="form-select" id="supplier_region" name="supplier_region" required>
-                                <option value="North Zone" selected>North Zone</option>
-                                <option value="South Zone">South Zone</option>
-                                <option value="Central Region">Central Region</option>
-                                <option value="East District">East District</option>
-                                <option value="West Valley">West Valley</option>
-                            </select>
+                            <label for="supplier_region" class="form-label" data-i18n="label_location">{{ t('label_location') }} *</label>
+                            <input type="text" class="form-control" name="supplier_region" data-i18n-placeholder="placeholder_location" placeholder="{{ t('placeholder_location') }}" value="Madurai - Zone 1" required>
                         </div>
                         <div class="mb-3">
                             <label for="total_weight_kg" class="form-label">Total Delivery Batch Weight (kg) *</label>
@@ -58,23 +46,12 @@
                             <input type="number" class="form-control" id="diseased_sample_count" name="diseased_sample_count" placeholder="e.g., 4" required>
                         </div>
                         <div class="mb-3">
-                            <label for="inspection_notes" class="form-label">Inspection Notes</label>
-                            <textarea class="form-control" id="inspection_notes" name="inspection_notes" rows="2" placeholder="e.g., Minor leaf spot defects observed in crate #4."></textarea>
-                        </div>
-
-                        <!-- Grading Scale Info -->
-                        <div class="alert alert-light border small mb-3">
-                            <strong>Grading Scale:</strong>
-                            <ul class="m-0 ps-3">
-                                <li><strong>Grade A</strong>: Defect &lt; 5% (Approved Intake)</li>
-                                <li><strong>Grade B</strong>: Defect 5-15% (Sorting Required)</li>
-                                <li><strong>Grade C</strong>: Defect 15-25% (Discounted)</li>
-                                <li><strong>REJECT</strong>: Defect &gt; 25% (Intake Rejected)</li>
-                            </ul>
+                            <label for="inspection_notes" class="form-label" data-i18n="label_comments">{{ t('label_comments') }}</label>
+                            <textarea class="form-control" id="inspection_notes" name="inspection_notes" rows="2" data-i18n-placeholder="placeholder_comments" placeholder="{{ t('placeholder_comments') }}"></textarea>
                         </div>
 
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-farmer py-2">Calculate Grade & Log Batch</button>
+                            <button type="submit" class="btn btn-farmer py-2" data-i18n="btn_submit">{{ t('btn_submit') }}</button>
                         </div>
                     </form>
                 </div>
@@ -83,7 +60,7 @@
             <!-- Right: Inspected Batches Table -->
             <div class="col-md-7">
                 <div class="card card-custom p-4">
-                    <h5 class="fw-bold text-dark mb-3">Inspected Batch Audit Log</h5>
+                    <h5 class="fw-bold text-dark mb-3" data-i18n="nav_history">📋 {{ t('nav_history') }}</h5>
 
                     {% if batches %}
                     <div class="table-responsive">
@@ -91,42 +68,30 @@
                             <thead class="table-light">
                                 <tr>
                                     <th>Batch Code</th>
-                                    <th>Crop</th>
-                                    <th>Region</th>
+                                    <th data-i18n="th_crop">{{ t('th_crop') }}</th>
+                                    <th data-i18n="label_location">{{ t('label_location') }}</th>
                                     <th>Weight (kg)</th>
                                     <th>Defect %</th>
-                                    <th>Quality Grade</th>
-                                    <th>Status</th>
+                                    <th data-i18n="th_status">{{ t('th_status') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for b in batches %}
                                 <tr>
                                     <td><strong>{{ b.batch_code }}</strong></td>
-                                    <td>{{ b.crop }}</td>
+                                    <td>{{ t('crop_' + b.crop.lower()) if 'crop_' + b.crop.lower() in TRANSLATIONS.get(current_lang, {}) else b.crop }}</td>
                                     <td>{{ b.supplier_region }}</td>
                                     <td>{{ b.total_weight_kg }}</td>
                                     <td><strong>{{ b.defect_rate_percent }}%</strong></td>
-                                    <td>
-                                        {% if b.quality_grade == 'Grade A' %}
-                                            <span class="badge bg-success">Grade A</span>
-                                        {% elif b.quality_grade == 'Grade B' %}
-                                            <span class="badge bg-warning text-dark">Grade B</span>
-                                        {% elif b.quality_grade == 'Grade C' %}
-                                            <span class="badge bg-info text-white">Grade C</span>
-                                        {% else %}
-                                            <span class="badge bg-danger">REJECT</span>
-                                        {% endif %}
-                                    </td>
-                                    <td>{{ b.intake_status }}</td>
+                                    <td><span class="badge bg-success">{{ b.intake_status }}</span></td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
                     </div>
                     {% else %}
-                    <div class="text-center py-4 text-muted">
-                        No crop delivery batches inspected yet.
+                    <div class="text-center py-4 text-muted" data-i18n="empty_history">
+                        {{ t('empty_history') }}
                     </div>
                     {% endif %}
                 </div>

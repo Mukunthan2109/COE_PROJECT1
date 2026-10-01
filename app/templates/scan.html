@@ -6,17 +6,17 @@
         
         <div class="text-center mb-4">
             <h2 class="fw-bold text-success d-flex align-items-center justify-content-center">
-                ⚡ Instant AI Crop Disease Scanner
+                ⚡ <span data-i18n="nav_scan">{{ t('nav_scan') }}</span>
             </h2>
-            <p class="text-muted">
-                Upload any crop photo directly from your device. The project ML model automatically analyzes the crop type, disease condition, visual heatmap, and food-processing quality grade!
+            <p class="text-muted" data-i18n="scan_card_sub">
+                {{ t('scan_card_sub') }}
             </p>
         </div>
 
         {% if quality_failed %}
         <div class="alert alert-danger border-danger shadow-sm mb-4">
-            <h5 class="fw-bold d-flex align-items-center mb-2">⚠️ Image Quality Inspection Failed</h5>
-            <p class="mb-2">The uploaded image did not meet minimum image quality standards for ML analysis.</p>
+            <h5 class="fw-bold d-flex align-items-center mb-2" data-i18n="msg_image_blurry">⚠️ {{ t('msg_image_blurry') }}</h5>
+            <p class="mb-2" data-i18n="step1_sub">{{ t('step1_sub') }}</p>
             {% if quality_details %}
             <div class="bg-white p-2 rounded small text-secondary">
                 <strong>Details:</strong> {{ quality_details.reason }}
@@ -29,18 +29,31 @@
 
         <!-- Upload Card -->
         <div class="card card-custom p-4 mb-4">
-            <h4 class="fw-bold text-dark mb-3">📸 Upload Plant Photo for Automated AI Diagnosis</h4>
+            <h4 class="fw-bold text-dark mb-3" data-i18n="scan_card_title">{{ t('scan_card_title') }}</h4>
             <form action="{{ url_for('main.scan') }}" method="POST" enctype="multipart/form-data">
                 <div class="mb-3">
-                    <input type="file" class="form-control form-control-lg" id="scan_image" name="crop_image" accept="image/*" required>
+                    <label class="form-label fw-bold" data-i18n="step2_title">{{ t('step2_title') }}</label>
+                    <select class="form-select form-select-lg mb-3" name="crop" required>
+                        <option value="Tomato" selected data-i18n="crop_tomato">🍅 {{ t('crop_tomato') }}</option>
+                        <option value="Potato" data-i18n="crop_potato">🥔 {{ t('crop_potato') }}</option>
+                        <option value="Rice" data-i18n="crop_rice">🌾 {{ t('crop_rice') }}</option>
+                        <option value="Maize" data-i18n="crop_maize">🌽 {{ t('crop_maize') }}</option>
+                        <option value="Chili" data-i18n="crop_chili">🌶️ {{ t('crop_chili') }}</option>
+                        <option value="Grape" data-i18n="crop_grape">🍇 {{ t('crop_grape') }}</option>
+                        <option value="Apple" data-i18n="crop_apple">🍎 {{ t('crop_apple') }}</option>
+                    </select>
+
+                </div>
+                <div class="mb-3">
+                    <input type="file" class="form-control form-control-lg" id="scan_image" name="crop_image" accept="image/*" capture="environment" required>
                 </div>
                 <div class="upload-drag-zone p-4 text-center border-dashed rounded bg-light cursor-pointer mb-3" onclick="document.getElementById('scan_image').click();">
                     <div class="fs-1 text-success mb-2">📤</div>
-                    <span class="fw-semibold text-dark d-block">Click or drop a plant leaf / crop photo here</span>
-                    <span class="text-muted small">Supports JPG, PNG, WEBP (Max 5MB)</span>
+                    <span class="fw-semibold text-dark d-block" data-i18n="step1_drag">{{ t('step1_drag') }}</span>
+                    <span class="text-muted small" data-i18n="supports_file">{{ t('supports_file') }}</span>
                 </div>
-                <button type="submit" class="btn btn-agri-yellow py-3 fs-5 w-100 fw-bold">
-                    🔍 Analyze Crop Disease with AI
+                <button type="submit" class="btn btn-agri-yellow py-3 fs-5 w-100 fw-bold" data-i18n="btn_analyze_ai">
+                    🔍 {{ t('btn_analyze_ai') }}
                 </button>
             </form>
         </div>
@@ -50,14 +63,14 @@
         <div class="card card-custom p-4 mb-4 border-success">
             <div class="d-flex flex-wrap justify-content-between align-items-center border-bottom pb-3 mb-3">
                 <div>
-                    <h3 class="fw-bold text-success m-0">🔬 AI Diagnostic Analysis Result</h3>
-                    <span class="text-muted small">Observation Tracked #{{ observation.id if observation else 'N/A' }}</span>
+                    <h3 class="fw-bold text-success m-0" data-i18n="scan_result_title">🔬 {{ t('scan_result_title') }}</h3>
+                    <span class="text-muted small"><span data-i18n="obs_id">{{ t('obs_id') }}</span> {{ observation.id if observation else 'N/A' }}</span>
                 </div>
                 <div>
                     {% if status == 'Initial screening result' %}
-                    <span class="badge badge-screening fs-6">Auto-Triaged (High Confidence)</span>
+                    <span class="badge badge-screening fs-6" data-i18n="screening_complete">{{ t('screening_complete') }}</span>
                     {% else %}
-                    <span class="badge badge-escalated fs-6">Escalated to Expert Review</span>
+                    <span class="badge badge-escalated fs-6" data-i18n="expert_review_required">{{ t('expert_review_required') }}</span>
                     {% endif %}
                 </div>
             </div>
@@ -66,23 +79,23 @@
                 <!-- Left Column: Photos & Heatmaps -->
                 <div class="col-md-5">
                     <div class="card border mb-3">
-                        <div class="card-header bg-light py-2 fw-bold small text-secondary">
-                            📸 Original Photo & Grad-CAM Heatmap Overlay
+                        <div class="card-header bg-light py-2 fw-bold small text-secondary" data-i18n="step1_title">
+                            📸 {{ t('step1_title') }}
                         </div>
                         <div class="card-body p-2 text-center bg-light">
                             <div class="row g-2">
                                 <div class="col-6">
-                                    <span class="small text-muted d-block mb-1">Uploaded Photo</span>
+                                    <span class="small text-muted d-block mb-1" data-i18n="th_photo">{{ t('th_photo') }}</span>
                                     <img src="{{ url_for('static', filename=image_path) }}" 
                                          alt="Uploaded Crop Image" 
                                          class="img-fluid rounded border shadow-sm" 
                                          style="max-height: 180px; object-fit: contain;">
                                 </div>
                                 <div class="col-6">
-                                    <span class="small text-muted d-block mb-1">Grad-CAM Heatmap</span>
+                                    <span class="small text-muted d-block mb-1">Attention Heatmap</span>
                                     {% if heatmap_path %}
                                     <img src="{{ url_for('static', filename=heatmap_path) }}" 
-                                         alt="Grad-CAM visual heatmap" 
+                                         alt="Visual explanation heatmap" 
                                          class="img-fluid rounded border shadow-sm" 
                                          style="max-height: 180px; object-fit: contain;">
                                     {% else %}
@@ -94,11 +107,10 @@
                     </div>
 
                     <div class="bg-white p-3 border rounded">
-                        <h6 class="fw-bold text-secondary mb-2">📋 Auto-Detected Crop Details</h6>
+                        <h6 class="fw-bold text-secondary mb-2" data-i18n="possible_disease">📋 {{ t('possible_disease') }}</h6>
                         <ul class="list-unstyled small m-0">
-                            <li class="py-1 border-bottom"><strong>Auto-Detected Crop:</strong> <span class="badge bg-success fs-6">{{ result.detected_crop }}</span></li>
-                            <li class="py-1 border-bottom"><strong>Auto-Detected Disease:</strong> <span class="badge bg-danger fs-6">{{ result.detected_symptom }}</span></li>
-                            <li class="py-1 border-bottom"><strong>Image Quality:</strong> <span class="text-success fw-bold">✓ {{ quality_msg or 'Passed Inspection' }}</span></li>
+                            <li class="py-1 border-bottom"><strong><span data-i18n="th_crop">{{ t('th_crop') }}</span>:</strong> <span class="badge bg-success fs-6">{{ t('crop_' + result.detected_crop.lower()) if 'crop_' + result.detected_crop.lower() in TRANSLATIONS.get(current_lang, {}) else result.detected_crop }}</span></li>
+                            <li class="py-1 border-bottom"><strong><span data-i18n="possible_disease">{{ t('possible_disease') }}</span>:</strong> <span class="badge bg-danger fs-6">{{ t(result.prediction) }}</span></li>
                         </ul>
                     </div>
                 </div>
@@ -106,17 +118,17 @@
                 <!-- Right Column: Model Analysis & Impact -->
                 <div class="col-md-7">
                     <div class="bg-light p-4 rounded border mb-4">
-                        <h5 class="fw-bold mb-3">ML Screening Classification</h5>
+                        <h5 class="fw-bold mb-3" data-i18n="ai_screening_pred">{{ t('ai_screening_pred') }}</h5>
                         
                         <div class="mb-3">
-                            <span class="text-muted d-block small">Predicted Classification:</span>
-                            <span class="fs-3 fw-bold text-success">{{ result.prediction }}</span>
+                            <span class="text-muted d-block small" data-i18n="ai_prediction">{{ t('ai_prediction') }}:</span>
+                            <span class="fs-3 fw-bold text-success">{{ t(result.prediction) }}</span>
                         </div>
 
                         <!-- Confidence Bar -->
                         <div class="mb-4">
                             <div class="d-flex justify-content-between mb-1">
-                                <span class="fw-semibold small">ML Screening Confidence Score</span>
+                                <span class="fw-semibold small" data-i18n="res_confidence">{{ t('res_confidence') }}</span>
                                 <span class="fw-bold text-dark">{{ confidence_pct }}</span>
                             </div>
                             <div class="progress" style="height: 22px;">
@@ -130,7 +142,7 @@
 
                         <!-- Explainability -->
                         <div class="mb-3">
-                            <h6 class="fw-bold text-dark mb-2">🔍 Visual Leaf Feature Explainability:</h6>
+                            <h6 class="fw-bold text-dark mb-2" data-i18n="res_indicators">🔍 {{ t('res_indicators') }}</h6>
                             <ul class="list-group list-group-flush border rounded">
                                 {% for item in result.explainability %}
                                 <li class="list-group-item bg-white small">📌 {{ item }}</li>
@@ -140,8 +152,8 @@
                     </div>
 
                     <div class="d-flex gap-2">
-                        <a href="{{ url_for('main.result', id=observation.id) }}" class="btn btn-success flex-fill">View Full Report (#{{ observation.id }})</a>
-                        <a href="{{ url_for('main.scan') }}" class="btn btn-outline-secondary">Scan Another Image</a>
+                        <a href="{{ url_for('main.result', id=observation.id) }}" class="btn btn-success flex-fill"><span data-i18n="btn_view_details">{{ t('btn_view_details') }}</span> (#{{ observation.id }})</a>
+                        <a href="{{ url_for('main.scan') }}" class="btn btn-outline-secondary" data-i18n="nav_scan">⚡ {{ t('nav_scan') }}</a>
                     </div>
                 </div>
             </div>

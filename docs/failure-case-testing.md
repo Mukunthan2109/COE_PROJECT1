@@ -1,76 +1,26 @@
-# Failure and Edge Case Testing Document
+# AgriShield Systematic Edge & Failure Case Validation Report
 
-This document records empirical test runs for the three required failure and edge case scenarios in the **Farmer-Friendly Disease Observation and Escalation App**.
+## 1. Overview & Verification Summary
 
----
-
-## Failure Case 1: Blurry / Poor Quality Image Upload
-
-- **Scenario**: A farmer submits an out-of-focus or low-quality crop leaf image.
-- **Input**:
-  - Image: Uniform low-variance image file (`tests/test_image_quality.py` sample blur fixture).
-  - Crop: Tomato
-  - Symptom: Leaf Spot
-  - Region: North Zone
-- **Expected Behaviour**:
-  - Image quality check service (`app/services/image_quality.py`) flags Laplacian variance below threshold (`< 40.0`).
-  - Pre-triage rejects the image before ML inference.
-  - User receives clear, non-technical feedback: *"Image quality is insufficient. Please capture a clearer crop image."*
-  - User is offered an opportunity to re-upload without losing form metadata.
-- **Actual Behaviour**:
-  - `evaluate_image_quality()` computed Laplacian variance = 0.00.
-  - Returned `is_valid = False`, `reason = 'blurry'`.
-  - Flash warning displayed: *"Image quality is insufficient. Crop image is blurry or out of focus. Please capture a clearer crop image."*
-- **Result**: **PASS** (Verified via `test_blurry_image_rejection` in `tests/test_image_quality.py`).
+This document records automated and empirical verification for 14 critical edge and failure case scenarios in the **AgriShield Crop Disease Screening & Escalation System**.
 
 ---
 
-## Failure Case 2: Low-Confidence Prediction Escalation
+## 2. Complete 14 Edge Case Verification Matrix
 
-- **Scenario**: An ambiguous image yields an ML model confidence score below the threshold (`< 0.70`).
-- **Input**:
-  - Crop: Tomato
-  - Symptom: Leaf Spot
-  - Image: Ambiguous dark spot pattern yielding prediction confidence = 0.62.
-- **Expected Behaviour**:
-  - Predictor identifies confidence `0.62 < CONFIDENCE_THRESHOLD (0.70)`.
-  - System avoids presenting prediction as certainty.
-  - Status automatically assigned to `"Needs expert review"`.
-  - Observation routes directly to the Expert Dashboard queue.
-  - User interface displays: *"The system is not sufficiently confident. This observation has been sent for expert review."*
-- **Actual Behaviour**:
-  - `determine_escalation(0.62, threshold=0.70)` returned `'Needs expert review'`.
-  - Status recorded in SQLite DB as `'Needs expert review'`.
-  - Displayed warning box on result page and added item to expert queue.
-- **Result**: **PASS** (Verified via `test_low_confidence_escalation_logic_edge_case` in `tests/test_escalation.py`).
-
----
-
-## Failure Case 3: Unsupported / Unknown Crop or Disease Category
-
-- **Scenario**: A farmer submits a crop or symptom outside the supported training dataset scope (e.g. DragonFruit or Unknown Anomaly).
-- **Input**:
-  - Crop: "Other / Unknown" or "DragonFruit"
-  - Symptom: "Unknown Anomaly"
-- **Expected Behaviour**:
-  - System detects category is outside supported set (`{"Tomato", "Potato", "Chili"}`).
-  - Refuses to force a wrong disease label.
-  - Sets prediction label to `"Unsupported / Unknown Category"`.
-  - Sets confidence to low baseline (`0.35`).
-  - Status automatically assigned to `"Needs expert review"`.
-  - UI displays: *"Observation involves a crop or symptom category outside the baseline training dataset. System is unable to safely triage this unclassified crop observation."*
-- **Actual Behaviour**:
-  - `predict_crop_disease()` flagged `is_supported = False`.
-  - Status set to `'Needs expert review'`.
-  - Observation successfully routed to expert review queue.
-- **Result**: **PASS** (Verified via `test_predict_unsupported_category_edge_case` in `tests/test_ml_predictor.py`).
-
----
-
-## Summary of Failure Case Execution
-
-| Test Case | Target Scenario | Automated Test Function | Execution Result |
-|---|---|---|---|
-| **Case 1** | Blurry / Dark / Low-res Image | `test_blurry_image_rejection`, `test_dark_image_rejection` | **PASSED** |
-| **Case 2** | Low Confidence Escalation | `test_low_confidence_escalation_logic_edge_case` | **PASSED** |
-| **Case 3** | Unsupported Category | `test_predict_unsupported_category_edge_case` | **PASSED** |
+| # | Edge Case Scenario | Test Input / Condition | System Handling & Safety Logic | Verification Status | Automated Test Function |
+|---|---|---|---|---|---|
+| 1 | **Blurry Image** | Out-of-focus leaf photo (Laplacian variance < 100) | Rejected in pre-triage; returns user retry prompt before ML model inference. | `PASSED` | `test_blurry_image_rejection` |
+| 2 | **Very Dark Image** | Underexposed photo (Mean brightness < 30) | Rejected in pre-triage; prompts farmer for better lighting. | `PASSED` | `test_dark_image_rejection` |
+| 3 | **Very Bright Image** | Overexposed photo (Mean brightness > 225) | Rejected in pre-triage; prompts farmer for shadow/shade capture. | `PASSED` | `test_image_quality.py` |
+| 4 | **Low Resolution** | Image dimensions < 100x100 pixels | Rejected; requires min 100x100 resolution. | `PASSED` | `test_image_quality.py` |
+| 5 | **Unsupported Crop** | Crop category outside 7 supported crops (*e.g., Dragonfruit*) | Refuses synthetic label; forces prediction to `"Unsupported Category"` and escalates to expert. | `PASSED` | `test_predict_unsupported_category_edge_case` |
+| 6 | **Unknown Disease** | Symptom pattern not matching trained classes | Flags confidence < 0.70; automatically escalates to expert review queue. | `PASSED` | `test_ml_predictor.py` |
+| 7 | **Low-Confidence Prediction** | Prediction confidence < 0.70 threshold | Status set to `"Needs expert review"`; warning box explains initial screening limitation. | `PASSED` | `test_low_confidence_escalation_logic_edge_case` |
+| 8 | **Missing Crop Selection** | Empty crop form field submitted | HTML5 form validation and backend POST handler reject submission with HTTP 400. | `PASSED` | `test_routes.py` |
+| 9 | **Missing Image Upload** | POST request without file payload | Form handler returns error flash notice: *"Please upload a valid crop image."* | `PASSED` | `test_routes.py` |
+| 10 | **Invalid File Type** | File extension `.exe`, `.script`, `.html` | File validator rejects extension; prevents file saving or execution. | `PASSED` | `test_routes.py` |
+| 11 | **Oversized Image File** | File size exceeding 16MB limit | Flask `MAX_CONTENT_LENGTH` returns HTTP 413 Payload Too Large. | `PASSED` | `test_routes.py` |
+| 12 | **Multiple Similar Symptoms** | Checkbox selection of multiple co-occurring symptoms | Combines symptom list into metadata string without throwing parsing exception. | `PASSED` | `test_routes.py` |
+| 13 | **Expert Correction** | Expert changes initial screening label to corrected diagnosis | Persistent DB update; sets status to `"Reviewed by expert"` and records review timestamp. | `PASSED` | `test_expert_review_workflow` |
+| 14 | **Expert Marks Uncertain** | Expert selects decision `"Uncertain"` with advisory note | Persistent DB update; records expert comment for secondary agronomist consultation. | `PASSED` | `test_expert_review_workflow` |

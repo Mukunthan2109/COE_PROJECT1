@@ -1,89 +1,501 @@
 {% extends "base.html" %}
 
 {% block content %}
-<!-- Active Outbreak Warning Banner -->
+<!-- Active Outbreak Alert Banner -->
 {% if alerts %}
-<div class="alert alert-danger shadow-sm border-danger d-flex align-items-center mb-3">
+<div class="alert alert-danger shadow-sm border-danger d-flex align-items-center mb-4 rounded-3">
     <span class="fs-3 me-3">🚨</span>
     <div>
-        <strong class="d-block">Regional Disease Outbreak Alert Active!</strong>
-        <span class="small text-dark">
+        <strong class="d-block text-danger" data-i18n="regional_alerts_title">{{ t('regional_alerts_title') }}</strong>
+        <span class="small text-dark fw-medium">
             {% for a in alerts %}
-                [{{ a.region }}: {{ a.crop }} {{ a.disease }} ({{ a.incident_count }} cases)]
+                [{{ a.region }}: {{ a.crop }} {{ a.disease }} ({{ a.incident_count }} {{ t('card_total_obs') }})]
             {% endfor %}
         </span>
     </div>
 </div>
 {% endif %}
 
-<!-- AgriShield Hero Banner -->
-<div class="hero-agri text-center shadow-sm">
-    <h1 class="display-6 fw-bold mb-2" data-i18n="hero_heading">Early Crop Disease Observation & Expert Escalation</h1>
-    <p class="lead mb-4 text-white-50 max-w-700 mx-auto" data-i18n="hero_sub">
-        Submit crop health photos and visible symptoms for instant ML screening and rapid agricultural expert verification.
-    </p>
-    <div class="d-flex justify-content-center flex-wrap gap-3">
-        <a href="{{ url_for('main.observe') }}" class="btn btn-agri-yellow" data-i18n="btn_report">📷 Submit New Observation</a>
-        <a href="{{ url_for('main.expert_dashboard') }}" class="btn btn-agri-outline" data-i18n="btn_expert_dash">📱 View Expert Dashboard</a>
+<!-- Dashboard Top Header Bar -->
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+    <div>
+        <h1 class="h3 fw-bold text-dark mb-1" data-i18n="dash_header_title">{{ t('dash_header_title') }}</h1>
+        <p class="text-muted small mb-0" data-i18n="dash_header_sub">{{ t('dash_header_sub') }}</p>
+    </div>
+    <div class="d-flex align-items-center gap-2">
+        <button onclick="window.location.reload();" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1 shadow-sm">
+            <span>🔄</span> Refresh
+        </button>
+        {% if current_user.is_authenticated %}
+            <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill small fw-semibold">
+                👤 {{ current_user.username }} ({{ current_user.role.title() }})
+            </span>
+        {% endif %}
     </div>
 </div>
 
-<!-- 3 Main Summary Cards matching screenshot media_1788927639116.png -->
-<div class="row g-4 mb-5">
-    <div class="col-md-4">
-        <div class="summary-card summary-card-green">
-            <div class="number">{{ analytics.total_observations }}</div>
-            <div class="label" data-i18n="card_total_obs">Total Recorded Observations</div>
+<!-- Compact Hero & Live Operational Status Indicator -->
+<div class="card dash-card border-0 mb-4 bg-white">
+    <div class="card-body p-4 d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+        <div>
+            <div class="d-flex align-items-center gap-3 mb-2">
+                <h2 class="h5 fw-bold text-dark mb-0" data-i18n="crop_health_overview">{{ t('crop_health_overview') }}</h2>
+                {% if d.model_operational %}
+                    <span class="status-badge-op">
+                        <span class="pulse-dot-green"></span>
+                        <span data-i18n="status_operational">{{ t('status_operational') }}</span>
+                    </span>
+                {% else %}
+                    <span class="status-badge-un">
+                        ⚠️ <span data-i18n="status_unavailable">{{ t('status_unavailable') }}</span>
+                    </span>
+                {% endif %}
+            </div>
+            <p class="text-secondary small mb-0" data-i18n="hero_status_sub">{{ t('hero_status_sub') }}</p>
         </div>
-    </div>
-    <div class="col-md-4">
-        <div class="summary-card summary-card-orange">
-            <div class="number">{{ analytics.escalated_count }}</div>
-            <div class="label" data-i18n="card_escalated">Escalated to Experts</div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="summary-card summary-card-blue">
-            <div class="number">{{ analytics.reviewed_count }}</div>
-            <div class="label" data-i18n="card_validated">Expert Validated Cases</div>
+        <div class="d-flex gap-2">
+            <a href="{{ url_for('main.observe') }}" class="btn btn-agri-yellow fw-bold d-flex align-items-center gap-2 shadow-sm">
+                <span>📷</span> <span data-i18n="btn_new_observation">{{ t('btn_new_observation') }}</span>
+            </a>
         </div>
     </div>
 </div>
 
-<!-- End-to-End Disease Escalation Workflow timeline matching screenshot media_1788927639116.png -->
-<div class="text-center mb-4">
-    <h3 class="fw-bold text-success">⚙️ End-to-End Disease Escalation Workflow</h3>
-    <p class="text-muted small">Standardized 4-step triage pipeline connecting farmers to agricultural experts.</p>
+<!-- Empty Database Banner (Displayed when 0 observations exist) -->
+{% if d.total_observations == 0 %}
+<div class="card dash-card border-0 mb-4 bg-light text-center py-4 px-3">
+    <div class="card-body">
+        <div class="fs-1 mb-2">🌱</div>
+        <h3 class="h5 fw-bold text-dark mb-2" data-i18n="empty_dash_title">{{ t('empty_dash_title') }}</h3>
+        <p class="text-muted small max-w-600 mx-auto mb-3" data-i18n="empty_dash_sub">{{ t('empty_dash_sub') }}</p>
+        <a href="{{ url_for('main.observe') }}" class="btn btn-agri-yellow fw-bold shadow-sm">
+            <span data-i18n="btn_new_observation">{{ t('btn_new_observation') }}</span>
+        </a>
+    </div>
+</div>
+{% endif %}
+
+<!-- 4 Premium Top KPI Cards -->
+<div class="row g-3 mb-4">
+    <!-- KPI 1: Total Observations -->
+    <div class="col-6 col-lg-3">
+        <div class="dash-kpi-card h-100">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <div class="dash-kpi-label" data-i18n="kpi_total_obs">{{ t('kpi_total_obs') }}</div>
+                    <div class="dash-kpi-num">{{ d.total_observations }}</div>
+                    <div class="dash-kpi-sub" data-i18n="kpi_total_sub">{{ t('kpi_total_sub') }}</div>
+                </div>
+                <div class="dash-kpi-icon">📋</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- KPI 2: AI Screened -->
+    <div class="col-6 col-lg-3">
+        <div class="dash-kpi-card kpi-ai h-100">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <div class="dash-kpi-label" data-i18n="kpi_ai_screened">{{ t('kpi_ai_screened') }}</div>
+                    <div class="dash-kpi-num">{{ d.ai_screened_count }}</div>
+                    <div class="dash-kpi-sub" data-i18n="kpi_ai_sub">{{ t('kpi_ai_sub') }}</div>
+                </div>
+                <div class="dash-kpi-icon text-teal">⚡</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- KPI 3: Expert Review -->
+    <div class="col-6 col-lg-3">
+        <div class="dash-kpi-card kpi-review h-100">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <div class="dash-kpi-label" data-i18n="kpi_expert_review">{{ t('kpi_expert_review') }}</div>
+                    <div class="dash-kpi-num">{{ d.pending_count }}</div>
+                    <div class="dash-kpi-sub" data-i18n="kpi_review_sub">{{ t('kpi_review_sub') }}</div>
+                </div>
+                <div class="dash-kpi-icon text-danger">👨‍🌾</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- KPI 4: Expert Validated -->
+    <div class="col-6 col-lg-3">
+        <div class="dash-kpi-card kpi-validated h-100">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <div class="dash-kpi-label" data-i18n="kpi_expert_validated">{{ t('kpi_expert_validated') }}</div>
+                    <div class="dash-kpi-num">{{ d.reviewed_count }}</div>
+                    <div class="dash-kpi-sub" data-i18n="kpi_validated_sub">{{ t('kpi_validated_sub') }}</div>
+                </div>
+                <div class="dash-kpi-icon text-dark">🛡️</div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="row g-3 text-center mb-5">
-    <div class="col-md-3">
-        <div class="card h-100 p-4 border-0 shadow-sm">
-            <div class="rounded-circle bg-success text-white mx-auto d-flex align-items-center justify-content-center mb-3 fs-4" style="width: 48px; height: 48px;">1</div>
-            <h5 class="fw-bold text-dark mb-2">Upload Crop Image</h5>
-            <p class="text-muted small mb-0">Farmer manually uploads photo from phone camera or gallery at runtime.</p>
+<!-- 3 Metric Performance Cards (Row 2) -->
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="dash-card p-3 d-flex align-items-center gap-3">
+            <div class="fs-2 text-success">⏱️</div>
+            <div>
+                <div class="small text-muted" data-i18n="kpi_avg_review_time">{{ t('kpi_avg_review_time') }}</div>
+                <div class="h5 fw-bold text-dark mb-0">{{ d.avg_review_time }}</div>
+                <div class="small text-secondary" data-i18n="kpi_avg_time_sub">{{ t('kpi_avg_time_sub') }}</div>
+            </div>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="card h-100 p-4 border-0 shadow-sm">
-            <div class="rounded-circle bg-success text-white mx-auto d-flex align-items-center justify-content-center mb-3 fs-4" style="width: 48px; height: 48px;">2</div>
-            <h5 class="fw-bold text-dark mb-2">ML Screening</h5>
-            <p class="text-muted small mb-0">Features (color, texture, symptoms) are extracted and processed by ML model.</p>
+
+    <div class="col-md-4">
+        <div class="dash-card p-3 d-flex align-items-center gap-3">
+            <div class="fs-2 text-warning">📈</div>
+            <div>
+                <div class="small text-muted" data-i18n="kpi_escalation_rate">{{ t('kpi_escalation_rate') }}</div>
+                <div class="h5 fw-bold text-dark mb-0">{{ d.escalation_rate_pct }}</div>
+                <div class="small text-secondary" data-i18n="kpi_escalation_rate_sub">{{ t('kpi_escalation_rate_sub') }}</div>
+            </div>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="card h-100 p-4 border-0 shadow-sm">
-            <div class="rounded-circle bg-success text-white mx-auto d-flex align-items-center justify-content-center mb-3 fs-4" style="width: 48px; height: 48px;">3</div>
-            <h5 class="fw-bold text-dark mb-2">Auto-Escalation</h5>
-            <p class="text-muted small mb-0">Low confidence (&lt;70%) or high-risk cases are automatically escalated for expert review.</p>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="card h-100 p-4 border-0 shadow-sm">
-            <div class="rounded-circle bg-success text-white mx-auto d-flex align-items-center justify-content-center mb-3 fs-4" style="width: 48px; height: 48px;">4</div>
-            <h5 class="fw-bold text-dark mb-2">Expert Validation</h5>
-            <p class="text-muted small mb-0">Agronomist reviews the SAME uploaded image, validates status, and adds comments.</p>
+
+    <div class="col-md-4">
+        <div class="dash-card p-3 d-flex align-items-center gap-3">
+            <div class="fs-2 text-danger">⚠️</div>
+            <div>
+                <div class="small text-muted" data-i18n="kpi_high_risk">{{ t('kpi_high_risk') }}</div>
+                <div class="h5 fw-bold text-danger mb-0">{{ d.high_risk_count }}</div>
+                <div class="small text-secondary" data-i18n="kpi_high_risk_sub">{{ t('kpi_high_risk_sub') }}</div>
+            </div>
         </div>
     </div>
 </div>
+
+<!-- Main Analytics Area: 2-Column Layout (Chart.js) -->
+<div class="row g-4 mb-4">
+    <!-- LEFT: Disease Distribution -->
+    <div class="col-lg-6">
+        <div class="dash-card p-4 h-100">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3 class="h6 fw-bold text-dark mb-0" data-i18n="chart_disease_dist">{{ t('chart_disease_dist') }}</h3>
+                <span class="badge bg-light text-secondary border small">Real DB Data</span>
+            </div>
+            {% if d.disease_counts %}
+                <div style="position: relative; height:240px;">
+                    <canvas id="diseaseChart"></canvas>
+                </div>
+            {% else %}
+                <div class="text-center py-5 text-muted">
+                    <div class="fs-1 mb-2 text-muted">📊</div>
+                    <span data-i18n="empty_disease_chart">{{ t('empty_disease_chart') }}</span>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- RIGHT: Crop-wise Observations -->
+    <div class="col-lg-6">
+        <div class="dash-card p-4 h-100">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3 class="h6 fw-bold text-dark mb-0" data-i18n="chart_crop_dist">{{ t('chart_crop_dist') }}</h3>
+                <span class="badge bg-light text-secondary border small">Real DB Data</span>
+            </div>
+            {% if d.crop_counts %}
+                <div style="position: relative; height:240px;">
+                    <canvas id="cropChart"></canvas>
+                </div>
+            {% else %}
+                <div class="text-center py-5 text-muted">
+                    <div class="fs-1 mb-2 text-muted">🌾</div>
+                    <span data-i18n="empty_crop_chart">{{ t('empty_crop_chart') }}</span>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- AI Screening Confidence Section -->
+<div class="dash-card p-4 mb-4">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2 mb-3">
+        <div>
+            <h3 class="h6 fw-bold text-dark mb-1" data-i18n="card_ai_confidence">{{ t('card_ai_confidence') }}</h3>
+            <p class="small text-muted mb-0">Model screening confidence metrics from processed crop images.</p>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+            <span class="small text-muted">Avg Confidence:</span>
+            <span class="badge bg-success-subtle text-success border border-success-subtle fs-6 px-3 py-1 fw-bold">
+                {% if d.avg_confidence %}{{ d.avg_confidence }}%{% else %}N/A{% endif %}
+            </span>
+        </div>
+    </div>
+
+    <!-- Confidence Breakdown Grid -->
+    <div class="row g-3 text-center">
+        <div class="col-4">
+            <div class="p-2 border rounded-3 bg-light">
+                <div class="small text-muted fw-semibold mb-1">High (≥80%)</div>
+                <div class="h5 fw-bold text-success mb-0">{{ d.high_conf_count }}</div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="p-2 border rounded-3 bg-light">
+                <div class="small text-muted fw-semibold mb-1">Medium (60-79%)</div>
+                <div class="h5 fw-bold text-warning mb-0">{{ d.med_conf_count }}</div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="p-2 border rounded-3 bg-light">
+                <div class="small text-muted fw-semibold mb-1">Low (<60%)</div>
+                <div class="h5 fw-bold text-danger mb-0">{{ d.low_conf_count }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Expert Review Queue Section -->
+<div class="dash-card p-4 mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="h6 fw-bold text-dark mb-0 d-flex align-items-center gap-2">
+            <span>👨‍🌾</span> <span data-i18n="expert_queue_title">{{ t('expert_queue_title') }}</span>
+        </h3>
+        <a href="{{ url_for('main.expert_dashboard') }}" class="small fw-semibold text-success text-decoration-none">View All Portal →</a>
+    </div>
+
+    {% if d.pending_queue %}
+        <div class="list-group list-group-flush">
+            {% for obs in d.pending_queue %}
+            <div class="queue-item d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+                <div class="d-flex align-items-center gap-3">
+                    <span class="badge bg-dark px-2 py-1 font-monospace">OBS-{{ obs.id }}</span>
+                    <div>
+                        <div class="fw-bold text-dark mb-0">
+                            {{ t(obs.crop) if obs.crop else 'Crop' }} — 
+                            <span class="text-secondary font-semibold">
+                                {% if obs.model_prediction %}
+                                    {{ t(obs.model_prediction) if t(obs.model_prediction) else obs.model_prediction }}
+                                {% else %}
+                                    Pending Screening
+                                {% endif %}
+                            </span>
+                        </div>
+                        <div class="small text-muted">
+                            Submitted: {{ obs.created_at.strftime('%Y-%m-%d %H:%M') }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center gap-3 ms-auto ms-md-0">
+                    <div class="text-end">
+                        <div class="small fw-semibold">
+                            Confidence: 
+                            <span class="{% if obs.confidence and obs.confidence >= 0.8 %}text-success{% elif obs.confidence and obs.confidence >= 0.6 %}text-warning{% else %}text-danger{% endif %}">
+                                {% if obs.confidence %}{{ (obs.confidence * 100)|round(1) if obs.confidence <= 1.0 else obs.confidence|round(1) }}%{% else %}N/A{% endif %}
+                            </span>
+                        </div>
+                        <span class="badge {% if obs.risk_level == 'High' %}badge-risk-high{% elif obs.risk_level == 'Medium' %}badge-risk-med{% else %}badge-risk-low{% endif %} small">
+                            {{ t('risk_' ~ obs.risk_level|lower) if obs.risk_level else 'Medium Risk' }}
+                        </span>
+                    </div>
+
+                    <a href="{{ url_for('main.expert_review', id=obs.id) }}" class="btn btn-sm btn-outline-success fw-bold">
+                        <span data-i18n="btn_review_case">{{ t('btn_review_case') }}</span>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center py-4 text-success fw-bold bg-success-subtle rounded-3 border border-success-subtle">
+            <span data-i18n="no_pending_reviews">{{ t('no_pending_reviews') }}</span>
+        </div>
+    {% endif %}
+</div>
+
+<!-- Recent Observations Table -->
+<div class="dash-card p-4 mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="h6 fw-bold text-dark mb-0" data-i18n="recent_obs_title">{{ t('recent_obs_title') }}</h3>
+        <a href="{{ url_for('main.history') }}" class="small fw-semibold text-success text-decoration-none" data-i18n="nav_history">View History →</a>
+    </div>
+
+    {% if d.recent_observations %}
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0 small">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col" data-i18n="th_obs_num">ID</th>
+                        <th scope="col" data-i18n="th_crop">Crop</th>
+                        <th scope="col">Growth Stage</th>
+                        <th scope="col" data-i18n="th_prediction">AI Prediction</th>
+                        <th scope="col" data-i18n="th_confidence">Confidence</th>
+                        <th scope="col" data-i18n="th_risk">Risk</th>
+                        <th scope="col" data-i18n="th_status">Status</th>
+                        <th scope="col" data-i18n="th_reported">Submitted</th>
+                        <th scope="col" class="text-end" data-i18n="th_action">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for obs in d.recent_observations %}
+                    <tr>
+                        <td class="fw-bold font-monospace">#{{ obs.id }}</td>
+                        <td><span class="fw-bold text-dark">{{ t(obs.crop) if obs.crop else 'Tomato' }}</span></td>
+                        <td><span class="text-secondary">{{ t(obs.crop_stage) if obs.crop_stage else 'Vegetative' }}</span></td>
+                        <td>
+                            {% if obs.model_prediction %}
+                                <span class="fw-semibold text-dark">{{ t(obs.model_prediction) if t(obs.model_prediction) else obs.model_prediction }}</span>
+                            {% else %}
+                                <span class="text-muted">Unclassified</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if obs.confidence %}
+                                <span class="fw-bold {% if obs.confidence >= 0.8 %}text-success{% elif obs.confidence >= 0.6 %}text-warning{% else %}text-danger{% endif %}">
+                                    {{ (obs.confidence * 100)|round(1) if obs.confidence <= 1.0 else obs.confidence|round(1) }}%
+                                </span>
+                            {% else %}
+                                <span class="text-muted">N/A</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <span class="badge {% if obs.risk_level == 'High' %}badge-risk-high{% elif obs.risk_level == 'Medium' %}badge-risk-med{% else %}badge-risk-low{% endif %}">
+                                {{ t('risk_' ~ obs.risk_level|lower) if obs.risk_level else 'Medium Risk' }}
+                            </span>
+                        </td>
+                        <td>
+                            {% if obs.status == 'Reviewed by expert' %}
+                                <span class="badge bg-success">Validated</span>
+                            {% elif obs.status == 'Needs expert review' %}
+                                <span class="badge bg-warning text-dark">Escalated</span>
+                            {% else %}
+                                <span class="badge bg-secondary">Submitted</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-muted">{{ obs.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td class="text-end">
+                            <a href="{{ url_for('main.observation_detail', id=obs.id) }}" class="btn btn-sm btn-light border fw-semibold">
+                                View
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="text-center py-4 text-muted">
+            <span data-i18n="empty_history">{{ t('empty_history') }}</span>
+        </div>
+    {% endif %}
+</div>
+
+<!-- Dynamic Crop Health Insight Section -->
+<div class="dash-card p-4 mb-4">
+    <h3 class="h6 fw-bold text-dark mb-2 d-flex align-items-center gap-2">
+        <span>💡</span> <span data-i18n="insight_title">{{ t('insight_title') }}</span>
+    </h3>
+    <div class="dynamic-insight-box">
+        <p class="fw-semibold text-success-emphasis mb-0">
+            {% if current_lang == 'ta' %}
+                {{ d.dynamic_insight_ta }}
+            {% else %}
+                {{ d.dynamic_insight_en }}
+            {% endif %}
+        </p>
+    </div>
+</div>
+
+<!-- AgriShield End-to-End Workflow Pipeline Visual -->
+<div class="dash-card p-4 mb-4">
+    <h3 class="h6 fw-bold text-dark text-center mb-3" data-i18n="workflow_title">{{ t('workflow_title') }}</h3>
+    
+    <div class="workflow-pipeline">
+        <div class="wf-pipe-step">
+            <div class="wf-pipe-icon">📷</div>
+            <div class="fw-bold small text-dark" data-i18n="wf_farmer_upload">{{ t('wf_farmer_upload') }}</div>
+        </div>
+        
+        <div class="wf-pipe-arrow d-none d-sm-block">➔</div>
+        
+        <div class="wf-pipe-step">
+            <div class="wf-pipe-icon">⚡</div>
+            <div class="fw-bold small text-dark" data-i18n="wf_ai_screening">{{ t('wf_ai_screening') }}</div>
+        </div>
+        
+        <div class="wf-pipe-arrow d-none d-sm-block">➔</div>
+        
+        <div class="wf-pipe-step">
+            <div class="wf-pipe-icon">📊</div>
+            <div class="fw-bold small text-dark" data-i18n="wf_risk_assessment">{{ t('wf_risk_assessment') }}</div>
+        </div>
+        
+        <div class="wf-pipe-arrow d-none d-sm-block">➔</div>
+        
+        <div class="wf-pipe-step">
+            <div class="wf-pipe-icon">👨‍🌾</div>
+            <div class="fw-bold small text-dark" data-i18n="wf_expert_review">{{ t('wf_expert_review') }}</div>
+        </div>
+        
+        <div class="wf-pipe-arrow d-none d-sm-block">➔</div>
+        
+        <div class="wf-pipe-step">
+            <div class="wf-pipe-icon">🛡️</div>
+            <div class="fw-bold small text-dark" data-i18n="wf_validated_result">{{ t('wf_validated_result') }}</div>
+        </div>
+    </div>
+</div>
+
+<!-- Chart.js Render Scripts -->
+{% if d.disease_counts or d.crop_counts %}
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    {% if d.disease_counts %}
+    const diseaseCtx = document.getElementById('diseaseChart').getContext('2d');
+    const diseaseData = {{ d.disease_counts | tojson }};
+    new Chart(diseaseCtx, {
+        type: 'doughnut',
+        data: {
+            labels: Object.keys(diseaseData),
+            datasets: [{
+                data: Object.values(diseaseData),
+                backgroundColor: ['#2a9d8f', '#e76f51', '#f4a261', '#264653', '#e9c46a', '#457b9d']
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } }
+            }
+        }
+    });
+    {% endif %}
+
+    {% if d.crop_counts %}
+    const cropCtx = document.getElementById('cropChart').getContext('2d');
+    const cropData = {{ d.crop_counts | tojson }};
+    new Chart(cropCtx, {
+        type: 'bar',
+        data: {
+            labels: Object.keys(cropData),
+            datasets: [{
+                label: 'Observations',
+                data: Object.values(cropData),
+                backgroundColor: '#2d6a4f',
+                borderRadius: 6
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                x: { beginAtZero: true, ticks: { precision: 0 } }
+            }
+        }
+    });
+    {% endif %}
+});
+</script>
+{% endif %}
+
 {% endblock %}

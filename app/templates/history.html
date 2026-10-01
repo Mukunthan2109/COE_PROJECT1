@@ -5,71 +5,74 @@
     <div class="col-lg-11">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div>
-                <h3 class="fw-bold text-success m-0">📑 History</h3>
-                <p class="text-muted small m-0">Complete digital visual record of all submitted crop disease observations.</p>
+                <h3 class="fw-bold text-success m-0">📑 <span data-i18n="history_title">{{ t('history_title') }}</span></h3>
+                <p class="text-muted small m-0" data-i18n="history_sub">{{ t('history_sub') }}</p>
             </div>
-            <a href="{{ url_for('main.observe') }}" class="btn btn-success fw-bold">+ New Observation</a>
+            <a href="{{ url_for('main.observe') }}" class="btn btn-success fw-bold">+ <span data-i18n="btn_report">{{ t('btn_report') }}</span></a>
         </div>
 
-        <!-- Filter Controls matching screenshot media_1788927639156.png -->
+        <!-- Filter Controls -->
         <div class="card card-custom p-3 mb-4">
             <form action="{{ url_for('main.history') }}" method="GET" class="row g-2 align-items-center">
                 <div class="col-md-4">
                     <select name="crop" class="form-select" onchange="this.form.submit()">
-                        <option value="" {% if not selected_crop %}selected{% endif %}>-- Filter by Crop (All) --</option>
-                        <option value="Tomato" {% if selected_crop == 'Tomato' %}selected{% endif %}>Tomato</option>
-                        <option value="Potato" {% if selected_crop == 'Potato' %}selected{% endif %}>Potato</option>
-                        <option value="Rice" {% if selected_crop == 'Rice' %}selected{% endif %}>Rice</option>
-                        <option value="Corn" {% if selected_crop == 'Corn' %}selected{% endif %}>Maize / Corn</option>
-                        <option value="Chili" {% if selected_crop == 'Chili' %}selected{% endif %}>Chili</option>
+                        <option value="" {% if not selected_crop %}selected{% endif %} data-i18n="filter_crop">-- {{ t('filter_crop') }} --</option>
+                        <option value="Tomato" {% if selected_crop == 'Tomato' %}selected{% endif %} data-i18n="crop_tomato">{{ t('crop_tomato') }}</option>
+                        <option value="Potato" {% if selected_crop == 'Potato' %}selected{% endif %} data-i18n="crop_potato">{{ t('crop_potato') }}</option>
+                        <option value="Rice" {% if selected_crop == 'Rice' %}selected{% endif %} data-i18n="crop_rice">{{ t('crop_rice') }}</option>
+                        <option value="Maize" {% if selected_crop == 'Maize' or selected_crop == 'Corn' %}selected{% endif %} data-i18n="crop_maize">{{ t('crop_maize') }}</option>
+                        <option value="Chili" {% if selected_crop == 'Chili' %}selected{% endif %} data-i18n="crop_chili">{{ t('crop_chili') }}</option>
+                        <option value="Grape" {% if selected_crop == 'Grape' %}selected{% endif %} data-i18n="crop_grape">{{ t('crop_grape') }}</option>
+                        <option value="Apple" {% if selected_crop == 'Apple' %}selected{% endif %} data-i18n="crop_apple">{{ t('crop_apple') }}</option>
                     </select>
+
                 </div>
                 <div class="col-md-4">
                     <select name="status" class="form-select" onchange="this.form.submit()">
-                        <option value="" {% if not selected_status %}selected{% endif %}>-- Filter by Status (All) --</option>
-                        <option value="Initial screening result" {% if selected_status == 'Initial screening result' %}selected{% endif %}>Initial Screening</option>
-                        <option value="Needs expert review" {% if selected_status == 'Needs expert review' %}selected{% endif %}>Pending Review / Escalated</option>
-                        <option value="Reviewed by expert" {% if selected_status == 'Reviewed by expert' %}selected{% endif %}>Expert Validated</option>
+                        <option value="" {% if not selected_status %}selected{% endif %} data-i18n="filter_status">-- {{ t('filter_status') }} --</option>
+                        <option value="Initial screening result" {% if selected_status == 'Initial screening result' %}selected{% endif %} data-i18n="screening_complete">{{ t('screening_complete') }}</option>
+                        <option value="Needs expert review" {% if selected_status == 'Needs expert review' %}selected{% endif %} data-i18n="pending_review">{{ t('pending_review') }}</option>
+                        <option value="Reviewed by expert" {% if selected_status == 'Reviewed by expert' %}selected{% endif %} data-i18n="status_validated">{{ t('status_validated') }}</option>
                     </select>
                 </div>
                 <div class="col-md-4 text-md-end">
-                    <a href="{{ url_for('main.history') }}" class="btn btn-outline-secondary w-100">Clear Filters</a>
+                    <a href="{{ url_for('main.history') }}" class="btn btn-outline-secondary w-100" data-i18n="btn_clear_filters">{{ t('btn_clear_filters') }}</a>
                 </div>
             </form>
         </div>
 
-        <!-- History Table matching screenshot media_1788927639156.png -->
+        <!-- History Table -->
         <div class="card card-custom p-4">
             {% if observations %}
             <div class="table-responsive">
                 <table class="table table-hover align-middle m-0">
                     <thead class="table-light">
                         <tr>
-                            <th>Photo</th>
-                            <th>Obs #</th>
-                            <th>Crop</th>
-                            <th>AI Prediction</th>
-                            <th>Confidence</th>
-                            <th>Risk Level</th>
-                            <th>Escalation & Expert Status</th>
-                            <th>Reported Time</th>
-                            <th>Review Duration</th>
-                            <th>Action</th>
+                            <th data-i18n="th_photo">{{ t('th_photo') }}</th>
+                            <th data-i18n="th_obs_num">{{ t('th_obs_num') }}</th>
+                            <th data-i18n="th_crop">{{ t('th_crop') }}</th>
+                            <th data-i18n="th_prediction">{{ t('th_prediction') }}</th>
+                            <th data-i18n="th_confidence">{{ t('th_confidence') }}</th>
+                            <th data-i18n="th_risk">{{ t('th_risk') }}</th>
+                            <th data-i18n="th_status">{{ t('th_status') }}</th>
+                            <th data-i18n="th_reported">{{ t('th_reported') }}</th>
+                            <th data-i18n="th_duration">{{ t('th_duration') }}</th>
+                            <th data-i18n="th_action">{{ t('th_action') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for obs in observations %}
                         <tr>
                             <td>
-                                <img src="{{ url_for('static', filename=obs.image_path) }}" alt="Crop thumbnail" class="rounded border shadow-sm" style="width: 54px; height: 54px; object-fit: cover;">
+                                <img src="{{ url_for('static', filename=obs.image_path) }}" alt="Crop thumbnail" class="rounded border shadow-sm" style="width: 54px; height: 54px; object-fit: cover;" data-i18n-alt="th_photo">
                             </td>
                             <td><strong>#{{ obs.id }}</strong></td>
                             <td>
-                                <strong>{{ obs.crop }}</strong>
+                                <strong>{{ t('crop_' + obs.crop.lower()) if 'crop_' + obs.crop.lower() in TRANSLATIONS.get(current_lang, {}) else obs.crop }}</strong>
                                 <span class="d-block small text-muted">{{ obs.location_region }}</span>
                             </td>
                             <td>
-                                <strong class="text-success">{{ obs.model_prediction or 'Unclassified' }}</strong>
+                                <strong class="text-success">{{ t(obs.model_prediction) if obs.model_prediction else 'Unclassified' }}</strong>
                                 <span class="d-block small text-muted">{{ obs.symptom }}</span>
                             </td>
                             <td>
@@ -77,20 +80,20 @@
                             </td>
                             <td>
                                 {% if obs.risk_level == 'High' or obs.risk_level == 'Critical' %}
-                                    <span class="badge bg-danger">High Risk</span>
+                                    <span class="badge bg-danger" data-i18n="risk_high">{{ t('risk_high') }}</span>
                                 {% elif obs.risk_level == 'Medium' %}
-                                    <span class="badge bg-warning text-dark">Medium Risk</span>
+                                    <span class="badge bg-warning text-dark" data-i18n="risk_medium">{{ t('risk_medium') }}</span>
                                 {% else %}
-                                    <span class="badge bg-success">Low Risk</span>
+                                    <span class="badge bg-success" data-i18n="risk_low">{{ t('risk_low') }}</span>
                                 {% endif %}
                             </td>
                             <td>
                                 {% if obs.status == 'Initial screening result' %}
-                                    <span class="badge bg-success d-block mb-1">Screening Done</span>
+                                    <span class="badge bg-success d-block mb-1" data-i18n="screening_complete">{{ t('screening_complete') }}</span>
                                 {% elif obs.status == 'Needs expert review' %}
-                                    <span class="badge bg-warning text-dark d-block mb-1">⏳ Pending Review</span>
+                                    <span class="badge bg-warning text-dark d-block mb-1" data-i18n="pending_review">⏳ {{ t('pending_review') }}</span>
                                 {% else %}
-                                    <span class="badge bg-info text-white d-block mb-1">✅ {{ obs.expert_review.expert_status if obs.expert_review else 'Validated' }}</span>
+                                    <span class="badge bg-info text-white d-block mb-1" data-i18n="status_validated">✅ {{ t('status_validated') }}</span>
                                 {% endif %}
                             </td>
                             <td class="small text-muted">{{ obs.observation_timestamp.strftime('%b %d, %H:%M') }}</td>
@@ -98,11 +101,11 @@
                                 {% if obs.expert_review %}
                                     {{ obs.expert_review.format_time_to_review() }}
                                 {% else %}
-                                    <span class="text-muted fw-normal">Pending</span>
+                                    <span class="text-muted fw-normal" data-i18n="pending_review">{{ t('pending_review') }}</span>
                                 {% endif %}
                             </td>
                             <td>
-                                <a href="{{ url_for('main.observation_detail', id=obs.id) }}" class="btn btn-sm btn-outline-primary fw-bold">View Details</a>
+                                <a href="{{ url_for('main.observation_detail', id=obs.id) }}" class="btn btn-sm btn-outline-primary fw-bold" data-i18n="btn_view_details">{{ t('btn_view_details') }}</a>
                             </td>
                         </tr>
                         {% endfor %}
@@ -111,8 +114,8 @@
             </div>
             {% else %}
             <div class="text-center py-5 text-muted">
-                <p class="fs-5">No observations matching the selected filters.</p>
-                <a href="{{ url_for('main.observe') }}" class="btn btn-success">+ Report New Observation</a>
+                <p class="fs-5" data-i18n="empty_history">{{ t('empty_history') }}</p>
+                <a href="{{ url_for('main.observe') }}" class="btn btn-success" data-i18n="btn_report">+ {{ t('btn_report') }}</a>
             </div>
             {% endif %}
         </div>

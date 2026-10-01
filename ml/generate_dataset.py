@@ -7,26 +7,20 @@ DATASET_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'dat
 IMAGES_DIR = os.path.join(DATASET_DIR, 'images')
 METADATA_CSV = os.path.join(DATASET_DIR, 'metadata.csv')
 
-# Expanded Supported Scope (9 crops, 18 categories)
+# Standardized MVP Scope (4 crops, 12 categories, 30 samples/class = 360 total images)
 CROP_DISEASES = [
     ("Tomato", "Healthy", "Tomato Healthy", "Seedling"),
-    ("Tomato", "Leaf Spot", "Tomato Leaf Spot", "Vegetative"),
     ("Tomato", "Early Blight", "Tomato Early Blight", "Fruiting"),
     ("Tomato", "Late Blight", "Tomato Late Blight", "Fruiting"),
     ("Potato", "Healthy", "Potato Healthy", "Vegetative"),
     ("Potato", "Early Blight", "Potato Early Blight", "Vegetative"),
     ("Potato", "Late Blight", "Potato Late Blight", "Flowering"),
-    ("Chili", "Healthy", "Chili Healthy", "Flowering"),
-    ("Chili", "Leaf Curl", "Chili Leaf Curl", "Fruiting"),
-    ("Chili", "Anthracnose", "Chili Anthracnose", "Harvest"),
+    ("Rice", "Healthy", "Rice Healthy", "Seedling"),
+    ("Rice", "Brown Spot", "Rice Brown Spot", "Vegetative"),
+    ("Rice", "Leaf Blast", "Rice Leaf Blast", "Flowering"),
     ("Corn", "Healthy", "Corn Healthy", "Vegetative"),
     ("Corn", "Common Rust", "Corn Common Rust", "Flowering"),
-    ("Corn", "Northern Leaf Blight", "Corn Northern Leaf Blight", "Fruiting"),
-    ("Rice", "Healthy", "Rice Healthy", "Seedling"),
-    ("Rice", "Bacterial Blight", "Rice Bacterial Blight", "Vegetative"),
-    ("Wheat", "Healthy", "Wheat Healthy", "Vegetative"),
-    ("Apple", "Apple Scab", "Apple Scab", "Fruiting"),
-    ("Grape", "Black Rot", "Grape Black Rot", "Fruiting"),
+    ("Corn", "Leaf Blight", "Corn Leaf Blight", "Fruiting"),
 ]
 
 REGIONS = ["North Zone", "South Zone", "Central Region", "East District", "West Valley"]
@@ -112,9 +106,9 @@ def main():
     metadata_rows = []
     image_counter = 1
 
-    print("Generating expanded dataset (9 crops, 18 disease categories)...")
+    print("Generating standardized MVP dataset (4 crops, 12 disease categories)...")
     for crop, symptom, disease_label, stage in CROP_DISEASES:
-        for i in range(20):
+        for i in range(30):
             img_id = f"IMG_{image_counter:04d}"
             filename = f"{crop.lower()}_{symptom.lower().replace(' ', '_')}_{i+1:02d}.jpg"
             rel_path = os.path.join('dataset', 'images', filename)

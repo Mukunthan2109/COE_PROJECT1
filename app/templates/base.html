@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ current_lang }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AgriShield - Crop Disease Observation & Escalation</title>
+    <title>AgriShield - {{ t('hero_heading') }}</title>
     <!-- PWA Manifest -->
     <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
     <meta name="theme-color" content="#1b5e20">
@@ -19,7 +19,7 @@
         <div class="container-fluid px-lg-4">
             <a class="navbar-brand d-flex align-items-center" href="{{ url_for('main.index') }}">
                 <span class="fs-4 me-2">🛡️</span>
-                <span data-i18n="brand_name">AgriShield</span>
+                <span data-i18n="brand_name">{{ t('brand_name') }}</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -27,28 +27,28 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('main.index') }}" data-i18n="nav_home">Home</a>
+                        <a class="nav-link" href="{{ url_for('main.index') }}" data-i18n="nav_home">{{ t('nav_home') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('main.observe') }}" data-i18n="nav_observe">📷 New Observation</a>
+                        <a class="nav-link" href="{{ url_for('main.observe') }}">📷 <span data-i18n="nav_observe">{{ t('nav_observe') }}</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('main.scan') }}">⚡ Instant AI Scanner</a>
+                        <a class="nav-link" href="{{ url_for('main.scan') }}">⚡ <span data-i18n="nav_scan">{{ t('nav_scan') }}</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('main.history') }}" data-i18n="nav_history">📑 History</a>
+                        <a class="nav-link" href="{{ url_for('main.history') }}">📑 <span data-i18n="nav_history">{{ t('nav_history') }}</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('main.expert_dashboard') }}" data-i18n="nav_expert">👨‍🌾 Expert Portal</a>
+                        <a class="nav-link" href="{{ url_for('main.expert_dashboard') }}">👨‍🌾 <span data-i18n="nav_expert">{{ t('nav_expert') }}</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('main.analytics_dashboard') }}" data-i18n="nav_analytics">📈 Analytics Dashboard</a>
+                        <a class="nav-link" href="{{ url_for('main.analytics_dashboard') }}">📈 <span data-i18n="nav_analytics">{{ t('nav_analytics') }}</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('main.evaluation') }}" data-i18n="nav_evaluation">📊 System Evaluation</a>
+                        <a class="nav-link" href="{{ url_for('main.evaluation') }}">📊 <span data-i18n="nav_evaluation">{{ t('nav_evaluation') }}</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('main.feedback') }}" data-i18n="nav_feedback">⭐ Feedback</a>
+                        <a class="nav-link" href="{{ url_for('main.feedback') }}">⭐ <span data-i18n="nav_feedback">{{ t('nav_feedback') }}</span></a>
                     </li>
                 </ul>
 
@@ -56,14 +56,14 @@
                 <div class="d-flex align-items-center gap-2">
                     {% if current_user.is_authenticated %}
                         <span class="badge bg-light text-dark small px-2 py-1">👤 {{ current_user.username }}</span>
-                        <a href="{{ url_for('main.logout') }}" class="btn btn-sm btn-outline-light">Logout</a>
+                        <a href="{{ url_for('main.logout') }}" class="btn btn-sm btn-outline-light" data-i18n="nav_logout">{{ t('nav_logout') }}</a>
                     {% else %}
-                        <a href="{{ url_for('main.login') }}" class="btn btn-sm btn-outline-light">Login</a>
-                        <a href="{{ url_for('main.register') }}" class="btn btn-sm btn-warning text-dark fw-bold">Register</a>
+                        <a href="{{ url_for('main.login') }}" class="btn btn-sm btn-outline-light" data-i18n="nav_login">{{ t('nav_login') }}</a>
+                        <a href="{{ url_for('main.register') }}" class="btn btn-sm btn-warning text-dark fw-bold" data-i18n="nav_register">{{ t('nav_register') }}</a>
                     {% endif %}
 
                     <!-- Tamil Language Toggle Button -->
-                    <button type="button" class="btn btn-sm btn-lang-toggle ms-2" id="langToggleBtn">தமிழ்</button>
+                    <button type="button" class="btn btn-sm btn-lang-toggle ms-2" id="langToggleBtn">{% if current_lang == 'en' %}தமிழ்{% else %}English{% endif %}</button>
                 </div>
             </div>
         </div>
@@ -74,7 +74,7 @@
             {% if messages %}
                 {% for category, message in messages %}
                     <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-                        {{ message }}
+                        {{ t(message) }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 {% endfor %}
@@ -86,8 +86,8 @@
 
     <footer class="footer-agri border-top mt-5">
         <div class="container text-center small">
-            <p class="mb-1"><strong>AgriShield Escalation System</strong> — Food-Processing Quality Assurance</p>
-            <p class="mb-0 text-white-50">Early Observation • Screening • Expert Escalation • Rapid Verification</p>
+            <p class="mb-1"><strong data-i18n="footer_title">{{ t('footer_title') }}</strong></p>
+            <p class="mb-0 text-white-50" data-i18n="footer_sub">{{ t('footer_sub') }}</p>
         </div>
     </footer>
 

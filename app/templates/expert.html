@@ -4,27 +4,26 @@
 <div class="row justify-content-center">
     <div class="col-lg-10">
         
-        <!-- Header Banner matching screenshot media_1788927639163.png -->
+        <!-- Header Banner -->
         <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
             <div>
-                <h2 class="fw-bold text-success m-0">👨‍🌾 Expert Review & Validation Portal</h2>
-                <p class="text-muted small m-0 mt-1">Review evidence photos, evaluate AI screening results, and validate crop disease observations.</p>
+                <h2 class="fw-bold text-success m-0">👨‍🌾 <span data-i18n="expert_title">{{ t('expert_title') }}</span></h2>
+                <p class="text-muted small m-0 mt-1" data-i18n="expert_sub">{{ t('expert_sub') }}</p>
             </div>
             <div>
-                <span class="badge bg-danger fs-6 py-2 px-3">🔔 {{ pending | length }} Pending Reviews</span>
+                <span class="badge bg-danger fs-6 py-2 px-3">🔔 {{ pending | length }} <span data-i18n="pending_reviews">{{ t('pending_reviews') }}</span></span>
             </div>
         </div>
 
-        <h4 class="fw-bold text-dark mb-3">⌛ Pending Escalated Observations</h4>
+        <h4 class="fw-bold text-dark mb-3" data-i18n="pending_reviews">⌛ {{ t('pending_reviews') }}</h4>
 
         {% if pending %}
             {% for obs in pending %}
-            <!-- Card Layout matching screenshot media_1788927639163.png -->
             <div class="expert-card p-4">
                 <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-3">
                     <div class="d-flex align-items-center gap-2">
-                        <span class="badge bg-secondary">Obs #{{ obs.id }}</span>
-                        <span class="badge badge-auto-escalated">⚠️ AUTO ESCALATED</span>
+                        <span class="badge bg-secondary"><span data-i18n="obs_id">{{ t('obs_id') }}</span> #{{ obs.id }}</span>
+                        <span class="badge badge-auto-escalated" data-i18n="badge_auto_escalated">⚠️ {{ t('badge_auto_escalated') }}</span>
                     </div>
                     <span class="small text-muted">{{ obs.observation_timestamp.strftime('%b %d, %H:%M') }}</span>
                 </div>
@@ -38,70 +37,64 @@
                                  class="img-fluid rounded cursor-pointer mb-2" 
                                  style="max-height: 220px; object-fit: contain;"
                                  data-bs-toggle="modal" data-bs-target="#modalObs{{ obs.id }}">
-                            <button type="button" class="btn btn-sm btn-outline-success w-100" data-bs-toggle="modal" data-bs-target="#modalObs{{ obs.id }}">
-                                🔍 View Full Image
+                            <button type="button" class="btn btn-sm btn-outline-success w-100" data-bs-toggle="modal" data-bs-target="#modalObs{{ obs.id }}" data-i18n="btn_view_full_img">
+                                🔍 {{ t('btn_view_full_img') }}
                             </button>
                             <div class="small text-muted mt-2">📍 {{ obs.location_region }}</div>
                         </div>
 
                         <div class="bg-light p-3 border rounded small">
-                            <h5 class="fw-bold text-success mb-1">{{ obs.crop }}</h5>
-                            <p class="mb-1"><strong>Stage:</strong> {{ obs.crop_stage }}</p>
-                            <p class="mb-1"><strong>Symptoms:</strong> {{ obs.symptom }}</p>
-                            <p class="mb-1"><strong>First Symptom Time:</strong> {{ obs.first_symptom_time.strftime('%b %d, %H:%M UTC') if obs.first_symptom_time else 'N/A' }}</p>
-                            {% if obs.observation_notes %}
-                            <p class="mb-0 text-muted"><strong>Notes:</strong> {{ obs.observation_notes }}</p>
-                            {% endif %}
+                            <h5 class="fw-bold text-success mb-1">{{ t('crop_' + obs.crop.lower()) if 'crop_' + obs.crop.lower() in TRANSLATIONS.get(current_lang, {}) else obs.crop }}</h5>
+                            <p class="mb-1"><strong><span data-i18n="step3_title">{{ t('step3_title') }}</span>:</strong> {{ obs.crop_stage }}</p>
+                            <p class="mb-1"><strong><span data-i18n="step4_title">{{ t('step4_title') }}</span>:</strong> {{ obs.symptom }}</p>
                         </div>
                     </div>
 
-                    <!-- Right: AI Prediction Box, Callout & Validation Form -->
+                    <!-- Right: AI Prediction Box & Validation Form -->
                     <div class="col-md-7">
-                        <!-- AI Prediction Box -->
                         <div class="p-3 border rounded bg-light mb-3">
-                            <span class="small text-muted d-block">AI Screening Prediction:</span>
-                            <h5 class="fw-bold text-primary m-0 mb-1">{{ obs.model_prediction or 'Uncertain screening result' }}</h5>
+                            <span class="small text-muted d-block" data-i18n="ai_screening_pred">{{ t('ai_screening_pred') }}:</span>
+                            <h5 class="fw-bold text-primary m-0 mb-1">{{ t(obs.model_prediction) if obs.model_prediction else 'Uncertain' }}</h5>
                             <div class="d-flex justify-content-between align-items-center mt-2 small fw-bold">
-                                <span>Conf: {{ (obs.confidence * 100) | round(1) if obs.confidence else 0 }}%</span>
+                                <span><span data-i18n="confidence">{{ t('confidence') }}</span>: {{ (obs.confidence * 100) | round(1) if obs.confidence else 0 }}%</span>
                                 {% if obs.risk_level == 'High' or obs.risk_level == 'Critical' %}
-                                    <span class="badge bg-danger">High Risk</span>
+                                    <span class="badge bg-danger" data-i18n="risk_high">{{ t('risk_high') }}</span>
                                 {% elif obs.risk_level == 'Medium' %}
-                                    <span class="badge bg-warning text-dark">Medium Risk</span>
+                                    <span class="badge bg-warning text-dark" data-i18n="risk_medium">{{ t('risk_medium') }}</span>
                                 {% else %}
-                                    <span class="badge bg-success">Low Risk</span>
+                                    <span class="badge bg-success" data-i18n="risk_low">{{ t('risk_low') }}</span>
                                 {% endif %}
                             </div>
                         </div>
 
                         <!-- Escalation Reason Callout Box -->
                         <div class="callout-escalation mb-3">
-                            <strong>Escalation Reason:</strong> Screening confidence ({{ (obs.confidence * 100) | round(1) if obs.confidence else 0 }}%) is below screening threshold (70%). Expert triage required.
+                            <strong data-i18n="expert_review_required">{{ t('expert_review_required') }}:</strong> <span data-i18n="escalation_reason_low_conf">{{ t('escalation_reason_low_conf') }}</span>
                         </div>
 
                         <!-- Expert Validation Form -->
                         <form action="{{ url_for('main.expert_review', id=obs.id) }}" method="POST">
-                            <h6 class="fw-bold text-success mb-2">☑️ Validate & Update Status</h6>
+                            <h6 class="fw-bold text-success mb-2" data-i18n="validate_update_status">☑️ {{ t('validate_update_status') }}</h6>
                             
                             <div class="mb-3">
                                 <select class="form-select" name="expert_status" required>
-                                    <option value="" selected disabled>-- Select Review Status --</option>
-                                    <option value="Validated (Confirmed)">Validated (Confirmed)</option>
-                                    <option value="Not Confirmed">Not Confirmed</option>
-                                    <option value="Needs More Information">Needs More Information</option>
+                                    <option value="Validated (Confirmed)" data-i18n="status_validated">{{ t('status_validated') }}</option>
+                                    <option value="Not Confirmed" data-i18n="status_not_confirmed">{{ t('status_not_confirmed') }}</option>
+                                    <option value="Needs More Information" data-i18n="status_needs_info">{{ t('status_needs_info') }}</option>
                                 </select>
                             </div>
 
                             <div class="mb-3">
                                 <input type="text" class="form-control mb-2" name="expert_label" 
                                        value="{{ obs.model_prediction or obs.crop + ' ' + obs.symptom }}" 
-                                       placeholder="Confirmed diagnosis label..." required>
+                                       data-i18n-placeholder="label_expert_diag" placeholder="{{ t('label_expert_diag') }}" required>
                                 <textarea class="form-control" name="expert_comment" rows="2" 
-                                          placeholder="Enter expert diagnosis, treatment recommendations, or comments..."></textarea>
+                                          data-i18n-placeholder="placeholder_comments" placeholder="{{ t('placeholder_comments') }}"></textarea>
                             </div>
 
                             <div class="d-grid">
-                                <button type="submit" class="btn btn-success fw-bold py-2">
-                                    ✈️ Submit Expert Validation
+                                <button type="submit" class="btn btn-success fw-bold py-2" data-i18n="btn_submit_review">
+                                    ✈️ {{ t('btn_submit_review') }}
                                 </button>
                             </div>
                         </form>
@@ -114,7 +107,7 @@
                 <div class="modal-dialog modal-dialog-centered modal-lg">
                     <div class="modal-content">
                         <div class="modal-header bg-success text-white">
-                            <h5 class="modal-title fw-bold">📸 Full-Size Crop Image Inspection — Observation #{{ obs.id }}</h5>
+                            <h5 class="modal-title fw-bold">📸 <span data-i18n="btn_view_full_img">{{ t('btn_view_full_img') }}</span> — #{{ obs.id }}</h5>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body text-center p-3 bg-dark">
@@ -130,36 +123,35 @@
         {% else %}
             <div class="card card-custom p-5 text-center text-muted">
                 <div class="fs-1 mb-2">✅</div>
-                <h5>No pending escalated observations in queue!</h5>
-                <p class="small mb-0">All submitted observations have been triaged or expert-validated.</p>
+                <h5 data-i18n="empty_expert">{{ t('empty_expert') }}</h5>
             </div>
         {% endif %}
 
         <!-- Completed Reviews Audit Table -->
         {% if reviewed %}
         <div class="card card-custom p-4 mt-5 border-top border-info border-3">
-            <h5 class="fw-bold text-dark mb-3">📋 Completed Expert Reviews & SLA Audit Log</h5>
+            <h5 class="fw-bold text-dark mb-3" data-i18n="card_validated_cases">📋 {{ t('card_validated_cases') }}</h5>
             <div class="table-responsive">
                 <table class="table table-hover align-middle m-0 small">
                     <thead class="table-light">
                         <tr>
-                            <th>Obs #</th>
-                            <th>Crop</th>
-                            <th>AI Prediction</th>
-                            <th>Expert Diagnosis</th>
-                            <th>Decision</th>
-                            <th>SLA Time to Review</th>
-                            <th>Comments</th>
+                            <th data-i18n="th_obs_num">{{ t('th_obs_num') }}</th>
+                            <th data-i18n="th_crop">{{ t('th_crop') }}</th>
+                            <th data-i18n="th_prediction">{{ t('th_prediction') }}</th>
+                            <th data-i18n="label_expert_diag">{{ t('label_expert_diag') }}</th>
+                            <th data-i18n="th_status">{{ t('th_status') }}</th>
+                            <th data-i18n="th_duration">{{ t('th_duration') }}</th>
+                            <th data-i18n="label_comments">{{ t('label_comments') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for obs in reviewed %}
                         <tr>
                             <td><strong>#{{ obs.id }}</strong></td>
-                            <td>{{ obs.crop }}</td>
-                            <td>{{ obs.model_prediction }} ({{ (obs.confidence * 100) | round(1) }}%)</td>
+                            <td>{{ t('crop_' + obs.crop.lower()) if 'crop_' + obs.crop.lower() in TRANSLATIONS.get(current_lang, {}) else obs.crop }}</td>
+                            <td>{{ t(obs.model_prediction) if obs.model_prediction else '' }} ({{ (obs.confidence * 100) | round(1) }}%)</td>
                             <td><strong class="text-success">{{ obs.expert_review.expert_label }}</strong></td>
-                            <td><span class="badge bg-info">{{ obs.expert_review.expert_status }}</span></td>
+                            <td><span class="badge bg-info">{{ t('status_' + obs.expert_review.expert_status.lower().replace(' ', '_')) if 'status_' + obs.expert_review.expert_status.lower().replace(' ', '_') in TRANSLATIONS.get(current_lang, {}) else obs.expert_review.expert_status }}</span></td>
                             <td><strong class="text-primary">{{ obs.expert_review.format_time_to_review() }}</strong></td>
                             <td class="text-truncate" style="max-width: 200px;">{{ obs.expert_review.expert_comment or '-' }}</td>
                         </tr>

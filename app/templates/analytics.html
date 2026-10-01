@@ -1,84 +1,240 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-lg-11">
+<div class="container-fluid px-lg-4">
 
-        <!-- Top Banner -->
-        <div class="card card-custom p-4 mb-4 bg-light border-start border-4 border-primary">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <h3 class="fw-bold text-primary m-0">📊 QA Manager Outbreak Analytics & Heatmap</h3>
-                    <p class="text-muted small m-0 mt-1">Regional disease spread heatmaps, outbreak alerts, and crop quality analytics for food processing units.</p>
-                </div>
-                <span class="badge bg-primary fs-6">Procurement Quality Dashboard</span>
-            </div>
+    <!-- Top Header Banner -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+        <div>
+            <h1 class="h3 fw-bold text-dark mb-1" data-i18n="analytics_title">{{ t('analytics_title') }}</h1>
+            <p class="text-muted small mb-0" data-i18n="analytics_sub">{{ t('analytics_sub') }}</p>
         </div>
-
-        <!-- Active Outbreak Alerts Banner -->
-        {% if payload.active_alerts %}
-        <div class="card card-custom p-3 border-danger mb-4 bg-light">
-            <h5 class="fw-bold text-danger d-flex align-items-center mb-2">
-                <span class="fs-4 me-2">🚨</span> Active Regional Outbreak Early Warning Alerts
-            </h5>
-            <div class="row g-2">
-                {% for alert in payload.active_alerts %}
-                <div class="col-md-6">
-                    <div class="alert alert-danger mb-0 p-2 small">
-                        <strong>[{{ alert.severity }}] {{ alert.region }} - {{ alert.crop }} ({{ alert.disease }})</strong>
-                        <p class="m-0 mt-1 text-dark">{{ alert.alert_message }}</p>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
+        <div>
+            <button onclick="window.location.reload();" class="btn btn-sm btn-outline-secondary shadow-sm">
+                🔄 Refresh Analytics
+            </button>
         </div>
-        {% endif %}
-
-        <!-- Regional Disease Heatmap Grid -->
-        <div class="card card-custom p-4 mb-4">
-            <h5 class="fw-bold text-dark mb-3">🗺️ Regional Disease Incidence Heatmap</h5>
-            <div class="row g-3">
-                {% for item in payload.heatmap_matrix %}
-                <div class="col-md-4 col-6">
-                    <div class="p-3 border rounded text-center {% if item.risk_level == 'High' %}bg-danger text-white{% elif item.risk_level == 'Medium' %}bg-warning text-dark{% else %}bg-success text-white{% endif %} shadow-sm">
-                        <h6 class="fw-bold m-0">{{ item.region }}</h6>
-                        <div class="display-6 fw-bold my-1">{{ item.escalated_cases }}</div>
-                        <span class="small uppercase fw-semibold">Escalated Cases (Total: {{ item.total_observations }})</span>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-
-        <!-- Charts Section -->
-        <div class="row g-4 mb-4">
-            <!-- Left Chart: Disease Distribution -->
-            <div class="col-md-6">
-                <div class="card card-custom p-4 h-100">
-                    <h5 class="fw-bold text-dark mb-3">Disease Category Distribution</h5>
-                    <canvas id="diseaseChart" style="max-height: 280px;"></canvas>
-                </div>
-            </div>
-
-            <!-- Right Chart: Batch Quality Intake Breakdown -->
-            <div class="col-md-6">
-                <div class="card card-custom p-4 h-100">
-                    <h5 class="fw-bold text-dark mb-3">Food Processing Batch Intake Quality Grades</h5>
-                    <canvas id="gradeChart" style="max-height: 280px;"></canvas>
-                </div>
-            </div>
-        </div>
-
     </div>
+
+    <!-- Active Outbreak Alerts Banner -->
+    {% if payload.active_alerts %}
+    <div class="alert alert-danger shadow-sm border-danger d-flex align-items-center mb-4 rounded-3">
+        <span class="fs-3 me-3">🚨</span>
+        <div>
+            <strong class="d-block text-danger" data-i18n="regional_alerts_title">{{ t('regional_alerts_title') }}</strong>
+            <span class="small text-dark fw-medium">
+                {% for alert in payload.active_alerts %}
+                    [{{ alert.severity }}] {{ alert.region }} - {{ alert.crop }} {{ alert.disease }} ({{ alert.incident_count }} incidents) &nbsp;|&nbsp; 
+                {% endfor %}
+            </span>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- 6 Analytics KPI Cards (Row 1) -->
+    <div class="row g-3 mb-4">
+        <!-- KPI 1: Total Observations -->
+        <div class="col-6 col-md-4 col-lg-2">
+            <div class="dash-kpi-card h-100">
+                <div class="dash-kpi-label" data-i18n="card_total_obs">{{ t('card_total_obs') }}</div>
+                <div class="dash-kpi-num">{{ payload.total_observations }}</div>
+                <div class="dash-kpi-sub">All observations</div>
+            </div>
+        </div>
+
+        <!-- KPI 2: AI Screened -->
+        <div class="col-6 col-md-4 col-lg-2">
+            <div class="dash-kpi-card kpi-ai h-100">
+                <div class="dash-kpi-label" data-i18n="kpi_ai_screened">{{ t('kpi_ai_screened') }}</div>
+                <div class="dash-kpi-num">{{ payload.ai_screened_count }}</div>
+                <div class="dash-kpi-sub">AI processed</div>
+            </div>
+        </div>
+
+        <!-- KPI 3: Escalated Cases -->
+        <div class="col-6 col-md-4 col-lg-2">
+            <div class="dash-kpi-card kpi-review h-100">
+                <div class="dash-kpi-label" data-i18n="card_escalated_cases">{{ t('card_escalated_cases') }}</div>
+                <div class="dash-kpi-num">{{ payload.escalated_count }}</div>
+                <div class="dash-kpi-sub">Referred to expert</div>
+            </div>
+        </div>
+
+        <!-- KPI 4: Expert Reviewed -->
+        <div class="col-6 col-md-4 col-lg-2">
+            <div class="dash-kpi-card kpi-validated h-100">
+                <div class="dash-kpi-label" data-i18n="card_validated_cases">{{ t('card_validated_cases') }}</div>
+                <div class="dash-kpi-num">{{ payload.reviewed_count }}</div>
+                <div class="dash-kpi-sub">Expert confirmed</div>
+            </div>
+        </div>
+
+        <!-- KPI 5: Average Time to Review -->
+        <div class="col-6 col-md-4 col-lg-2">
+            <div class="dash-kpi-card h-100">
+                <div class="dash-kpi-label" data-i18n="card_avg_review_time">{{ t('card_avg_review_time') }}</div>
+                <div class="h4 fw-bold text-dark my-2">{{ payload.avg_review_time }}</div>
+                <div class="dash-kpi-sub">Avg SLA turnaround</div>
+            </div>
+        </div>
+
+        <!-- KPI 6: High Risk Cases -->
+        <div class="col-6 col-md-4 col-lg-2">
+            <div class="dash-kpi-card h-100" style="border-left: 4px solid #d32f2f;">
+                <div class="dash-kpi-label text-danger" data-i18n="kpi_high_risk">{{ t('kpi_high_risk') }}</div>
+                <div class="dash-kpi-num text-danger">{{ payload.high_risk_count }}</div>
+                <div class="dash-kpi-sub">Severe risk</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Row 1: Disease Distribution & Crop Distribution -->
+    <div class="row g-4 mb-4">
+        <!-- Left: Disease Distribution -->
+        <div class="col-lg-6">
+            <div class="dash-card p-4 h-100">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="h6 fw-bold text-dark mb-0" data-i18n="chart_disease_dist">{{ t('chart_disease_dist') }}</h3>
+                    <span class="badge bg-light text-secondary border small">Real DB Data</span>
+                </div>
+                {% if payload.disease_counts %}
+                    <div style="position: relative; height: 250px;">
+                        <canvas id="diseaseChart"></canvas>
+                    </div>
+                {% else %}
+                    <div class="text-center py-5 text-muted">
+                        <div class="fs-1 mb-2">📊</div>
+                        <span data-i18n="no_disease_data">{{ t('no_disease_data') }}</span>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Right: Observations by Crop -->
+        <div class="col-lg-6">
+            <div class="dash-card p-4 h-100">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="h6 fw-bold text-dark mb-0" data-i18n="chart_crop_dist">{{ t('chart_crop_dist') }}</h3>
+                    <span class="badge bg-light text-secondary border small">Real DB Data</span>
+                </div>
+                {% if payload.crop_counts %}
+                    <div style="position: relative; height: 250px;">
+                        <canvas id="cropChart"></canvas>
+                    </div>
+                {% else %}
+                    <div class="text-center py-5 text-muted">
+                        <div class="fs-1 mb-2">🌾</div>
+                        <span data-i18n="no_crop_data">{{ t('no_crop_data') }}</span>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Row 2: Risk Distribution & Date/Time Trend -->
+    <div class="row g-4 mb-4">
+        <!-- Left: Risk Distribution -->
+        <div class="col-lg-6">
+            <div class="dash-card p-4 h-100">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="h6 fw-bold text-dark mb-0" data-i18n="chart_risk_dist">{{ t('chart_risk_dist') }}</h3>
+                    <span class="badge bg-light text-secondary border small">Risk Level</span>
+                </div>
+                {% if payload.risk_counts and payload.total_observations > 0 %}
+                    <div style="position: relative; height: 250px;">
+                        <canvas id="riskChart"></canvas>
+                    </div>
+                {% else %}
+                    <div class="text-center py-5 text-muted">
+                        <div class="fs-1 mb-2">⚠️</div>
+                        <span data-i18n="no_risk_data">{{ t('no_risk_data') }}</span>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Right: Date/Time Observation Trend -->
+        <div class="col-lg-6">
+            <div class="dash-card p-4 h-100">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="h6 fw-bold text-dark mb-0" data-i18n="trend_title">{{ t('trend_title') }}</h3>
+                    <span class="badge bg-light text-secondary border small">Historical Timeline</span>
+                </div>
+                {% if payload.trend_data %}
+                    <div style="position: relative; height: 250px;">
+                        <canvas id="trendChart"></canvas>
+                    </div>
+                {% else %}
+                    <div class="text-center py-5 text-muted">
+                        <div class="fs-1 mb-2">📈</div>
+                        <span data-i18n="no_trend_data">{{ t('no_trend_data') }}</span>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Screening Confidence Section -->
+    <div class="dash-card p-4 mb-4">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2 mb-3">
+            <div>
+                <h3 class="h6 fw-bold text-dark mb-1" data-i18n="card_ai_confidence">{{ t('card_ai_confidence') }}</h3>
+                <p class="small text-muted mb-0">Observed screening probability spread directly from model predictions.</p>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <span class="small text-muted">Avg Confidence:</span>
+                <span class="badge bg-success-subtle text-success border border-success-subtle fs-6 px-3 py-1 fw-bold">
+                    {% if payload.avg_confidence %}{{ payload.avg_confidence }}%{% else %}N/A{% endif %}
+                </span>
+            </div>
+        </div>
+
+        <div class="row g-3 text-center">
+            <div class="col-4">
+                <div class="p-3 border rounded-3 bg-light">
+                    <div class="small text-muted fw-semibold mb-1">High (≥80%)</div>
+                    <div class="h4 fw-bold text-success mb-0">{{ payload.high_conf_count }}</div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="p-3 border rounded-3 bg-light">
+                    <div class="small text-muted fw-semibold mb-1">Medium (60-79%)</div>
+                    <div class="h4 fw-bold text-warning mb-0">{{ payload.med_conf_count }}</div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="p-3 border rounded-3 bg-light">
+                    <div class="small text-muted fw-semibold mb-1">Low (<60%)</div>
+                    <div class="h4 fw-bold text-danger mb-0">{{ payload.low_conf_count }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Regional Outbreak Risk Matrix Grid -->
+    <div class="dash-card p-4 mb-4">
+        <h3 class="h6 fw-bold text-dark mb-3">🗺️ <span data-i18n="regional_alerts_title">{{ t('regional_alerts_title') }}</span> Matrix</h3>
+        <div class="row g-3">
+            {% for item in payload.heatmap_matrix %}
+            <div class="col-md-4 col-6">
+                <div class="p-3 border rounded-3 text-center {% if item.risk_level == 'High' %}bg-danger-subtle border-danger text-danger{% elif item.risk_level == 'Medium' %}bg-warning-subtle border-warning text-warning-emphasis{% else %}bg-success-subtle border-success text-success{% endif %} shadow-sm">
+                    <h6 class="fw-bold m-0">{{ item.region }}</h6>
+                    <div class="display-6 fw-bold my-1">{{ item.escalated_cases }}</div>
+                    <span class="small fw-semibold"><span data-i18n="card_escalated_cases">{{ t('card_escalated_cases') }}</span> (Total: {{ item.total_observations }})</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
 </div>
 
-<!-- Chart.js Initialization -->
+<!-- Chart.js Engine Script -->
 <script src="{{ url_for('static', filename='js/analytics.js') }}"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const diseaseData = {{ payload.disease_counts | tojson }};
-        const gradeData = {{ payload.grade_counts | tojson }};
-        initAnalyticsCharts(diseaseData, gradeData);
-    });
+document.addEventListener('DOMContentLoaded', () => {
+    const payload = {{ payload | tojson }};
+    initAnalyticsCharts(payload);
+});
 </script>
 {% endblock %}

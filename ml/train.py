@@ -15,9 +15,10 @@ METADATA_CSV = os.path.join(DATASET_DIR, 'metadata.csv')
 MODEL_DIR = os.path.join(BASE_DIR, 'saved_model')
 
 CROP_MAP = {
-    "Tomato": 0, "Potato": 1, "Chili": 2, "Corn": 3,
-    "Rice": 4, "Wheat": 5, "Apple": 6, "Grape": 7, "Cotton": 8
+    "Tomato": 0, "Potato": 1, "Rice": 2, "Corn": 3, "Maize": 3,
+    "Chili": 4, "Grape": 5, "Apple": 6
 }
+
 
 def extract_features(image_path, crop_name=None):
     """
@@ -69,7 +70,7 @@ def train_model():
     X = []
     y = []
     
-    print("Loading dataset and extracting features across 9 crops...")
+    print("Loading dataset and extracting features across 4 crops / 12 classes...")
     with open(METADATA_CSV, 'r', encoding='utf-8') as f:
         reader = csv.DictReader(f)
         for row in reader:

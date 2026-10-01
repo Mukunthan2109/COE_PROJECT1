@@ -57,7 +57,7 @@ def get_escalation_analytics():
 
     def format_sec(sec):
         if sec <= 0:
-            return "N/A"
+            return "Not enough data yet."
         s = int(sec)
         if s < 60:
             return f"{s} sec"
@@ -75,10 +75,10 @@ def get_escalation_analytics():
         'reviewed_count': reviewed_count,
         'pending_count': pending_count,
         'avg_review_time_sec': round(avg_time, 1),
-        'avg_review_time_formatted': format_sec(avg_time),
-        'median_review_time_formatted': format_sec(median_time),
-        'fastest_review_time_formatted': format_sec(fastest_time),
-        'slowest_review_time_formatted': format_sec(slowest_time),
+        'avg_review_time_formatted': format_sec(avg_time) if reviewed_count > 0 else "Not enough data yet.",
+        'median_review_time_formatted': format_sec(median_time) if reviewed_count > 0 else "Not enough data yet.",
+        'fastest_review_time_formatted': format_sec(fastest_time) if reviewed_count > 0 else "Not enough data yet.",
+        'slowest_review_time_formatted': format_sec(slowest_time) if reviewed_count > 0 else "Not enough data yet.",
     }
 
 def get_baseline_vs_mvp_comparison():
@@ -87,14 +87,15 @@ def get_baseline_vs_mvp_comparison():
     Note: Baseline numbers represent simulated manual process assumptions for prototype comparison.
     """
     analytics = get_escalation_analytics()
-    avg_mvp_formatted = analytics['avg_review_time_formatted'] if analytics['reviewed_count'] > 0 else "4m 15s (demo)"
+    avg_mvp_formatted = analytics['avg_review_time_formatted'] if analytics['reviewed_count'] > 0 else "Not enough data yet."
+    diff_text = "Rapid digital escalation" if analytics['reviewed_count'] == 0 else f"{round(max(0, (1 - (analytics['avg_review_time_sec'] / 288000.0)) * 100), 1)}% time reduction"
 
     return [
         {
             'metric': 'Time from symptom to expert review',
             'baseline': '48 to 120 hours (manual paper/phone escalation)',
             'mvp': avg_mvp_formatted,
-            'difference': '95%+ reduction in time to expert triage',
+            'difference': diff_text,
             'note': 'Baseline represents simulated manual process for prototype evaluation'
         },
         {
